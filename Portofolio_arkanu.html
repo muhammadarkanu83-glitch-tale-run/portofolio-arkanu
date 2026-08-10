@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* efek grid futuristik di latar belakang */
+        /* Efek grid futuristik di latar belakang */
         body::before {
             content: "";
             position: fixed;
@@ -79,6 +79,7 @@
             opacity: 0.7;
         }
 
+        /* Bingkai Foto Profil (3D Tilt) */
         .profile-frame {
             width: 100%;
             height: 280px;
@@ -414,7 +415,7 @@
             color: #cbddf5;
         }
 
-        /* Video Area */
+        /* Area Video */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -432,7 +433,7 @@
             object-fit: contain;
         }
 
-        /* Audio Area */
+        /* Area Audio */
         .audio-container {
             display: flex;
             flex-direction: column;
@@ -459,6 +460,126 @@
             border: 0.5px solid rgba(0, 255, 255, 0.2);
         }
 
+        /* Galeri Foto */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            height: 180px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 12px;
+            font-size: 0.75rem;
+            color: #fff;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(0.8) scale(1.05);
+        }
+        
+        .gallery-item:hover {
+            border-color: #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* Lightbox Modal Galeri */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 6, 10, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lightbox-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 80vh;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .lightbox-modal.show .lightbox-content {
+            transform: scale(1);
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .lightbox-desc {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 8px cyan;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #0ff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .lightbox-close:hover {
+            color: #f0f;
+        }
+
+        /* Contact Area */
         .contact-info {
             display: flex;
             flex-wrap: wrap;
@@ -670,7 +791,7 @@
         </section>
 
         <section id="movies-time" class="reveal">
-            <h2 class="section-title"><i class="fas fa-play-circle"></i> Video Saya</h2>
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> Movies Time (Video Arkan)</h2>
             <div class="glass-card">
                 <div class="video-wrapper">
                     <video controls preload="auto">
@@ -694,6 +815,26 @@
                         <source src="videoplayback.m4a" type="audio/mp4">
                         Browser Anda tidak mendukung pemutar audio HTML5.
                     </audio>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="reveal">
+            <h2 class="section-title"><i class="fas fa-images"></i> Galeri Kenangan ASBOCH</h2>
+            <div class="glass-card">
+                <div class="gallery-container">
+                    <div class="gallery-item js-lightbox-trigger">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400" alt="Kebersamaan di Asrama ASBOCH">
+                        <div class="gallery-caption">Kebersamaan di Asrama ASBOCH</div>
+                    </div>
+                    <div class="gallery-item js-lightbox-trigger">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400" alt="Kegiatan Edukasi DUKES">
+                        <div class="gallery-caption">Kegiatan Edukasi DUKES</div>
+                    </div>
+                    <div class="gallery-item js-lightbox-trigger">
+                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=400" alt="Momen Literasi Bersama KLS">
+                        <div class="gallery-caption">Momen Literasi Bersama KLS</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -724,10 +865,18 @@
     </main>
 </div>
 
+<div class="lightbox-modal" id="js-lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close" id="js-lightbox-close">&times;</span>
+        <img src="" alt="Zoomed" class="lightbox-img" id="js-lightbox-img">
+        <div class="lightbox-desc" id="js-lightbox-desc"></div>
+    </div>
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // EFEK INTERAKTIF NAMA
+        // 1. HOVER EFEK GLOW PADA NAMA
         const nameElement = document.querySelector('.name-highlight h1');
         if(nameElement) {
             nameElement.addEventListener('mouseenter', () => {
@@ -738,7 +887,7 @@
             });
         }
 
-        // ANIMASI REVEAL SCROLL
+        // 2. SCROLL REVEAL ANIMATION
         const revealElements = document.querySelectorAll('.reveal');
         revealElements.forEach(el => {
             const observer = new IntersectionObserver((entries) => {
@@ -746,3 +895,65 @@
                     if(entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(el);
+        });
+
+        // 3. 3D TILT EFFECT FOTO PROFIL
+        const profileTilt = document.getElementById('js-profile-tilt');
+        const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
+        
+        if (profileTilt && profileImg) {
+            profileTilt.addEventListener('mousemove', (e) => {
+                const rect = profileTilt.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top; 
+                const midX = rect.width / 2;
+                const midY = rect.height / 2;
+                const rotateX = ((midY - y) / midY) * 15;
+                const rotateY = ((x - midX) / midX) * 15;
+                
+                profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            profileTilt.addEventListener('mouseleave', () => {
+                profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+            });
+        }
+
+        // 4. LIGHTBOX MODAL GALERI
+        const lightbox = document.getElementById('js-lightbox');
+        const lightboxImg = document.getElementById('js-lightbox-img');
+        const lightboxDesc = document.getElementById('js-lightbox-desc');
+        const lightboxClose = document.getElementById('js-lightbox-close');
+        const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if (img && lightbox && lightboxImg && lightboxDesc) {
+                    lightboxImg.src = img.src;
+                    lightboxDesc.textContent = img.alt;
+                    lightbox.classList.add('show');
+                }
+            });
+        });
+
+        if (lightboxClose && lightbox) {
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('show');
+            });
+            
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('show');
+                }
+            });
+        }
+
+        console.log("Muhammad Arkanu Dzikri | Portfolio ASBOCH Berhasil Dimuat.");
+    });
+</script>
+</body>
+</html>
