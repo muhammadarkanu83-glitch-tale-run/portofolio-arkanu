@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Muhammad Arkanu Dzikri | The Silent Maestro - Portfolio</title>
+    <title>Muhammad Arkanu Dzikri - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -38,12 +38,10 @@
             z-index: 0;
         }
 
-        /* efek neon glow global */
         .glow-text {
             text-shadow: 0 0 8px rgba(0, 255, 255, 0.5), 0 0 2px rgba(0, 255, 255, 0.8);
         }
 
-        /* layout utama: sidebar kaki & konten kanan */
         .portfolio-container {
             display: flex;
             flex-wrap: wrap;
@@ -54,7 +52,7 @@
             min-height: 100vh;
         }
 
-        /* ========= SIDEBAR KIRI: NAMA utama & informasi ========= */
+        /* SIDEBAR KIRI */
         .sidebar-left {
             flex: 1.2;
             min-width: 280px;
@@ -69,7 +67,6 @@
             transition: all 0.3s ease;
         }
 
-        /* efek garis neon di sisi kanan sidebar */
         .sidebar-left::after {
             content: "";
             position: absolute;
@@ -82,7 +79,6 @@
             opacity: 0.7;
         }
 
-        /* Bingkai Foto Profil Utama - INTERAKTIF 3D TILT */
         .profile-frame {
             width: 100%;
             height: 280px;
@@ -95,6 +91,10 @@
             perspective: 1000px;
             cursor: pointer;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(0, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .profile-frame img {
@@ -110,7 +110,6 @@
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
         }
 
-        /* profil & nama */
         .name-highlight {
             margin-bottom: 1.8rem;
             border-left: 4px solid #0ff;
@@ -118,7 +117,7 @@
         }
 
         .name-highlight h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, #ffffff, #88f7ff, #a55cff);
@@ -132,7 +131,7 @@
         }
 
         .badge-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: #8deeff;
             background: rgba(0, 255, 255, 0.12);
@@ -140,7 +139,6 @@
             padding: 0.2rem 1rem;
             border-radius: 40px;
             backdrop-filter: blur(4px);
-            letter-spacing: 0.5px;
             border: 0.5px solid rgba(0, 255, 255, 0.4);
         }
 
@@ -148,7 +146,7 @@
             margin: 1.5rem 0;
             color: #c4d4ff;
             font-weight: 300;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
         }
 
@@ -233,19 +231,17 @@
             transform: scale(1.02);
         }
 
-        /* ========= MAIN CONTENT (KANAN) ========= */
+        /* MAIN CONTENT */
         .main-content {
             flex: 2.5;
             padding: 2rem 2.2rem;
             overflow-x: hidden;
         }
 
-        /* section umum */
         section {
             margin-bottom: 3.5rem;
         }
 
-        /* KELAS ANIMASI REVEAL SAAT SCROLL */
         .reveal {
             position: relative;
             transform: translateY(40px);
@@ -272,7 +268,6 @@
             padding-left: 1rem;
         }
 
-        /* kartu futuristik */
         .glass-card {
             background: rgba(12, 18, 28, 0.55);
             backdrop-filter: blur(10px);
@@ -294,7 +289,6 @@
             color: #d9e6ff;
         }
 
-        /* experience timeline futuristik */
         .experience-item {
             margin-bottom: 1.7rem;
             border-left: 2px solid #0ff;
@@ -332,7 +326,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* skill grid modern */
         .skills-grid {
             display: flex;
             flex-wrap: wrap;
@@ -361,7 +354,6 @@
             box-shadow: 0 0 12px cyan;
         }
 
-        /* proyek grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -422,7 +414,7 @@
             color: #cbddf5;
         }
 
-        /* Gaya Khusus Area Video Pemutar Movies Time */
+        /* Video Area */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -440,7 +432,7 @@
             object-fit: contain;
         }
 
-        /* Gaya Khusus Area Audio Musik Kesukaan */
+        /* Audio Area */
         .audio-container {
             display: flex;
             flex-direction: column;
@@ -467,126 +459,6 @@
             border: 0.5px solid rgba(0, 255, 255, 0.2);
         }
 
-        /* Galeri Pemenang */
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            height: 180px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.4s ease;
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 12px;
-            font-size: 0.75rem;
-            color: #fff;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
-        }
-
-        .gallery-item:hover img {
-            filter: brightness(0.8) scale(1.05);
-        }
-        
-        .gallery-item:hover {
-            border-color: #0ff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-            transform: scale(1.02);
-        }
-
-        /* INTERAKTIF LIGHTBOX MODAL UNTUK GALERI */
-        .lightbox-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(4, 6, 10, 0.92);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        .lightbox-modal.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        .lightbox-content {
-            max-width: 85%;
-            max-height: 80vh;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            text-align: center;
-        }
-        
-        .lightbox-modal.show .lightbox-content {
-            transform: scale(1);
-        }
-        
-        .lightbox-img {
-            max-width: 100%;
-            max-height: 75vh;
-            border-radius: 12px;
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-        }
-        
-        .lightbox-desc {
-            color: #fff;
-            margin-top: 15px;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 8px cyan;
-        }
-        
-        .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: #0ff;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        
-        .lightbox-close:hover {
-            color: #f0f;
-        }
-
-        /* contact area */
         .contact-info {
             display: flex;
             flex-wrap: wrap;
@@ -632,7 +504,6 @@
             color: #7f9eff;
         }
 
-        /* RESPONSIVE: mobile & tablet */
         @media (max-width: 850px) {
             .portfolio-container {
                 flex-direction: column;
@@ -662,7 +533,6 @@
             }
         }
 
-        /* scrollbar kustom */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -680,25 +550,25 @@
 <div class="portfolio-container">
     <aside class="sidebar-left">
         <div class="profile-frame" id="js-profile-tilt">
-            <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&q=80&w=600" alt="Muhammad Arkanu Dzikri - Oscar Night">
+            <img src="foto_arkanu.jpg" alt="Muhammad Arkanu Dzikri" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Muhammad+Arkanu+Dzikri&background=0D8ABC&color=fff&size=512';">
         </div>
 
         <div class="name-highlight">
             <h1>Muhammad<br>Arkanu Dzikri</h1>
             <div class="badge-title">
-                <i class="fas fa-film" style="font-size: 0.8rem;"></i> The Silent Maestro
+                <i class="fas fa-school" style="font-size: 0.8rem;"></i> As-Syifa Boarding School
             </div>
         </div>
         
         <div class="short-bio">
-            Aktor pantomim berbakat | Pemenang Oscar untuk film tanpa suara. Mengisahkan emosi tanpa kata, menciptakan seni yang berbicara dalam keheningan.
+            Siswa Kelas 8 SMP As-Syifa Boarding School (ASBOCH) | Anggota DUKES & KLS | Orang Tergabut se-ASBOCH | Penemu Jokes "Sup Lezat dan Bergizi".
         </div>
         
         <ul class="info-list">
-            <li><i class="fas fa-map-marker-alt"></i> <span>Jakarta, Indonesia</span></li>
-            <li><i class="fas fa-envelope"></i> <span>arkanu.silent@oscar.com</span></li>
-            <li><i class="fas fa-mask"></i> <span>Pantomim & Film Bisu</span></li>
-            <li><i class="fas fa-trophy"></i> <span>Academy Award Winner</span></li>
+            <li><i class="fas fa-graduation-cap"></i> <span>SMP As-Syifa Boarding School</span></li>
+            <li><i class="fas fa-award"></i> <span>Orang Tergabut se-ASBOCH</span></li>
+            <li><i class="fas fa-users"></i> <span>DUKES & KLS</span></li>
+            <li><i class="fas fa-heart"></i> <span>Humoris & Penyayang</span></li>
         </ul>
         
         <div class="social-icons">
@@ -708,109 +578,99 @@
             <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
         
-        <a href="#" class="cv-button"><i class="fas fa-download"></i>  Unduh Portfolio Seni</a>
+        <a href="#" class="cv-button"><i class="fas fa-download"></i> Unduh Portfolio</a>
         
         <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
-            <i class="fas fa-theater-masks"></i> silence is golden
+            <i class="fas fa-smile"></i> Sup Lezat & Bergizi
         </div>
     </aside>
 
     <main class="main-content">
         <section id="about" class="reveal">
-            <h2 class="section-title"><i class="fas fa-theater-masks" style="margin-right: 8px;"></i> Tentang Saya</h2>
+            <h2 class="section-title"><i class="fas fa-user" style="margin-right: 8px;"></i> Tentang Saya</h2>
             <div class="glass-card about-text">
-                <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, siswa berbakat yang telah mengharumkan nama Indonesia di kancah internasional melalui seni <strong class="glow-text">pantomim</strong> dan film <strong class="glow-text">tanpa suara</strong>. Dengan ribuan jam latihan dan dedikasi yang membara, saya mampu menyampaikan emosi, cerita, dan kehidupan hanya melalui gerakan tubuh serta ekspresi wajah.</p>
-                <p>Puncak karier saya diraih ketika memenangkan <strong class="glow-text">Piala Oscar untuk kategori Film Pendek Tanpa Suara Terbaik</strong> pada usia yang masih sangat muda. Film saya yang berjudul <em>"Elegi dalam Hening"</em> mendapat pujian global karena mampu menghancurkan batasan bahasa dan budaya. Di atas panggung pantomim, saya pun telah tampil di festival seni internasional, memukau penonton dengan ilusi, keluwesan, dan narasi bisu yang mendalam.</p>
-                <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Tubuh adalah kanvas, keheningan adalah suara paling jujur." Saya juga aktif membagikan ilmu pantomim kepada generasi muda melalui workshop dan media sosial, membuktikan bahwa seni tanpa kata bisa lebih kuat dari ribuan dialog.</p>
+                <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, seorang santri/siswa kelas 8 di <strong class="glow-text">SMP As-Syifa Boarding School (ASBOCH)</strong>. Saya berkarakter <strong class="glow-text">humoris</strong>, hangat, dan <strong class="glow-text">penyayang</strong>.</p>
+                <p>Di lingkungan asrama dan sekolah, saya aktif dalam organisasi <strong class="glow-text">DUKES (Duta Kesehatan)</strong> dan <strong class="glow-text">KLS (Komunitas Literasi Sekolah)</strong>. Selain itu, saya juga memegang gelar tidak resmi sebagai <strong class="glow-text">"Orang Tergabut se-ASBOCH"</strong> karena selalu berhasil menemukan waktu santai untuk membuat jokes ikonik <strong class="glow-text">"sup lezat dan bergizi"</strong> yang mencairkan suasana.</p>
+                <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Menyebarkan kebaikan, kesehatan, dan tawa di lingkungan ASBOCH."</p>
             </div>
         </section>
 
         <section id="experience" class="reveal">
-            <h2 class="section-title"><i class="fas fa-ticket-alt"></i> Panggung & Layar Bisu</h2>
+            <h2 class="section-title"><i class="fas fa-users"></i> Organisasi & Sekolah</h2>
             <div class="glass-card" style="padding: 0.2rem 1.5rem 1rem 1.5rem;">
                 <div class="experience-item">
                     <div class="exp-title">
-                        <span>Pemenang Oscar – Film Tanpa Suara Terbaik</span>
-                        <span class="exp-date">2025</span>
+                        <span>SMP As-Syifa Boarding School (ASBOCH)</span>
+                        <span class="exp-date">Kelas 8</span>
                     </div>
-                    <div class="exp-company">Academy Awards (Oscar) · Los Angeles</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Film pendek "Elegi dalam Hening" memenangkan kategori Best Silent Short Film. Arkanu berperan sebagai penulis, sutradara, dan aktor utama dengan pantomim ekspresif.</p>
+                    <div class="exp-company">Pendidikan / Asrama</div>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Menjalani kehidupan sekolah berasrama, belajar kemandirian, kebersamaan, dan berkarya bersama teman-teman.</p>
                 </div>
                 <div class="experience-item">
                     <div class="exp-title">
-                        <span>International Pantomime Festival – Juara 1</span>
-                        <span class="exp-date">2024</span>
+                        <span>DUKES (Duta Kesehatan)</span>
+                        <span class="exp-date">Aktif</span>
                     </div>
-                    <div class="exp-company">World Mime Organization · Paris</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Penampilan solo "Dialog dengan Angin" mendapat standing ovation dan penghargaan The Golden Mask. Mengalahkan puluhan peserta dari 20 negara.</p>
+                    <div class="exp-company">Organisasi Sekolah</div>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Aktif mengedukasi santri/siswa tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang.</p>
                 </div>
                 <div class="experience-item">
                     <div class="exp-title">
-                        <span>Duta Seni Pelajar Nasional</span>
-                        <span class="exp-date">2023 - Sekarang</span>
+                        <span>KLS (Komunitas Literasi Sekolah)</span>
+                        <span class="exp-date">Aktif</span>
                     </div>
-                    <div class="exp-company">Kemdikbudristek · Indonesia</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Mengadakan lokakarya pantomim di 15 kota, membina siswa-siswa berbakat dalam seni gerak dan ekspresi tanpa kata.</p>
+                    <div class="exp-company">Organisasi Sekolah</div>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Turut memajukan minat membaca, menulis, dan kreativitas literasi di lingkungan sekolah.</p>
                 </div>
             </div>
         </section>
 
         <section id="skills" class="reveal">
-            <h2 class="section-title"><i class="fas fa-hand-peace"></i> Keahlian Artistik</h2>
+            <h2 class="section-title"><i class="fas fa-sparkles"></i> Karakter & Keahlian</h2>
             <div class="glass-card">
                 <div class="skills-grid">
-                    <span class="skill-pill">Pantomim Klasik & Modern</span>
-                    <span class="skill-pill">Ilusi Tubuh / Body Illusion</span>
-                    <span class="skill-pill">Ekspresi Wajah Mikro</span>
-                    <span class="skill-pill">Koreografi Gerak Bisu</span>
-                    <span class="skill-pill">Penulisan Naskah Tanpa Dialog</span>
-                    <span class="skill-pill">Aktor Film Bisu (Metode)</span>
-                    <span class="skill-pill">Penyutradaraan & Editing Minimalis</span>
-                    <span class="skill-pill">Workshop & Pelatihan</span>
+                    <span class="skill-pill">Edukasi Kesehatan (DUKES)</span>
+                    <span class="skill-pill">Literasi & Kreativitas (KLS)</span>
+                    <span class="skill-pill">Master Gabut se-ASBOCH</span>
+                    <span class="skill-pill">Humoris & Pencipta Jokes</span>
+                    <span class="skill-pill">Kepribadian Penyayang</span>
+                    <span class="skill-pill">Public Speaking & Sosialisasi</span>
                 </div>
             </div>
         </section>
 
         <section id="projects" class="reveal">
-            <h2 class="section-title"><i class="fas fa-clapperboard"></i> Karya Menginspirasi</h2>
+            <h2 class="section-title"><i class="fas fa-trophy"></i> Karya & Prestasi Unik</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-film"></i></div>
-                    <h3>Elegi dalam Hening</h3>
-                    <p>Film pendek tanpa suara pemenang Oscar. Mengisahkan perjuangan seorang anak bisu yang menemukan kebebasan melalui pantomim. Durasi 18 menit, tanpa satu kata pun.</p>
+                    <div class="project-icon"><i class="fas fa-crown"></i></div>
+                    <h3>Orang Tergabut se-ASBOCH</h3>
+                    <p>Gelar kehormatan lokal karena selalu punya waktu santai untuk merangkul teman-teman, mencairkan suasana asrama, dan menyebarkan keceriaan.</p>
                     <div class="project-tech">
-                        <span>#Pantomim</span><span>#FilmBisu</span><span>#OscarWinner</span>
+                        <span>#ASBOCH</span><span>#GagahnyaSantai</span><span>#Moodmaker</span>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-mask"></i></div>
-                    <h3>Dialog dengan Angin</h3>
-                    <p>Penampilan tunggal di festival internasional Paris, memenangkan The Golden Mask. Menampilkan interaksi imajiner dengan elemen alam menggunakan gerak lambat dan ilusi.</p>
+                    <div class="project-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Jokes "Sup Lezat dan Bergizi"</h3>
+                    <p>Jokes buatan sendiri yang populer di kalangan teman-teman ASBOCH, selalu berhasil memecahkan keheningan.</p>
                     <div class="project-tech">
-                        <span>#PerformanceArt</span><span>#Mime</span><span>#AwardWinning</span>
+                        <span>#Humor</span><span>#SupLezatDanBergizi</span>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-chalkboard-user"></i></div>
-                    <h3>Workshop Muda Berkisah</h3>
-                    <p>Program pelatihan pantomim untuk 500+ pelajar se-Indonesia. Membimbing mereka membuat pertunjukan bisu yang menyentuh tema sosial dan lingkungan.</p>
+                    <div class="project-icon"><i class="fas fa-notes-medical"></i></div>
+                    <h3>Kegiatan DUKES & KLS</h3>
+                    <p>Inisiatif program gaya hidup sehat serta literasi seru bagi seluruh santri ASBOCH.</p>
                     <div class="project-tech">
-                        <span>#Edukasi</span><span>#Pemberdayaan</span><span>#SeniTanpaBatas</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-globe-asia"></i></div>
-                    <h3>Indonesia Silent Project</h3>
-                    <p>Kolaborasi lintas seniman: kolase film bisu pendek yang menggambarkan kekayaan budaya Nusantara tanpa dialog. Ditayangkan di 3 negara.</p>
-                    <div class="project-tech">
-                        <span>#Budaya</span><span>#Kolaborasi</span><span>#SilentCinema</span>
+                        <span>#DutaKesehatan</span><span>#LiterasiASBOCH</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="movies-time" class="reveal">
-            <h2 class="section-title"><i class="fas fa-play-circle"></i> Movies Time</h2>
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> Video Saya</h2>
             <div class="glass-card">
                 <div class="video-wrapper">
                     <video controls preload="auto">
@@ -838,152 +698,51 @@
             </div>
         </section>
 
-        <section id="gallery" class="reveal">
-            <h2 class="section-title"><i class="fas fa-images"></i> Galeri Pemenang</h2>
-            <div class="glass-card">
-                <div class="gallery-container">
-                    <div class="gallery-item js-lightbox-trigger">
-                        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&q=80&w=400" alt="Pidato Kemenangan Tanpa Kata - Dolby Theatre">
-                        <div class="gallery-caption">Pidato Kemenangan Tanpa Kata - Dolby Theatre</div>
-                    </div>
-                    <div class="gallery-item js-lightbox-trigger">
-                        <img src="https://images.unsplash.com/photo-1460889418202-14df9502a462?auto=format&fit=crop&q=80&w=400" alt="Pertunjukan Live 'Dialog dengan Angin' di Paris">
-                        <div class="gallery-caption">Pertunjukan Live 'Dialog dengan Angin' di Paris</div>
-                    </div>
-                    <div class="gallery-item js-lightbox-trigger">
-                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=400" alt="Konferensi Pers Bersama Media Internasional">
-                        <div class="gallery-caption">Konferensi Pers Bersama Media Internasional</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="contact" class="reveal">
-            <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Undang Saya Pentas / Kolaborasi</h2>
+            <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Kontak & Sapa Saya</h2>
             <div class="glass-card">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:arkanu.silent@oscar.com">arkanu.silent@oscar.com</a>
+                        <a href="mailto:arkanu@example.com">arkanu@example.com</a>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-instagram"></i>
-                        <span>@arkanu_mime</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-youtube"></i>
-                        <a href="#">/ArkanuSilentArt</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Manajer: +62 855 1234 567</span>
+                        <span>@arkanu_dzikri</span>
                     </div>
                 </div>
                 <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #98b0e6;">
-                    <i class="fas fa-hand-peace"></i> Siap untuk workshop, penampilan festival, atau proyek film tanpa kata. Mari ciptakan keajaiban dalam keheningan.
+                    <i class="fas fa-smile"></i> Santri ASBOCH yang selalu siap berbagi cerita, humor, dan kebaikan!
                 </div>
             </div>
         </section>
         
         <footer>
-            <span>✦ 2025 Muhammad Arkanu Dzikri — The Silence That Speaks Volumes ✦</span><br>
-            <span style="font-size: 0.65rem;">Oscar Winner | Pantomim Maestro | Inspirasi Tanpa Batas</span>
+            <span>✦ 2025 Muhammad Arkanu Dzikri — ASBOCH ✦</span><br>
+            <span style="font-size: 0.65rem;">SMP As-Syifa Boarding School | DUKES & KLS | Orang Tergabut se-ASBOCH</span>
         </footer>
     </main>
-</div>
-
-<div class="lightbox-modal" id="js-lightbox">
-    <div class="lightbox-content">
-        <span class="lightbox-close" id="js-lightbox-close">&times;</span>
-        <img src="" alt="Zoomed" class="lightbox-img" id="js-lightbox-img">
-        <div class="lightbox-desc" id="js-lightbox-desc"></div>
-    </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // 1. EFEK INTERAKTIF PADA NAMA UTAMA
+        // EFEK INTERAKTIF NAMA
         const nameElement = document.querySelector('.name-highlight h1');
         if(nameElement) {
             nameElement.addEventListener('mouseenter', () => {
-                nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff, 0 0 45px #f0f';
+                nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
             });
             nameElement.addEventListener('mouseleave', () => {
                 nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
             });
         }
 
-        // 2. REVEAL ANIMATION SAAT SCROLL (FADE IN UP)
+        // ANIMASI REVEAL SCROLL
         const revealElements = document.querySelectorAll('.reveal');
-        
         revealElements.forEach(el => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if(entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
-                });
-            }, { threshold: 0.1 });
-            observer.observe(el);
-        });
-
-        // 3. INTERAKTIF 3D TILT EFFECT PADA FOTO PROFIL
-        const profileTilt = document.getElementById('js-profile-tilt');
-        const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
-        
-        if (profileTilt && profileImg) {
-            profileTilt.addEventListener('mousemove', (e) => {
-                const rect = profileTilt.getBoundingClientRect();
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top; 
-                
-                const midX = rect.width / 2;
-                const midY = rect.height / 2;
-                
-                const rotateX = ((midY - y) / midY) * 15;
-                const rotateY = ((x - midX) / midX) * 15;
-                
-                profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-            
-            profileTilt.addEventListener('mouseleave', () => {
-                profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
-            });
-        }
-
-        // 4. INTERAKTIF LIGHTBOX MODAL UNTUK GALERI FOTO
-        const lightbox = document.getElementById('js-lightbox');
-        const lightboxImg = document.getElementById('js-lightbox-img');
-        const lightboxDesc = document.getElementById('js-lightbox-desc');
-        const lightboxClose = document.getElementById('js-lightbox-close');
-        const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if (img && lightbox && lightboxImg && lightboxDesc) {
-                    lightboxImg.src = img.src;
-                    lightboxDesc.textContent = img.alt;
-                    lightbox.classList.add('show');
-                }
-            });
-        });
-
-        if (lightboxClose && lightbox) {
-            lightboxClose.addEventListener('click', () => {
-                lightbox.classList.remove('show');
-            });
-            
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    lightbox.classList.remove('show');
-                }
-            });
-        }
-
-        console.log("Muhammad Arkanu Dzikri | Portofolio Interaktif Berhasil Dimuat.");
-    });
-</script>
-</body>
-</html>
