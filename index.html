@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* efek grid futuristik di latar belakang */
+        /* Efek grid futuristik di latar belakang */
         body::before {
             content: "";
             position: fixed;
@@ -79,6 +79,7 @@
             opacity: 0.7;
         }
 
+        /* Bingkai Foto Profil (3D Tilt) */
         .profile-frame {
             width: 100%;
             height: 280px;
@@ -117,7 +118,7 @@
         }
 
         .name-highlight h1 {
-c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-size: 2.3rem;
+            font-size: 2.3rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, #ffffff, #88f7ff, #a55cff);
@@ -414,7 +415,7 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             color: #cbddf5;
         }
 
-        /* Video Area */
+        /* Area Video */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -432,7 +433,7 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             object-fit: contain;
         }
 
-        /* Audio Area */
+        /* Area Audio */
         .audio-container {
             display: flex;
             flex-direction: column;
@@ -459,6 +460,126 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             border: 0.5px solid rgba(0, 255, 255, 0.2);
         }
 
+        /* Galeri Foto */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            height: 180px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 12px;
+            font-size: 0.75rem;
+            color: #fff;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(0.8) scale(1.05);
+        }
+        
+        .gallery-item:hover {
+            border-color: #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* Lightbox Modal Galeri */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 6, 10, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lightbox-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 80vh;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .lightbox-modal.show .lightbox-content {
+            transform: scale(1);
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .lightbox-desc {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 8px cyan;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #0ff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .lightbox-close:hover {
+            color: #f0f;
+        }
+
+        /* Contact Area */
         .contact-info {
             display: flex;
             flex-wrap: wrap;
@@ -556,17 +677,17 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
         <div class="name-highlight">
             <h1>Muhammad<br>Arkanu Dzikri</h1>
             <div class="badge-title">
-                <i class="fas fa-user-graduate" style="font-size: 0.8rem;"></i> Siswa SMP Kelas 8
+                <i class="fas fa-school" style="font-size: 0.8rem;"></i> As-Syifa Boarding School
             </div>
         </div>
         
         <div class="short-bio">
-            Siswa SMP Kelas 8 | Anggota DUKES & KLS | Penemu Jokes "Sup Lezat dan Bergizi" | Humoris & Penyayang.
+            Siswa Kelas 8 SMP As-Syifa Boarding School (ASBOCH) | Anggota DUKES & KLS | Orang Tergabut se-ASBOCH | Penemu Jokes "Sup Lezat dan Bergizi".
         </div>
         
         <ul class="info-list">
-            <li><i class="fas fa-map-marker-alt"></i> <span>Indonesia</span></li>
-            <li><i class="fas fa-envelope"></i> <span>arkanu@example.com</span></li>
+            <li><i class="fas fa-graduation-cap"></i> <span>SMP As-Syifa Boarding School</span></li>
+            <li><i class="fas fa-award"></i> <span>Orang Tergabut se-ASBOCH</span></li>
             <li><i class="fas fa-users"></i> <span>DUKES & KLS</span></li>
             <li><i class="fas fa-heart"></i> <span>Humoris & Penyayang</span></li>
         </ul>
@@ -589,22 +710,30 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
         <section id="about" class="reveal">
             <h2 class="section-title"><i class="fas fa-user" style="margin-right: 8px;"></i> Tentang Saya</h2>
             <div class="glass-card about-text">
-                <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, seorang anak SMP yang saat ini duduk di kelas 8. Saya memiliki kepribadian yang <strong class="glow-text">humoris</strong> dan <strong class="glow-text">penyayang</strong>.</p>
-                <p>Saat ini saya aktif di 2 organisasi sekolah, yaitu <strong class="glow-text">DUKES (Duta Kesehatan)</strong> dan <strong class="glow-text">KLS (Komunitas Literasi Sekolah)</strong>. Selain aktif berorganisasi, saya juga merupakan penemu jokes ikonik <strong class="glow-text">"sup lezat dan bergizi"</strong> yang selalu membawa tawa dan kehangatan bagi teman-teman.</p>
-                <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Menyebarkan kebaikan, kesehatan, dan kebahagiaan melalui kepedulian serta tawa."</p>
+                <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, seorang santri/siswa kelas 8 di <strong class="glow-text">SMP As-Syifa Boarding School (ASBOCH)</strong>. Saya berkarakter <strong class="glow-text">humoris</strong>, hangat, dan <strong class="glow-text">penyayang</strong>.</p>
+                <p>Di lingkungan asrama dan sekolah, saya aktif dalam organisasi <strong class="glow-text">DUKES (Duta Kesehatan)</strong> dan <strong class="glow-text">KLS (Komunitas Literasi Sekolah)</strong>. Selain itu, saya juga memegang gelar tidak resmi sebagai <strong class="glow-text">"Orang Tergabut se-ASBOCH"</strong> karena selalu berhasil menemukan waktu santai untuk membuat jokes ikonik <strong class="glow-text">"sup lezat dan bergizi"</strong> yang mencairkan suasana.</p>
+                <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Menyebarkan kebaikan, kesehatan, dan tawa di lingkungan ASBOCH."</p>
             </div>
         </section>
 
         <section id="experience" class="reveal">
-            <h2 class="section-title"><i class="fas fa-users"></i> Organisasi & Peran</h2>
+            <h2 class="section-title"><i class="fas fa-users"></i> Organisasi & Sekolah</h2>
             <div class="glass-card" style="padding: 0.2rem 1.5rem 1rem 1.5rem;">
+                <div class="experience-item">
+                    <div class="exp-title">
+                        <span>SMP As-Syifa Boarding School (ASBOCH)</span>
+                        <span class="exp-date">Kelas 8</span>
+                    </div>
+                    <div class="exp-company">Pendidikan / Asrama</div>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Menjalani kehidupan sekolah berasrama, belajar kemandirian, kebersamaan, dan berkarya bersama teman-teman.</p>
+                </div>
                 <div class="experience-item">
                     <div class="exp-title">
                         <span>DUKES (Duta Kesehatan)</span>
                         <span class="exp-date">Aktif</span>
                     </div>
                     <div class="exp-company">Organisasi Sekolah</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Aktif mengedukasi siswa tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang di lingkungan sekolah.</p>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Aktif mengedukasi santri/siswa tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang.</p>
                 </div>
                 <div class="experience-item">
                     <div class="exp-title">
@@ -612,7 +741,7 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
                         <span class="exp-date">Aktif</span>
                     </div>
                     <div class="exp-company">Organisasi Sekolah</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Turut memajukan minat membaca, menulis, dan kreativitas literasi bagi seluruh siswa.</p>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Turut memajukan minat membaca, menulis, dan kreativitas literasi di lingkungan sekolah.</p>
                 </div>
             </div>
         </section>
@@ -623,46 +752,46 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
                 <div class="skills-grid">
                     <span class="skill-pill">Edukasi Kesehatan (DUKES)</span>
                     <span class="skill-pill">Literasi & Kreativitas (KLS)</span>
+                    <span class="skill-pill">Master Gabut se-ASBOCH</span>
                     <span class="skill-pill">Humoris & Pencipta Jokes</span>
                     <span class="skill-pill">Kepribadian Penyayang</span>
-                    <span class="skill-pill">Kerja Sama Organisasi</span>
-                    <span class="skill-pill">Public Speaking</span>
+                    <span class="skill-pill">Public Speaking & Sosialisasi</span>
                 </div>
             </div>
         </section>
 
         <section id="projects" class="reveal">
-            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Karya & Inisiatif</h2>
+            <h2 class="section-title"><i class="fas fa-trophy"></i> Karya & Prestasi Unik</h2>
             <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-crown"></i></div>
+                    <h3>Orang Tergabut se-ASBOCH</h3>
+                    <p>Gelar kehormatan lokal karena selalu punya waktu santai untuk merangkul teman-teman, mencairkan suasana asrama, dan menyebarkan keceriaan.</p>
+                    <div class="project-tech">
+                        <span>#ASBOCH</span><span>#GagahnyaSantai</span><span>#Moodmaker</span>
+                    </div>
+                </div>
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-utensils"></i></div>
                     <h3>Jokes "Sup Lezat dan Bergizi"</h3>
-                    <p>Jokes buatan sendiri yang populer di kalangan teman-teman, menghadirkan tawa dan mencairkan suasana.</p>
+                    <p>Jokes buatan sendiri yang populer di kalangan teman-teman ASBOCH, selalu berhasil memecahkan keheningan.</p>
                     <div class="project-tech">
-                        <span>#Humor</span><span>#Jokes</span><span>#SupLezatDanBergizi</span>
+                        <span>#Humor</span><span>#SupLezatDanBergizi</span>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-notes-medical"></i></div>
-                    <h3>Program DUKES</h3>
-                    <p>Kegiatan sosialisasi gaya hidup sehat dan gizi seimbang untuk remaja sekolah.</p>
+                    <h3>Kegiatan DUKES & KLS</h3>
+                    <p>Inisiatif program gaya hidup sehat serta literasi seru bagi seluruh santri ASBOCH.</p>
                     <div class="project-tech">
-                        <span>#DutaKesehatan</span><span>#GiziSehat</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-book-reader"></i></div>
-                    <h3>Kegiatan Literasi KLS</h3>
-                    <p>Mengajak dan menginspirasi teman-teman untuk gemar membaca buku dan berkarya.</p>
-                    <div class="project-tech">
-                        <span>#LiterasiSekolah</span><span>#Komunitas</span>
+                        <span>#DutaKesehatan</span><span>#LiterasiASBOCH</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="movies-time" class="reveal">
-            <h2 class="section-title"><i class="fas fa-play-circle"></i> Video Saya</h2>
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> Movies Time (Video Arkan)</h2>
             <div class="glass-card">
                 <div class="video-wrapper">
                     <video controls preload="auto">
@@ -690,6 +819,26 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             </div>
         </section>
 
+        <section id="gallery" class="reveal">
+            <h2 class="section-title"><i class="fas fa-images"></i> Galeri Kenangan ASBOCH</h2>
+            <div class="glass-card">
+                <div class="gallery-container">
+                    <div class="gallery-item js-lightbox-trigger">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400" alt="Kebersamaan di Asrama ASBOCH">
+                        <div class="gallery-caption">Kebersamaan di Asrama ASBOCH</div>
+                    </div>
+                    <div class="gallery-item js-lightbox-trigger">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400" alt="Kegiatan Edukasi DUKES">
+                        <div class="gallery-caption">Kegiatan Edukasi DUKES</div>
+                    </div>
+                    <div class="gallery-item js-lightbox-trigger">
+                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=400" alt="Momen Literasi Bersama KLS">
+                        <div class="gallery-caption">Momen Literasi Bersama KLS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="contact" class="reveal">
             <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Kontak & Sapa Saya</h2>
             <div class="glass-card">
@@ -704,22 +853,30 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
                     </div>
                 </div>
                 <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #98b0e6;">
-                    <i class="fas fa-smile"></i> Selalu siap berbagi cerita, keceriaan, dan berkontribusi positif di sekolah!
+                    <i class="fas fa-smile"></i> Santri ASBOCH yang selalu siap berbagi cerita, humor, dan kebaikan!
                 </div>
             </div>
         </section>
         
         <footer>
-            <span>✦ 2025 Muhammad Arkanu Dzikri ✦</span><br>
-            <span style="font-size: 0.65rem;">Siswa SMP Kelas 8 | DUKES & KLS | Penemu Jokes Sup Lezat dan Bergizi</span>
+            <span>✦ 2025 Muhammad Arkanu Dzikri — ASBOCH ✦</span><br>
+            <span style="font-size: 0.65rem;">SMP As-Syifa Boarding School | DUKES & KLS | Orang Tergabut se-ASBOCH</span>
         </footer>
     </main>
+</div>
+
+<div class="lightbox-modal" id="js-lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close" id="js-lightbox-close">&times;</span>
+        <img src="" alt="Zoomed" class="lightbox-img" id="js-lightbox-img">
+        <div class="lightbox-desc" id="js-lightbox-desc"></div>
+    </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // EFEK INTERAKTIF NAMA
+        // 1. HOVER EFEK GLOW PADA NAMA
         const nameElement = document.querySelector('.name-highlight h1');
         if(nameElement) {
             nameElement.addEventListener('mouseenter', () => {
@@ -730,7 +887,7 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             });
         }
 
-        // ANIMASI REVEAL SCROLL
+        // 2. SCROLL REVEAL ANIMATION
         const revealElements = document.querySelectorAll('.reveal');
         revealElements.forEach(el => {
             const observer = new IntersectionObserver((entries) => {
@@ -743,7 +900,7 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             observer.observe(el);
         });
 
-        // 3D TILT FOTO PROFIL
+        // 3. 3D TILT EFFECT FOTO PROFIL
         const profileTilt = document.getElementById('js-profile-tilt');
         const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
         
@@ -765,7 +922,37 @@ c:\Users\ASSYIFA\OneDrive\Documents\GitHub\portofolio-arkanu            font-siz
             });
         }
 
-        console.log("Muhammad Arkanu Dzikri | Portfolio Berhasil Dimuat.");
+        // 4. LIGHTBOX MODAL GALERI
+        const lightbox = document.getElementById('js-lightbox');
+        const lightboxImg = document.getElementById('js-lightbox-img');
+        const lightboxDesc = document.getElementById('js-lightbox-desc');
+        const lightboxClose = document.getElementById('js-lightbox-close');
+        const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if (img && lightbox && lightboxImg && lightboxDesc) {
+                    lightboxImg.src = img.src;
+                    lightboxDesc.textContent = img.alt;
+                    lightbox.classList.add('show');
+                }
+            });
+        });
+
+        if (lightboxClose && lightbox) {
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('show');
+            });
+            
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('show');
+                }
+            });
+        }
+
+        console.log("Muhammad Arkanu Dzikri | Portfolio ASBOCH Berhasil Dimuat.");
     });
 </script>
 </body>
