@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Muhammad Arkanu Dzikri - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #05070a, #000000);
+            color: #eef5ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* efek grid futuristik di latar belakang */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5), 0 0 2px rgba(0, 255, 255, 0.8);
+        }
+
+        .portfolio-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR KIRI */
+        .sidebar-left {
+            flex: 1.2;
+            min-width: 280px;
+            background: rgba(8, 12, 20, 0.6);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(0, 255, 255, 0.25);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+            padding: 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-left::after {
+            content: "";
+            position: absolute;
+            top: 10%;
+            right: -1px;
+            width: 2px;
+            height: 80%;
+            background: linear-gradient(to bottom, #0ff, #f0f, #0ff);
+            filter: blur(3px);
+            opacity: 0.7;
+        }
+
+        .profile-frame {
+            width: 100%;
+            height: 280px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            margin-bottom: 1.5rem;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(0, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.1s ease-out;
+            backface-visibility: hidden;
+        }
+
+        .profile-frame:hover {
+            border-color: #0ff;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        }
+
+        .name-highlight {
+            margin-bottom: 1.8rem;
+            border-left: 4px solid #0ff;
+            padding-left: 1.2rem;
+        }
+
+        .name-highlight h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, #88f7ff, #a55cff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .badge-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #8deeff;
+            background: rgba(0, 255, 255, 0.12);
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(0, 255, 255, 0.4);
+        }
+
+        .short-bio {
+            margin: 1.5rem 0;
+            color: #c4d4ff;
+            font-weight: 300;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .info-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #b8c7ff;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        
+        .info-list li:hover {
+            transform: translateX(5px);
+            color: #0ff;
+        }
+
+        .info-list li i {
+            width: 28px;
+            font-size: 1.2rem;
+            color: #0ff;
+            text-shadow: 0 0 3px cyan;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .social-icons a {
+            color: #ccf4ff;
+            font-size: 1.4rem;
+            transition: 0.2s ease;
+            background: rgba(255, 255, 255, 0.03);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #0ff;
+            transform: translateY(-4px) scale(1.1);
+            border-color: #0ff;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .cv-button {
+            background: linear-gradient(95deg, rgba(0, 255, 255, 0.15), rgba(100, 0, 255, 0.2));
+            border: 1px solid rgba(0, 255, 255, 0.6);
+            color: #0ff;
+            padding: 0.7rem 0;
+            text-align: center;
+            border-radius: 40px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            margin-top: 0.5rem;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .cv-button:hover {
+            background: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 15px cyan;
+            border-color: cyan;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 2.5;
+            padding: 2rem 2.2rem;
+            overflow-x: hidden;
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        .reveal {
+            position: relative;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+        
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: linear-gradient(120deg, #fff, #0ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left: 4px solid #0ff;
+            padding-left: 1rem;
+        }
+
+        .glass-card {
+            background: rgba(12, 18, 28, 0.55);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 1.5rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 255, 255, 0.7);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #d9e6ff;
+        }
+
+        .experience-item {
+            margin-bottom: 1.7rem;
+            border-left: 2px solid #0ff;
+            padding-left: 1.2rem;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        
+        .experience-item:hover {
+            border-left-color: #f0f;
+            transform: translateX(4px);
+        }
+
+        .exp-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #b1f0ff;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 0.3rem;
+        }
+
+        .exp-date {
+            font-size: 0.75rem;
+            background: rgba(0, 255, 255, 0.2);
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            color: #0ff;
+        }
+
+        .exp-company {
+            font-size: 0.9rem;
+            color: #aac8ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 0.5rem;
+        }
+
+        .skill-pill {
+            background: rgba(0, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(0, 255, 255, 0.3);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+            color: #cdf2ff;
+        }
+
+        .skill-pill:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #0ff;
+            transform: scale(1.05) translateY(-2px);
+            color: white;
+            box-shadow: 0 0 12px cyan;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-card {
+            background: rgba(6, 12, 22, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 1.4rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: #f0f;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            color: #0ff;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0.8rem 0;
+        }
+
+        .project-tech span {
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            color: #0ff;
+            border: 0.2px solid cyan;
+        }
+
+        .project-card p {
+            font-size: 0.85rem;
+            color: #cbddf5;
+        }
+
+        /* Video Area */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            display: block;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        /* Audio Area */
+        .audio-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .audio-container audio {
+            width: 100%;
+            max-width: 600px;
+            outline: none;
+        }
+
+        .audio-meta {
+            font-size: 0.85rem;
+            color: #8deeff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 255, 0.05);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            border: 0.5px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.8rem 1.3rem;
+            border-radius: 48px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 0.5px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: #0ff;
+        }
+
+        .contact-item a, .contact-item span {
+            color: #e0f0ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: cyan;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,255,255,0.2);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(0, 255, 255, 0.2);
+            color: #7f9eff;
+        }
+
+        @media (max-width: 850px) {
+            .portfolio-container {
+                flex-direction: column;
+            }
+            .sidebar-left {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 255, 255, 0.4);
+                backdrop-filter: blur(20px);
+                width: 100%;
+                text-align: left;
+                padding: 1.8rem;
+            }
+            .sidebar-left::after {
+                display: none;
+            }
+            .name-highlight h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0ff;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="portfolio-container">
+    <aside class="sidebar-left">
+        <div class="profile-frame" id="js-profile-tilt">
+            <img src="foto_arkanu.jpg" alt="Muhammad Arkanu Dzikri" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Muhammad+Arkanu+Dzikri&background=0D8ABC&color=fff&size=512';">
+        </div>
+
+        <div class="name-highlight">
+            <h1>Muhammad<br>Arkanu Dzikri</h1>
+            <div class="badge-title">
+                <i class="fas fa-user-graduate" style="font-size: 0.8rem;"></i> Siswa SMP Kelas 8
+            </div>
+        </div>
+        
+        <div class="short-bio">
+            Siswa SMP Kelas 8 | Anggota DUKES & KLS | Penemu Jokes "Sup Lezat dan Bergizi" | Humoris & Penyayang.
+        </div>
+        
+        <ul class="info-list">
+            <li><i class="fas fa-map-marker-alt"></i> <span>Indonesia</span></li>
+            <li><i class="fas fa-envelope"></i> <span>arkanu@example.com</span></li>
+            <li><i class="fas fa-users"></i> <span>DUKES & KLS</span></li>
+            <li><i class="fas fa-heart"></i> <span>Humoris & Penyayang</span></li>
+        </ul>
+        
+        <div class="social-icons">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <a href="#" class="cv-button"><i class="fas fa-download"></i> Unduh Portfolio</a>
+        
+        <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
+            <i class="fas fa-smile"></i> Sup Lezat & Bergizi
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section id="about" class="reveal">
+            <h2 class="section-title"><i class="fas fa-user" style="margin-right: 8px;"></i> Tentang Saya</h2>
+            <div class="glass-card about-text">
+                <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, seorang anak SMP yang saat ini duduk di kelas 8. Saya memiliki kepribadian yang <strong class="glow-text">humoris</strong> dan <strong class="glow-text">penyayang</strong>.</p>
+                <p>Saat ini saya aktif di 2 organisasi sekolah, yaitu <strong class="glow-text">DUKES (Duta Kesehatan)</strong> dan <strong class="glow-text">KLS (Komunitas Literasi Sekolah)</strong>. Selain aktif berorganisasi, saya juga merupakan penemu jokes ikonik <strong class="glow-text">"sup lezat dan bergizi"</strong> yang selalu membawa tawa dan kehangatan bagi teman-teman.</p>
+                <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Menyebarkan kebaikan, kesehatan, dan kebahagiaan melalui kepedulian serta tawa."</p>
+            </div>
+        </section>
+
+        <section id="experience" class="reveal">
+            <h2 class="section-title"><i class="fas fa-users"></i> Organisasi & Peran</h2>
+            <div class="glass-card" style="padding: 0.2rem 1.5rem 1rem 1.5rem;">
+                <div class="experience-item">
+                    <div class="exp-title">
+                        <span>DUKES (Duta Kesehatan)</span>
+                        <span class="exp-date">Aktif</span>
+                    </div>
+                    <div class="exp-company">Organisasi Sekolah</div>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Aktif mengedukasi siswa tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang di lingkungan sekolah.</p>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-title">
+                        <span>KLS (Komunitas Literasi Sekolah)</span>
+                        <span class="exp-date">Aktif</span>
+                    </div>
+                    <div class="exp-company">Organisasi Sekolah</div>
+                    <p style="font-size: 0.85rem; color:#c2dcff;">Turut memajukan minat membaca, menulis, dan kreativitas literasi bagi seluruh siswa.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="reveal">
+            <h2 class="section-title"><i class="fas fa-sparkles"></i> Karakter & Keahlian</h2>
+            <div class="glass-card">
+                <div class="skills-grid">
+                    <span class="skill-pill">Edukasi Kesehatan (DUKES)</span>
+                    <span class="skill-pill">Literasi & Kreativitas (KLS)</span>
+                    <span class="skill-pill">Humoris & Pencipta Jokes</span>
+                    <span class="skill-pill">Kepribadian Penyayang</span>
+                    <span class="skill-pill">Kerja Sama Organisasi</span>
+                    <span class="skill-pill">Public Speaking</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal">
+            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Karya & Inisiatif</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Jokes "Sup Lezat dan Bergizi"</h3>
+                    <p>Jokes buatan sendiri yang populer di kalangan teman-teman, menghadirkan tawa dan mencairkan suasana.</p>
+                    <div class="project-tech">
+                        <span>#Humor</span><span>#Jokes</span><span>#SupLezatDanBergizi</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-notes-medical"></i></div>
+                    <h3>Program DUKES</h3>
+                    <p>Kegiatan sosialisasi gaya hidup sehat dan gizi seimbang untuk remaja sekolah.</p>
+                    <div class="project-tech">
+                        <span>#DutaKesehatan</span><span>#GiziSehat</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-book-reader"></i></div>
+                    <h3>Kegiatan Literasi KLS</h3>
+                    <p>Mengajak dan menginspirasi teman-teman untuk gemar membaca buku dan berkarya.</p>
+                    <div class="project-tech">
+                        <span>#LiterasiSekolah</span><span>#Komunitas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="movies-time" class="reveal">
+            <h2 class="section-title"><i class="fas fa-play-circle"></i> Video Saya</h2>
+            <div class="glass-card">
+                <div class="video-wrapper">
+                    <video controls preload="auto">
+                        <source src="videoplayback.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section id="music-time" class="reveal">
+            <h2 class="section-title"><i class="fas fa-music"></i> Musik Kesukaan Arkan</h2>
+            <div class="glass-card">
+                <div class="audio-container">
+                    <div class="audio-meta">
+                        <i class="fas fa-headphones-alt"></i>
+                        <span>Now Playing: Audio Pilihan Arkan</span>
+                    </div>
+                    <audio controls preload="auto">
+                        <source src="videoplayback.m4a" type="audio/x-m4a">
+                        <source src="videoplayback.m4a" type="audio/mp4">
+                        Browser Anda tidak mendukung pemutar audio HTML5.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="reveal">
+            <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Kontak & Sapa Saya</h2>
+            <div class="glass-card">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:arkanu@example.com">arkanu@example.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <span>@arkanu_dzikri</span>
+                    </div>
+                </div>
+                <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #98b0e6;">
+                    <i class="fas fa-smile"></i> Selalu siap berbagi cerita, keceriaan, dan berkontribusi positif di sekolah!
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <span>✦ 2025 Muhammad Arkanu Dzikri ✦</span><br>
+            <span style="font-size: 0.65rem;">Siswa SMP Kelas 8 | DUKES & KLS | Penemu Jokes Sup Lezat dan Bergizi</span>
+        </footer>
+    </main>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // EFEK INTERAKTIF NAMA
+        const nameElement = document.querySelector('.name-highlight h1');
+        if(nameElement) {
+            nameElement.addEventListener('mouseenter', () => {
+                nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
+            });
+            nameElement.addEventListener('mouseleave', () => {
+                nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
+            });
+        }
+
+        // ANIMASI REVEAL SCROLL
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(el);
+        });
+
+        // 3D TILT FOTO PROFIL
+        const profileTilt = document.getElementById('js-profile-tilt');
+        const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
+        
+        if (profileTilt && profileImg) {
+            profileTilt.addEventListener('mousemove', (e) => {
+                const rect = profileTilt.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top; 
+                const midX = rect.width / 2;
+                const midY = rect.height / 2;
+                const rotateX = ((midY - y) / midY) * 15;
+                const rotateY = ((x - midX) / midX) * 15;
+                
+                profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            profileTilt.addEventListener('mouseleave', () => {
+                profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+            });
+        }
+
+        console.log("Muhammad Arkanu Dzikri | Portfolio Berhasil Dimuat.");
+    });
+</script>
+</body>
+</html>
