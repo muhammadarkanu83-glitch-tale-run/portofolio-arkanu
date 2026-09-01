@@ -7,19 +7,84 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== RESET & VARIABEL ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: radial-gradient(circle at 20% 30%, #05070a, #000000);
+            --bg-body: #000000;
+            --text-primary: #eef5ff;
+            --text-secondary: #c4d4ff;
+            --text-muted: #b8c7ff;
+            --card-bg: rgba(8, 12, 20, 0.6);
+            --card-border: rgba(0, 255, 255, 0.25);
+            --glass-bg: rgba(12, 18, 28, 0.55);
+            --glass-border: rgba(0, 255, 255, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --sidebar-border: rgba(0, 255, 255, 0.25);
+            --skill-bg: rgba(0, 255, 255, 0.08);
+            --skill-border: rgba(0, 255, 255, 0.3);
+            --project-bg: rgba(6, 12, 22, 0.7);
+            --contact-bg: rgba(255, 255, 255, 0.03);
+            --footer-border: rgba(0, 255, 255, 0.2);
+            --clock-bg: rgba(0, 10, 30, 0.7);
+            --clock-border: rgba(0, 255, 255, 0.25);
+            --clock-text: #b0d4ff;
+            --badge-bg: rgba(0, 255, 255, 0.12);
+            --badge-border: rgba(0, 255, 255, 0.4);
+            --glow-color: rgba(0, 255, 255, 0.5);
+            --gradient-name: linear-gradient(135deg, #ffffff, #88f7ff, #a55cff);
+            --grid-line: rgba(0, 255, 255, 0.03);
+            --scrollbar-track: #0a0f1a;
+            --scrollbar-thumb: #0ff;
+            --lightbox-overlay: rgba(4, 6, 10, 0.92);
+            --input-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== LIGHT MODE VARIABEL ===== */
+        body.light-mode {
+            --bg-primary: radial-gradient(circle at 20% 30%, #f0f8ff, #d4e8ff);
+            --bg-body: #eef4fa;
+            --text-primary: #0b1a2e;
+            --text-secondary: #1f3a5f;
+            --text-muted: #2a4a7a;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(0, 120, 200, 0.25);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(0, 120, 200, 0.2);
+            --shadow-color: rgba(0, 20, 50, 0.15);
+            --sidebar-border: rgba(0, 120, 200, 0.3);
+            --skill-bg: rgba(0, 120, 200, 0.08);
+            --skill-border: rgba(0, 120, 200, 0.3);
+            --project-bg: rgba(255, 255, 255, 0.7);
+            --contact-bg: rgba(0, 0, 0, 0.03);
+            --footer-border: rgba(0, 120, 200, 0.2);
+            --clock-bg: rgba(255, 255, 255, 0.7);
+            --clock-border: rgba(0, 120, 200, 0.25);
+            --clock-text: #0b2a4a;
+            --badge-bg: rgba(0, 120, 200, 0.12);
+            --badge-border: rgba(0, 120, 200, 0.4);
+            --glow-color: rgba(0, 120, 200, 0.5);
+            --gradient-name: linear-gradient(135deg, #0b1a2e, #1a6b8a, #4a2a8a);
+            --grid-line: rgba(0, 120, 200, 0.05);
+            --scrollbar-track: #d4e0ec;
+            --scrollbar-thumb: #2a7aaa;
+            --lightbox-overlay: rgba(255, 255, 255, 0.92);
+            --input-bg: rgba(0, 0, 0, 0.03);
+        }
+
         body {
             font-family: 'Space Grotesk', sans-serif;
-            background: radial-gradient(circle at 20% 30%, #05070a, #000000);
-            color: #eef5ff;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.5;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            transition: background 0.5s ease, color 0.4s ease;
         }
 
         /* Efek grid futuristik di latar belakang */
@@ -30,18 +95,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 40px 40px;
             pointer-events: none;
             z-index: 0;
+            transition: background-image 0.5s ease;
         }
 
         .glow-text {
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5), 0 0 2px rgba(0, 255, 255, 0.8);
+            text-shadow: 0 0 8px var(--glow-color), 0 0 2px var(--glow-color);
+            transition: text-shadow 0.3s ease;
         }
 
+        /* ===== LAYOUT ===== */
         .portfolio-container {
             display: flex;
             flex-wrap: wrap;
@@ -52,19 +120,19 @@
             min-height: 100vh;
         }
 
-        /* SIDEBAR KIRI */
+        /* ===== SIDEBAR KIRI ===== */
         .sidebar-left {
             flex: 1.2;
             min-width: 280px;
-            background: rgba(8, 12, 20, 0.6);
+            background: var(--card-bg);
             backdrop-filter: blur(16px);
-            border-right: 1px solid rgba(0, 255, 255, 0.25);
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid var(--sidebar-border);
+            box-shadow: -10px 0 30px var(--shadow-color);
             padding: 2rem 1.8rem;
             display: flex;
             flex-direction: column;
             position: relative;
-            transition: all 0.3s ease;
+            transition: background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         .sidebar-left::after {
@@ -77,9 +145,14 @@
             background: linear-gradient(to bottom, #0ff, #f0f, #0ff);
             filter: blur(3px);
             opacity: 0.7;
+            transition: opacity 0.4s ease;
         }
 
-        /* Bingkai Foto Profil (3D Tilt) */
+        body.light-mode .sidebar-left::after {
+            opacity: 0.3;
+        }
+
+        /* ===== PROFIL ===== */
         .profile-frame {
             width: 100%;
             height: 280px;
@@ -98,6 +171,12 @@
             justify-content: center;
         }
 
+        body.light-mode .profile-frame {
+            border-color: rgba(0, 120, 200, 0.5);
+            box-shadow: 0 0 20px rgba(0, 120, 200, 0.15);
+            background: rgba(0, 120, 200, 0.05);
+        }
+
         .profile-frame img {
             width: 100%;
             height: 100%;
@@ -111,44 +190,64 @@
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
         }
 
+        body.light-mode .profile-frame:hover {
+            border-color: #1a8fc0;
+            box-shadow: 0 0 25px rgba(0, 120, 200, 0.5);
+        }
+
         .name-highlight {
             margin-bottom: 1.8rem;
             border-left: 4px solid #0ff;
             padding-left: 1.2rem;
+            transition: border-color 0.4s ease;
+        }
+
+        body.light-mode .name-highlight {
+            border-left-color: #1a8fc0;
         }
 
         .name-highlight h1 {
             font-size: 2.3rem;
             font-weight: 700;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #ffffff, #88f7ff, #a55cff);
+            background: var(--gradient-name);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
             line-height: 1.2;
             margin-bottom: 0.5rem;
-            transition: text-shadow 0.3s ease;
+            transition: background 0.4s ease, text-shadow 0.3s ease;
+        }
+
+        body.light-mode .name-highlight h1 {
+            text-shadow: 0 0 15px rgba(0, 120, 200, 0.2);
         }
 
         .badge-title {
             font-size: 0.85rem;
             font-weight: 500;
             color: #8deeff;
-            background: rgba(0, 255, 255, 0.12);
+            background: var(--badge-bg);
             display: inline-block;
             padding: 0.2rem 1rem;
             border-radius: 40px;
             backdrop-filter: blur(4px);
-            border: 0.5px solid rgba(0, 255, 255, 0.4);
+            border: 0.5px solid var(--badge-border);
+            transition: color 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+        }
+
+        body.light-mode .badge-title {
+            color: #1a6b8a;
         }
 
         .short-bio {
             margin: 1.5rem 0;
-            color: #c4d4ff;
+            color: var(--text-secondary);
             font-weight: 300;
             font-size: 0.9rem;
             line-height: 1.5;
+            transition: color 0.4s ease;
         }
 
         .info-list {
@@ -162,13 +261,17 @@
             gap: 12px;
             margin-bottom: 1rem;
             font-size: 0.9rem;
-            color: #b8c7ff;
-            transition: transform 0.2s ease, color 0.2s ease;
+            color: var(--text-muted);
+            transition: transform 0.2s ease, color 0.2s ease, color 0.4s ease;
         }
-        
+
         .info-list li:hover {
             transform: translateX(5px);
             color: #0ff;
+        }
+
+        body.light-mode .info-list li:hover {
+            color: #1a7aaa;
         }
 
         .info-list li i {
@@ -176,6 +279,12 @@
             font-size: 1.2rem;
             color: #0ff;
             text-shadow: 0 0 3px cyan;
+            transition: color 0.4s ease, text-shadow 0.4s ease;
+        }
+
+        body.light-mode .info-list li i {
+            color: #1a8fc0;
+            text-shadow: 0 0 3px rgba(0, 120, 200, 0.4);
         }
 
         .social-icons {
@@ -197,6 +306,13 @@
             border-radius: 50%;
             backdrop-filter: blur(4px);
             border: 0.5px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .social-icons a {
+            color: #1a4a6a;
+            border-color: rgba(0, 120, 200, 0.2);
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .social-icons a:hover {
@@ -205,6 +321,13 @@
             border-color: #0ff;
             box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
             background: rgba(0, 255, 255, 0.1);
+        }
+
+        body.light-mode .social-icons a:hover {
+            color: #1a8fc0;
+            border-color: #1a8fc0;
+            box-shadow: 0 0 12px rgba(0, 120, 200, 0.4);
+            background: rgba(0, 120, 200, 0.08);
         }
 
         .cv-button {
@@ -224,6 +347,12 @@
             font-size: 0.9rem;
         }
 
+        body.light-mode .cv-button {
+            background: linear-gradient(95deg, rgba(0, 120, 200, 0.15), rgba(80, 40, 200, 0.15));
+            border-color: rgba(0, 120, 200, 0.5);
+            color: #1a6b8a;
+        }
+
         .cv-button:hover {
             background: rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 15px cyan;
@@ -232,7 +361,14 @@
             transform: scale(1.02);
         }
 
-        /* MAIN CONTENT */
+        body.light-mode .cv-button:hover {
+            background: rgba(0, 120, 200, 0.2);
+            box-shadow: 0 0 15px rgba(0, 120, 200, 0.4);
+            border-color: #1a8fc0;
+            color: #0b1a2e;
+        }
+
+        /* ===== MAIN CONTENT ===== */
         .main-content {
             flex: 2.5;
             padding: 2rem 2.2rem;
@@ -249,7 +385,7 @@
             opacity: 0;
             transition: transform 0.8s ease, opacity 0.8s ease;
         }
-        
+
         .reveal.active {
             transform: translateY(0);
             opacity: 1;
@@ -267,16 +403,25 @@
             color: transparent;
             border-left: 4px solid #0ff;
             padding-left: 1rem;
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        body.light-mode .section-title {
+            background: linear-gradient(120deg, #0b1a2e, #1a7aaa);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left-color: #1a8fc0;
         }
 
         .glass-card {
-            background: rgba(12, 18, 28, 0.55);
+            background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            border: 1px solid var(--glass-border);
             padding: 1.5rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: background 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
 
         .glass-card:hover {
@@ -285,9 +430,15 @@
             transform: translateY(-3px);
         }
 
+        body.light-mode .glass-card:hover {
+            border-color: rgba(0, 120, 200, 0.6);
+            box-shadow: 0 0 20px rgba(0, 120, 200, 0.15);
+        }
+
         .about-text p {
             margin-bottom: 1rem;
-            color: #d9e6ff;
+            color: var(--text-secondary);
+            transition: color 0.4s ease;
         }
 
         .experience-item {
@@ -296,10 +447,18 @@
             padding-left: 1.2rem;
             transition: border-color 0.3s, transform 0.3s;
         }
-        
+
+        body.light-mode .experience-item {
+            border-left-color: #1a8fc0;
+        }
+
         .experience-item:hover {
             border-left-color: #f0f;
             transform: translateX(4px);
+        }
+
+        body.light-mode .experience-item:hover {
+            border-left-color: #7a3aaa;
         }
 
         .exp-title {
@@ -311,6 +470,11 @@
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 0.3rem;
+            transition: color 0.4s ease;
+        }
+
+        body.light-mode .exp-title {
+            color: #1a5a7a;
         }
 
         .exp-date {
@@ -319,12 +483,23 @@
             padding: 0.2rem 0.7rem;
             border-radius: 30px;
             color: #0ff;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body.light-mode .exp-date {
+            background: rgba(0, 120, 200, 0.15);
+            color: #1a7aaa;
         }
 
         .exp-company {
             font-size: 0.9rem;
             color: #aac8ff;
             margin-bottom: 0.5rem;
+            transition: color 0.4s ease;
+        }
+
+        body.light-mode .exp-company {
+            color: #3a5a7a;
         }
 
         .skills-grid {
@@ -335,9 +510,9 @@
         }
 
         .skill-pill {
-            background: rgba(0, 255, 255, 0.08);
+            background: var(--skill-bg);
             backdrop-filter: blur(4px);
-            border: 0.5px solid rgba(0, 255, 255, 0.3);
+            border: 0.5px solid var(--skill-border);
             border-radius: 60px;
             padding: 0.5rem 1.2rem;
             font-size: 0.85rem;
@@ -345,6 +520,11 @@
             letter-spacing: 0.3px;
             transition: all 0.2s;
             color: #cdf2ff;
+            transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.2s, box-shadow 0.2s;
+        }
+
+        body.light-mode .skill-pill {
+            color: #1a4a6a;
         }
 
         .skill-pill:hover {
@@ -355,6 +535,13 @@
             box-shadow: 0 0 12px cyan;
         }
 
+        body.light-mode .skill-pill:hover {
+            background: rgba(0, 120, 200, 0.15);
+            border-color: #1a8fc0;
+            color: #0b1a2e;
+            box-shadow: 0 0 12px rgba(0, 120, 200, 0.3);
+        }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -363,12 +550,16 @@
         }
 
         .project-card {
-            background: rgba(6, 12, 22, 0.7);
+            background: var(--project-bg);
             backdrop-filter: blur(8px);
             border-radius: 28px;
             padding: 1.4rem;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+            border: 1px solid var(--glass-border);
+            transition: background 0.5s ease, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        body.light-mode .project-card {
+            background: rgba(255, 255, 255, 0.7);
         }
 
         .project-card:hover {
@@ -377,13 +568,22 @@
             transform: translateY(-6px);
         }
 
+        body.light-mode .project-card:hover {
+            border-color: #7a3aaa;
+            box-shadow: 0 0 20px rgba(120, 40, 180, 0.15);
+        }
+
         .project-icon {
             font-size: 2rem;
             color: #0ff;
             margin-bottom: 1rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.4s ease;
         }
-        
+
+        body.light-mode .project-icon {
+            color: #1a8fc0;
+        }
+
         .project-card:hover .project-icon {
             transform: scale(1.1) rotate(5deg);
         }
@@ -392,6 +592,8 @@
             font-size: 1.25rem;
             margin-bottom: 0.6rem;
             font-weight: 600;
+            color: var(--text-primary);
+            transition: color 0.4s ease;
         }
 
         .project-tech {
@@ -408,14 +610,22 @@
             border-radius: 20px;
             color: #0ff;
             border: 0.2px solid cyan;
+            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+
+        body.light-mode .project-tech span {
+            background: rgba(0, 0, 0, 0.06);
+            color: #1a6b8a;
+            border-color: rgba(0, 120, 200, 0.3);
         }
 
         .project-card p {
             font-size: 0.85rem;
-            color: #cbddf5;
+            color: var(--text-secondary);
+            transition: color 0.4s ease;
         }
 
-        /* Area Video */
+        /* ===== VIDEO ===== */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -423,7 +633,12 @@
             overflow: hidden;
             background: #000;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        body.light-mode .video-wrapper {
+            border-color: rgba(0, 0, 0, 0.08);
         }
 
         .video-wrapper video {
@@ -433,7 +648,7 @@
             object-fit: contain;
         }
 
-        /* Area Audio */
+        /* ===== AUDIO ===== */
         .audio-container {
             display: flex;
             flex-direction: column;
@@ -458,9 +673,16 @@
             padding: 0.4rem 1.2rem;
             border-radius: 30px;
             border: 0.5px solid rgba(0, 255, 255, 0.2);
+            transition: color 0.4s ease, background 0.4s ease, border-color 0.4s ease;
         }
 
-        /* Galeri Foto */
+        body.light-mode .audio-meta {
+            color: #1a6b8a;
+            background: rgba(0, 120, 200, 0.05);
+            border-color: rgba(0, 120, 200, 0.15);
+        }
+
+        /* ===== GALERI ===== */
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -475,8 +697,12 @@
             border: 1px solid rgba(0, 255, 255, 0.2);
             height: 180px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px var(--shadow-color);
             transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        body.light-mode .gallery-item {
+            border-color: rgba(0, 120, 200, 0.15);
         }
 
         .gallery-item img {
@@ -491,12 +717,16 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
             padding: 12px;
             font-size: 0.75rem;
             color: #fff;
             transform: translateY(100%);
             transition: transform 0.3s ease;
+        }
+
+        body.light-mode .gallery-caption {
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
         }
 
         .gallery-item:hover .gallery-caption {
@@ -506,21 +736,26 @@
         .gallery-item:hover img {
             filter: brightness(0.8) scale(1.05);
         }
-        
+
         .gallery-item:hover {
             border-color: #0ff;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
             transform: scale(1.02);
         }
 
-        /* Lightbox Modal Galeri */
+        body.light-mode .gallery-item:hover {
+            border-color: #1a8fc0;
+            box-shadow: 0 0 15px rgba(0, 120, 200, 0.3);
+        }
+
+        /* ===== LIGHTBOX ===== */
         .lightbox-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(4, 6, 10, 0.92);
+            background: var(--lightbox-overlay);
             backdrop-filter: blur(8px);
             z-index: 9999;
             display: flex;
@@ -528,14 +763,14 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, background 0.4s ease;
         }
-        
+
         .lightbox-modal.show {
             opacity: 1;
             pointer-events: auto;
         }
-        
+
         .lightbox-content {
             max-width: 85%;
             max-height: 80vh;
@@ -544,27 +779,38 @@
             transition: transform 0.3s ease;
             text-align: center;
         }
-        
+
         .lightbox-modal.show .lightbox-content {
             transform: scale(1);
         }
-        
+
         .lightbox-img {
             max-width: 100%;
             max-height: 75vh;
             border-radius: 12px;
             border: 2px solid rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
-        
+
+        body.light-mode .lightbox-img {
+            border-color: rgba(0, 120, 200, 0.3);
+            box-shadow: 0 0 30px rgba(0, 120, 200, 0.15);
+        }
+
         .lightbox-desc {
-            color: #fff;
+            color: var(--text-primary);
             margin-top: 15px;
             font-size: 1rem;
             letter-spacing: 0.5px;
-            text-shadow: 0 0 8px cyan;
+            text-shadow: 0 0 8px var(--glow-color);
+            transition: color 0.4s ease, text-shadow 0.4s ease;
         }
-        
+
+        body.light-mode .lightbox-desc {
+            text-shadow: 0 0 8px rgba(0, 120, 200, 0.3);
+        }
+
         .lightbox-close {
             position: absolute;
             top: -40px;
@@ -574,12 +820,20 @@
             cursor: pointer;
             transition: color 0.2s;
         }
-        
+
+        body.light-mode .lightbox-close {
+            color: #1a6b8a;
+        }
+
         .lightbox-close:hover {
             color: #f0f;
         }
 
-        /* Contact Area */
+        body.light-mode .lightbox-close:hover {
+            color: #7a3aaa;
+        }
+
+        /* ===== CONTACT ===== */
         .contact-info {
             display: flex;
             flex-wrap: wrap;
@@ -588,7 +842,7 @@
         }
 
         .contact-item {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--contact-bg);
             padding: 0.8rem 1.3rem;
             border-radius: 48px;
             display: inline-flex;
@@ -598,40 +852,78 @@
             transition: all 0.3s ease;
         }
 
+        body.light-mode .contact-item {
+            border-color: rgba(0, 120, 200, 0.15);
+        }
+
         .contact-item i {
             font-size: 1.2rem;
             color: #0ff;
+            transition: color 0.4s ease;
         }
 
-        .contact-item a, .contact-item span {
-            color: #e0f0ff;
+        body.light-mode .contact-item i {
+            color: #1a8fc0;
+        }
+
+        .contact-item a,
+        .contact-item span {
+            color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.4s ease;
         }
 
         .contact-item:hover {
             background: rgba(0, 255, 255, 0.1);
             border-color: cyan;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,255,255,0.2);
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
         }
 
+        body.light-mode .contact-item:hover {
+            background: rgba(0, 120, 200, 0.08);
+            border-color: #1a8fc0;
+            box-shadow: 0 4px 12px rgba(0, 120, 200, 0.15);
+        }
+
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
             font-size: 0.7rem;
             margin-top: 3rem;
             padding-top: 1rem;
-            border-top: 1px dashed rgba(0, 255, 255, 0.2);
+            border-top: 1px dashed var(--footer-border);
             color: #7f9eff;
+            transition: color 0.4s ease, border-color 0.4s ease;
         }
 
+        body.light-mode footer {
+            color: #4a6a8a;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            transition: background 0.4s ease;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 8px;
+            transition: background 0.4s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 850px) {
             .portfolio-container {
                 flex-direction: column;
             }
             .sidebar-left {
                 border-right: none;
-                border-bottom: 1px solid rgba(0, 255, 255, 0.4);
+                border-bottom: 1px solid var(--sidebar-border);
                 backdrop-filter: blur(20px);
                 width: 100%;
                 text-align: left;
@@ -654,326 +946,506 @@
             }
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* ===== MODE TOGGLE BUTTON ===== */
+        .theme-toggle-wrapper {
+            position: fixed;
+            top: 16px;
+            left: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        ::-webkit-scrollbar-track {
-            background: #0a0f1a;
+
+        .theme-toggle-btn {
+            background: var(--clock-bg);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--clock-border);
+            color: var(--clock-text);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            outline: none;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #0ff;
-            border-radius: 8px;
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.08) rotate(8deg);
+            border-color: #0ff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        body.light-mode .theme-toggle-btn:hover {
+            border-color: #1a8fc0;
+            box-shadow: 0 0 20px rgba(0, 120, 200, 0.25);
+        }
+
+        .theme-toggle-btn i {
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle-btn:hover i {
+            transform: rotate(30deg);
+        }
+
+        /* mode label kecil */
+        .theme-label {
+            font-size: 0.65rem;
+            color: var(--clock-text);
+            background: var(--clock-bg);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid var(--clock-border);
+            opacity: 0;
+            transition: opacity 0.3s ease, color 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .theme-toggle-wrapper:hover .theme-label {
+            opacity: 1;
+        }
+
+        /* responsif untuk toggle */
+        @media (max-width: 600px) {
+            .theme-toggle-wrapper {
+                top: 12px;
+                left: 12px;
+            }
+            .theme-toggle-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+            .theme-label {
+                display: none;
+            }
+            #cornerClock {
+                top: 12px;
+                right: 12px;
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+        }
+
+        /* ===== JAM ===== */
+        #cornerClock {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 9999;
+            background: var(--clock-bg);
+            backdrop-filter: blur(4px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--clock-border);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--clock-text);
+            box-shadow: 0 4px 20px var(--shadow-color);
+            transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        #cornerClock i {
+            margin-right: 6px;
+            color: #0ff;
+            transition: color 0.4s ease;
+        }
+
+        body.light-mode #cornerClock i {
+            color: #1a8fc0;
         }
     </style>
 </head>
 <body>
 
-<!-- JAM REAL-TIME POJOK KANAN ATAS (tidak mengubah apapun) -->
-<div id="cornerClock" style="position: fixed; top: 16px; right: 20px; z-index: 9999; background: rgba(0, 10, 30, 0.7); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 30px; border: 1px solid rgba(0, 255, 255, 0.25); font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; letter-spacing: 1px; color: #b0d4ff; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
-    <i class="fas fa-clock" style="margin-right: 6px; color: #0ff;"></i>
-    <span id="clockDisplay">--:--:--</span>
-</div>
-
-<div class="portfolio-container">
-    <aside class="sidebar-left">
-        <div class="profile-frame" id="js-profile-tilt">
-            <img src="foto_arkanu.jpg" alt="Muhammad Arkanu Dzikri" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Muhammad+Arkanu+Dzikri&background=0D8ABC&color=fff&size=512';">
-        </div>
-
-        <div class="name-highlight">
-            <h1>Muhammad<br>Arkanu Dzikri</h1>
-            <div class="badge-title">
-                <i class="fas fa-school" style="font-size: 0.8rem;"></i> As-Syifa Boarding School
-            </div>
-        </div>
-        
-        <div class="short-bio">
-            Siswa Kelas 8 SMP As-Syifa Boarding School (ASBOCH) | Anggota DUKES & KLS | Orang Tergabut se-ASBOCH | Penemu Jokes "Sup Lezat dan Bergizi".
-        </div>
-        
-        <ul class="info-list">
-            <li><i class="fas fa-graduation-cap"></i> <span>SMP As-Syifa Boarding School</span></li>
-            <li><i class="fas fa-award"></i> <span>Orang Tergabut se-ASBOCH</span></li>
-            <li><i class="fas fa-users"></i> <span>DUKES & KLS</span></li>
-            <li><i class="fas fa-heart"></i> <span>Humoris & Penyayang</span></li>
-        </ul>
-        
-        <div class="social-icons">
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        </div>
-        
-        <a href="#" class="cv-button"><i class="fas fa-download"></i> Unduh Portfolio</a>
-        
-        <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
-            <i class="fas fa-smile"></i> Sup Lezat & Bergizi
-        </div>
-    </aside>
-
-    <main class="main-content">
-        <section id="about" class="reveal">
-            <h2 class="section-title"><i class="fas fa-user" style="margin-right: 8px;"></i> Tentang Saya</h2>
-            <div class="glass-card about-text">
-                <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, seorang santri/siswa kelas 8 di <strong class="glow-text">SMP As-Syifa Boarding School (ASBOCH)</strong>. Saya berkarakter <strong class="glow-text">humoris</strong>, hangat, dan <strong class="glow-text">penyayang</strong>.</p>
-                <p>Di lingkungan asrama dan sekolah, saya aktif dalam organisasi <strong class="glow-text">DUKES (Duta Kesehatan)</strong> dan <strong class="glow-text">KLS (Komunitas Literasi Sekolah)</strong>. Selain itu, saya juga memegang gelar tidak resmi sebagai <strong class="glow-text">"Orang Tergabut se-ASBOCH"</strong> karena selalu berhasil menemukan waktu santai untuk membuat jokes ikonik <strong class="glow-text">"sup lezat dan bergizi"</strong> yang mencairkan suasana.</p>
-                <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Menyebarkan kebaikan, kesehatan, dan tawa di lingkungan ASBOCH."</p>
-            </div>
-        </section>
-
-        <section id="experience" class="reveal">
-            <h2 class="section-title"><i class="fas fa-users"></i> Organisasi & Sekolah</h2>
-            <div class="glass-card" style="padding: 0.2rem 1.5rem 1rem 1.5rem;">
-                <div class="experience-item">
-                    <div class="exp-title">
-                        <span>SMP As-Syifa Boarding School (ASBOCH)</span>
-                        <span class="exp-date">Kelas 8</span>
-                    </div>
-                    <div class="exp-company">Pendidikan / Asrama</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Menjalani kehidupan sekolah berasrama, belajar kemandirian, kebersamaan, dan berkarya bersama teman-teman.</p>
-                </div>
-                <div class="experience-item">
-                    <div class="exp-title">
-                        <span>DUKES (Duta Kesehatan)</span>
-                        <span class="exp-date">Aktif</span>
-                    </div>
-                    <div class="exp-company">Organisasi Sekolah</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Aktif mengedukasi santri/siswa tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang.</p>
-                </div>
-                <div class="experience-item">
-                    <div class="exp-title">
-                        <span>KLS (Komunitas Literasi Sekolah)</span>
-                        <span class="exp-date">Aktif</span>
-                    </div>
-                    <div class="exp-company">Organisasi Sekolah</div>
-                    <p style="font-size: 0.85rem; color:#c2dcff;">Turut memajukan minat membaca, menulis, dan kreativitas literasi di lingkungan sekolah.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="reveal">
-            <h2 class="section-title"><i class="fas fa-sparkles"></i> Karakter & Keahlian</h2>
-            <div class="glass-card">
-                <div class="skills-grid">
-                    <span class="skill-pill">Edukasi Kesehatan (DUKES)</span>
-                    <span class="skill-pill">Literasi & Kreativitas (KLS)</span>
-                    <span class="skill-pill">Master Gabut se-ASBOCH</span>
-                    <span class="skill-pill">Humoris & Pencipta Jokes</span>
-                    <span class="skill-pill">Kepribadian Penyayang</span>
-                    <span class="skill-pill">Public Speaking & Sosialisasi</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="reveal">
-            <h2 class="section-title"><i class="fas fa-trophy"></i> Karya & Prestasi Unik</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-crown"></i></div>
-                    <h3>Orang Tergabut se-ASBOCH</h3>
-                    <p>Gelar kehormatan lokal karena selalu punya waktu santai untuk merangkul teman-teman, mencairkan suasana asrama, dan menyebarkan keceriaan.</p>
-                    <div class="project-tech">
-                        <span>#ASBOCH</span><span>#GagahnyaSantai</span><span>#Moodmaker</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-utensils"></i></div>
-                    <h3>Jokes "Sup Lezat dan Bergizi"</h3>
-                    <p>Jokes buatan sendiri yang populer di kalangan teman-teman ASBOCH, selalu berhasil memecahkan keheningan.</p>
-                    <div class="project-tech">
-                        <span>#Humor</span><span>#SupLezatDanBergizi</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon"><i class="fas fa-notes-medical"></i></div>
-                    <h3>Kegiatan DUKES & KLS</h3>
-                    <p>Inisiatif program gaya hidup sehat serta literasi seru bagi seluruh santri ASBOCH.</p>
-                    <div class="project-tech">
-                        <span>#DutaKesehatan</span><span>#LiterasiASBOCH</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="movies-time" class="reveal">
-            <h2 class="section-title"><i class="fas fa-play-circle"></i> Movies Time (Video Arkan)</h2>
-            <div class="glass-card">
-                <div class="video-wrapper">
-                    <video controls preload="auto">
-                        <source src="videoplayback.mp4" type="video/mp4">
-                        Browser Anda tidak mendukung pemutar video HTML5.
-                    </video>
-                </div>
-            </div>
-        </section>
-
-        <section id="music-time" class="reveal">
-            <h2 class="section-title"><i class="fas fa-music"></i> Musik Kesukaan Arkan</h2>
-            <div class="glass-card">
-                <div class="audio-container">
-                    <div class="audio-meta">
-                        <i class="fas fa-headphones-alt"></i>
-                        <span>Now Playing: Audio Pilihan Arkan</span>
-                    </div>
-                    <audio controls preload="auto">
-                        <source src="videoplayback.m4a" type="audio/x-m4a">
-                        <source src="videoplayback.m4a" type="audio/mp4">
-                        Browser Anda tidak mendukung pemutar audio HTML5.
-                    </audio>
-                </div>
-            </div>
-        </section>
-
-        <section id="gallery" class="reveal">
-            <h2 class="section-title"><i class="fas fa-images"></i> Galeri Kenangan ASBOCH</h2>
-            <div class="glass-card">
-                <div class="gallery-container">
-                    <div class="gallery-item js-lightbox-trigger">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400" alt="Kebersamaan di Asrama ASBOCH">
-                        <div class="gallery-caption">Kebersamaan di Asrama ASBOCH</div>
-                    </div>
-                    <div class="gallery-item js-lightbox-trigger">
-                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400" alt="Kegiatan Edukasi DUKES">
-                        <div class="gallery-caption">Kegiatan Edukasi DUKES</div>
-                    </div>
-                    <div class="gallery-item js-lightbox-trigger">
-                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=400" alt="Momen Literasi Bersama KLS">
-                        <div class="gallery-caption">Momen Literasi Bersama KLS</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="reveal">
-            <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Kontak & Sapa Saya</h2>
-            <div class="glass-card">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:arkanu@example.com">arkanu@example.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-instagram"></i>
-                        <span>@arkanu_dzikri</span>
-                    </div>
-                </div>
-                <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #98b0e6;">
-                    <i class="fas fa-smile"></i> Santri ASBOCH yang selalu siap berbagi cerita, humor, dan kebaikan!
-                </div>
-            </div>
-        </section>
-        
-        <footer>
-            <span>✦ 2025 Muhammad Arkanu Dzikri — ASBOCH ✦</span><br>
-            <span style="font-size: 0.65rem;">SMP As-Syifa Boarding School | DUKES & KLS | Orang Tergabut se-ASBOCH</span>
-        </footer>
-    </main>
-</div>
-
-<div class="lightbox-modal" id="js-lightbox">
-    <div class="lightbox-content">
-        <span class="lightbox-close" id="js-lightbox-close">&times;</span>
-        <img src="" alt="Zoomed" class="lightbox-img" id="js-lightbox-img">
-        <div class="lightbox-desc" id="js-lightbox-desc"></div>
+    <!-- ===== THEME TOGGLE (kiri atas) ===== -->
+    <div class="theme-toggle-wrapper">
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle tema gelap/terang">
+            <i class="fas fa-moon"></i>
+        </button>
+        <span class="theme-label" id="themeLabel">Mode Gelap</span>
     </div>
-</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        
-        // 1. HOVER EFEK GLOW PADA NAMA
-        const nameElement = document.querySelector('.name-highlight h1');
-        if(nameElement) {
-            nameElement.addEventListener('mouseenter', () => {
-                nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
-            });
-            nameElement.addEventListener('mouseleave', () => {
-                nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
-            });
-        }
+    <!-- ===== JAM (kanan atas) ===== -->
+    <div id="cornerClock">
+        <i class="fas fa-clock"></i>
+        <span id="clockDisplay">--:--:--</span>
+    </div>
 
-        // 2. SCROLL REVEAL ANIMATION
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) {
-                        entry.target.classList.add('active');
+    <!-- ===== PORTFOLIO ===== -->
+    <div class="portfolio-container">
+        <aside class="sidebar-left">
+            <div class="profile-frame" id="js-profile-tilt">
+                <img src="foto_arkanu.jpg" alt="Muhammad Arkanu Dzikri" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Muhammad+Arkanu+Dzikri&background=0D8ABC&color=fff&size=512';">
+            </div>
+
+            <div class="name-highlight">
+                <h1>Muhammad<br>Arkanu Dzikri</h1>
+                <div class="badge-title">
+                    <i class="fas fa-school" style="font-size: 0.8rem;"></i> As-Syifa Boarding School
+                </div>
+            </div>
+
+            <div class="short-bio">
+                Siswa Kelas 8 SMP As-Syifa Boarding School (ASBOCH) | Anggota DUKES & KLS | Orang Tergabut se-ASBOCH | Penemu Jokes "Sup Lezat dan Bergizi".
+            </div>
+
+            <ul class="info-list">
+                <li><i class="fas fa-graduation-cap"></i> <span>SMP As-Syifa Boarding School</span></li>
+                <li><i class="fas fa-award"></i> <span>Orang Tergabut se-ASBOCH</span></li>
+                <li><i class="fas fa-users"></i> <span>DUKES & KLS</span></li>
+                <li><i class="fas fa-heart"></i> <span>Humoris & Penyayang</span></li>
+            </ul>
+
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+
+            <a href="#" class="cv-button"><i class="fas fa-download"></i> Unduh Portfolio</a>
+
+            <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
+                <i class="fas fa-smile"></i> Sup Lezat & Bergizi
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section id="about" class="reveal">
+                <h2 class="section-title"><i class="fas fa-user" style="margin-right: 8px;"></i> Tentang Saya</h2>
+                <div class="glass-card about-text">
+                    <p>Saya <strong class="glow-text">Muhammad Arkanu Dzikri</strong>, seorang santri/siswa kelas 8 di <strong class="glow-text">SMP As-Syifa Boarding School (ASBOCH)</strong>. Saya berkarakter <strong class="glow-text">humoris</strong>, hangat, dan <strong class="glow-text">penyayang</strong>.</p>
+                    <p>Di lingkungan asrama dan sekolah, saya aktif dalam organisasi <strong class="glow-text">DUKES (Duta Kesehatan)</strong> dan <strong class="glow-text">KLS (Komunitas Literasi Sekolah)</strong>. Selain itu, saya juga memegang gelar tidak resmi sebagai <strong class="glow-text">"Orang Tergabut se-ASBOCH"</strong> karena selalu berhasil menemukan waktu santai untuk membuat jokes ikonik <strong class="glow-text">"sup lezat dan bergizi"</strong> yang mencairkan suasana.</p>
+                    <p><i class="fas fa-star-of-life" style="color:#0ff;"></i> Filosofi saya: "Menyebarkan kebaikan, kesehatan, dan tawa di lingkungan ASBOCH."</p>
+                </div>
+            </section>
+
+            <section id="experience" class="reveal">
+                <h2 class="section-title"><i class="fas fa-users"></i> Organisasi & Sekolah</h2>
+                <div class="glass-card" style="padding: 0.2rem 1.5rem 1rem 1.5rem;">
+                    <div class="experience-item">
+                        <div class="exp-title">
+                            <span>SMP As-Syifa Boarding School (ASBOCH)</span>
+                            <span class="exp-date">Kelas 8</span>
+                        </div>
+                        <div class="exp-company">Pendidikan / Asrama</div>
+                        <p style="font-size: 0.85rem; color:var(--text-secondary);">Menjalani kehidupan sekolah berasrama, belajar kemandirian, kebersamaan, dan berkarya bersama teman-teman.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="exp-title">
+                            <span>DUKES (Duta Kesehatan)</span>
+                            <span class="exp-date">Aktif</span>
+                        </div>
+                        <div class="exp-company">Organisasi Sekolah</div>
+                        <p style="font-size: 0.85rem; color:var(--text-secondary);">Aktif mengedukasi santri/siswa tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="exp-title">
+                            <span>KLS (Komunitas Literasi Sekolah)</span>
+                            <span class="exp-date">Aktif</span>
+                        </div>
+                        <div class="exp-company">Organisasi Sekolah</div>
+                        <p style="font-size: 0.85rem; color:var(--text-secondary);">Turut memajukan minat membaca, menulis, dan kreativitas literasi di lingkungan sekolah.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="reveal">
+                <h2 class="section-title"><i class="fas fa-sparkles"></i> Karakter & Keahlian</h2>
+                <div class="glass-card">
+                    <div class="skills-grid">
+                        <span class="skill-pill">Edukasi Kesehatan (DUKES)</span>
+                        <span class="skill-pill">Literasi & Kreativitas (KLS)</span>
+                        <span class="skill-pill">Master Gabut se-ASBOCH</span>
+                        <span class="skill-pill">Humoris & Pencipta Jokes</span>
+                        <span class="skill-pill">Kepribadian Penyayang</span>
+                        <span class="skill-pill">Public Speaking & Sosialisasi</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="reveal">
+                <h2 class="section-title"><i class="fas fa-trophy"></i> Karya & Prestasi Unik</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-crown"></i></div>
+                        <h3>Orang Tergabut se-ASBOCH</h3>
+                        <p>Gelar kehormatan lokal karena selalu punya waktu santai untuk merangkul teman-teman, mencairkan suasana asrama, dan menyebarkan keceriaan.</p>
+                        <div class="project-tech">
+                            <span>#ASBOCH</span><span>#GagahnyaSantai</span><span>#Moodmaker</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-utensils"></i></div>
+                        <h3>Jokes "Sup Lezat dan Bergizi"</h3>
+                        <p>Jokes buatan sendiri yang populer di kalangan teman-teman ASBOCH, selalu berhasil memecahkan keheningan.</p>
+                        <div class="project-tech">
+                            <span>#Humor</span><span>#SupLezatDanBergizi</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-notes-medical"></i></div>
+                        <h3>Kegiatan DUKES & KLS</h3>
+                        <p>Inisiatif program gaya hidup sehat serta literasi seru bagi seluruh santri ASBOCH.</p>
+                        <div class="project-tech">
+                            <span>#DutaKesehatan</span><span>#LiterasiASBOCH</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="movies-time" class="reveal">
+                <h2 class="section-title"><i class="fas fa-play-circle"></i> Movies Time (Video Arkan)</h2>
+                <div class="glass-card">
+                    <div class="video-wrapper">
+                        <video controls preload="auto">
+                            <source src="videoplayback.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung pemutar video HTML5.
+                        </video>
+                    </div>
+                </div>
+            </section>
+
+            <section id="music-time" class="reveal">
+                <h2 class="section-title"><i class="fas fa-music"></i> Musik Kesukaan Arkan</h2>
+                <div class="glass-card">
+                    <div class="audio-container">
+                        <div class="audio-meta">
+                            <i class="fas fa-headphones-alt"></i>
+                            <span>Now Playing: Audio Pilihan Arkan</span>
+                        </div>
+                        <audio controls preload="auto">
+                            <source src="videoplayback.m4a" type="audio/x-m4a">
+                            <source src="videoplayback.m4a" type="audio/mp4">
+                            Browser Anda tidak mendukung pemutar audio HTML5.
+                        </audio>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gallery" class="reveal">
+                <h2 class="section-title"><i class="fas fa-images"></i> Galeri Kenangan ASBOCH</h2>
+                <div class="glass-card">
+                    <div class="gallery-container">
+                        <div class="gallery-item js-lightbox-trigger">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400" alt="Kebersamaan di Asrama ASBOCH">
+                            <div class="gallery-caption">Kebersamaan di Asrama ASBOCH</div>
+                        </div>
+                        <div class="gallery-item js-lightbox-trigger">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400" alt="Kegiatan Edukasi DUKES">
+                            <div class="gallery-caption">Kegiatan Edukasi DUKES</div>
+                        </div>
+                        <div class="gallery-item js-lightbox-trigger">
+                            <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=400" alt="Momen Literasi Bersama KLS">
+                            <div class="gallery-caption">Momen Literasi Bersama KLS</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="reveal">
+                <h2 class="section-title"><i class="fas fa-envelope-open-text"></i> Kontak & Sapa Saya</h2>
+                <div class="glass-card">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:arkanu@example.com">arkanu@example.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-instagram"></i>
+                            <span>@arkanu_dzikri</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.2rem; font-size: 0.8rem; color: var(--text-secondary);">
+                        <i class="fas fa-smile"></i> Santri ASBOCH yang selalu siap berbagi cerita, humor, dan kebaikan!
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <span>✦ 2025 Muhammad Arkanu Dzikri — ASBOCH ✦</span><br>
+                <span style="font-size: 0.65rem;">SMP As-Syifa Boarding School | DUKES & KLS | Orang Tergabut se-ASBOCH</span>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox-modal" id="js-lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="js-lightbox-close">&times;</span>
+            <img src="" alt="Zoomed" class="lightbox-img" id="js-lightbox-img">
+            <div class="lightbox-desc" id="js-lightbox-desc"></div>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPT ===== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ========================================
+            // 1. THEME TOGGLE (GELAP / TERANG)
+            // ========================================
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const themeLabel = document.getElementById('themeLabel');
+            const body = document.body;
+            const icon = themeToggleBtn.querySelector('i');
+
+            // Cek preferensi tersimpan
+            const savedTheme = localStorage.getItem('arkanu-theme');
+            if (savedTheme === 'light') {
+                body.classList.add('light-mode');
+                icon.className = 'fas fa-sun';
+                themeLabel.textContent = 'Mode Terang';
+            } else {
+                // default dark
+                icon.className = 'fas fa-moon';
+                themeLabel.textContent = 'Mode Gelap';
+            }
+
+            // Toggle
+            themeToggleBtn.addEventListener('click', function() {
+                const isLight = body.classList.toggle('light-mode');
+
+                if (isLight) {
+                    icon.className = 'fas fa-sun';
+                    themeLabel.textContent = 'Mode Terang';
+                    localStorage.setItem('arkanu-theme', 'light');
+                } else {
+                    icon.className = 'fas fa-moon';
+                    themeLabel.textContent = 'Mode Gelap';
+                    localStorage.setItem('arkanu-theme', 'dark');
+                }
+
+                // animasi tambahan
+                themeToggleBtn.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    themeToggleBtn.style.transform = 'scale(1)';
+                }, 150);
+            });
+
+            // ========================================
+            // 2. HOVER EFEK GLOW PADA NAMA
+            // ========================================
+            const nameElement = document.querySelector('.name-highlight h1');
+            if (nameElement) {
+                nameElement.addEventListener('mouseenter', () => {
+                    nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
+                });
+                nameElement.addEventListener('mouseleave', () => {
+                    nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
+                });
+            }
+
+            // ========================================
+            // 3. SCROLL REVEAL ANIMATION
+            // ========================================
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(el);
+            });
+
+            // ========================================
+            // 4. 3D TILT EFFECT FOTO PROFIL
+            // ========================================
+            const profileTilt = document.getElementById('js-profile-tilt');
+            const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
+
+            if (profileTilt && profileImg) {
+                profileTilt.addEventListener('mousemove', (e) => {
+                    const rect = profileTilt.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const midX = rect.width / 2;
+                    const midY = rect.height / 2;
+                    const rotateX = ((midY - y) / midY) * 15;
+                    const rotateY = ((x - midX) / midX) * 15;
+
+                    profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                profileTilt.addEventListener('mouseleave', () => {
+                    profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+                });
+            }
+
+            // ========================================
+            // 5. LIGHTBOX MODAL GALERI
+            // ========================================
+            const lightbox = document.getElementById('js-lightbox');
+            const lightboxImg = document.getElementById('js-lightbox-img');
+            const lightboxDesc = document.getElementById('js-lightbox-desc');
+            const lightboxClose = document.getElementById('js-lightbox-close');
+            const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    if (img && lightbox && lightboxImg && lightboxDesc) {
+                        lightboxImg.src = img.src;
+                        lightboxDesc.textContent = img.alt;
+                        lightbox.classList.add('show');
+                        document.body.style.overflow = 'hidden';
                     }
                 });
-            }, { threshold: 0.1 });
-            observer.observe(el);
-        });
-
-        // 3. 3D TILT EFFECT FOTO PROFIL
-        const profileTilt = document.getElementById('js-profile-tilt');
-        const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
-        
-        if (profileTilt && profileImg) {
-            profileTilt.addEventListener('mousemove', (e) => {
-                const rect = profileTilt.getBoundingClientRect();
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top; 
-                const midX = rect.width / 2;
-                const midY = rect.height / 2;
-                const rotateX = ((midY - y) / midY) * 15;
-                const rotateY = ((x - midX) / midX) * 15;
-                
-                profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
-            
-            profileTilt.addEventListener('mouseleave', () => {
-                profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
-            });
-        }
 
-        // 4. LIGHTBOX MODAL GALERI
-        const lightbox = document.getElementById('js-lightbox');
-        const lightboxImg = document.getElementById('js-lightbox-img');
-        const lightboxDesc = document.getElementById('js-lightbox-desc');
-        const lightboxClose = document.getElementById('js-lightbox-close');
-        const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if (img && lightbox && lightboxImg && lightboxDesc) {
-                    lightboxImg.src = img.src;
-                    lightboxDesc.textContent = img.alt;
-                    lightbox.classList.add('show');
-                }
-            });
-        });
-
-        if (lightboxClose && lightbox) {
-            lightboxClose.addEventListener('click', () => {
-                lightbox.classList.remove('show');
-            });
-            
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
+            if (lightboxClose && lightbox) {
+                lightboxClose.addEventListener('click', () => {
                     lightbox.classList.remove('show');
-                }
-            });
-        }
+                    document.body.style.overflow = '';
+                });
 
-        // 5. JAM REAL-TIME (penambahan tanpa mengubah apapun)
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const display = document.getElementById('clockDisplay');
-            if (display) {
-                display.textContent = hours + ':' + minutes + ':' + seconds;
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                });
+
+                // Tutup dengan tombol ESC
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+                        lightbox.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                });
             }
-        }
-        updateClock();
-        setInterval(updateClock, 1000);
 
-        console.log("Muhammad Arkanu Dzikri | Portfolio ASBOCH Berhasil Dimuat.");
-    });
-</script>
+            // ========================================
+            // 6. JAM REAL-TIME
+            // ========================================
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const display = document.getElementById('clockDisplay');
+                if (display) {
+                    display.textContent = hours + ':' + minutes + ':' + seconds;
+                }
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            console.log("Muhammad Arkanu Dzikri | Portfolio ASBOCH Berhasil Dimuat.");
+        });
+    </script>
 </body>
 </html>
