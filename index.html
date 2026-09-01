@@ -120,36 +120,23 @@
             min-height: 100vh;
         }
 
-        /* ===== SIDEBAR KIRI ===== */
+        /* ===== SIDEBAR KIRI (tanpa garis pemisah) ===== */
         .sidebar-left {
             flex: 1.2;
             min-width: 280px;
             background: var(--card-bg);
             backdrop-filter: blur(16px);
-            border-right: 1px solid var(--sidebar-border);
+            border-right: none;
             box-shadow: -10px 0 30px var(--shadow-color);
             padding: 2rem 1.8rem;
             display: flex;
             flex-direction: column;
             position: relative;
-            transition: background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            transition: background 0.5s ease, box-shadow 0.4s ease;
         }
 
         .sidebar-left::after {
-            content: "";
-            position: absolute;
-            top: 10%;
-            right: -1px;
-            width: 2px;
-            height: 80%;
-            background: linear-gradient(to bottom, #0ff, #f0f, #0ff);
-            filter: blur(3px);
-            opacity: 0.7;
-            transition: opacity 0.4s ease;
-        }
-
-        body.light-mode .sidebar-left::after {
-            opacity: 0.3;
+            display: none;
         }
 
         /* ===== PROFIL ===== */
@@ -994,7 +981,6 @@
             transform: rotate(30deg);
         }
 
-        /* mode label kecil */
         .theme-label {
             font-size: 0.65rem;
             color: var(--clock-text);
@@ -1013,7 +999,6 @@
             opacity: 1;
         }
 
-        /* responsif untuk toggle */
         @media (max-width: 600px) {
             .theme-toggle-wrapper {
                 top: 12px;
@@ -1035,7 +1020,6 @@
             }
         }
 
-        /* ===== JAM ===== */
         #cornerClock {
             position: fixed;
             top: 16px;
@@ -1067,7 +1051,7 @@
 </head>
 <body>
 
-    <!-- ===== THEME TOGGLE (kiri atas) ===== -->
+    <!-- ===== THEME TOGGLE ===== -->
     <div class="theme-toggle-wrapper">
         <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle tema gelap/terang">
             <i class="fas fa-moon"></i>
@@ -1075,7 +1059,7 @@
         <span class="theme-label" id="themeLabel">Mode Gelap</span>
     </div>
 
-    <!-- ===== JAM (kanan atas) ===== -->
+    <!-- ===== JAM ===== -->
     <div id="cornerClock">
         <i class="fas fa-clock"></i>
         <span id="clockDisplay">--:--:--</span>
@@ -1177,28 +1161,63 @@
             <section id="projects" class="reveal">
                 <h2 class="section-title"><i class="fas fa-trophy"></i> Karya & Prestasi Unik</h2>
                 <div class="projects-grid">
+                    <!-- Card 1: Project Arkanu (payung utama) -->
                     <div class="project-card">
-                        <div class="project-icon"><i class="fas fa-crown"></i></div>
-                        <h3>Orang Tergabut se-ASBOCH</h3>
-                        <p>Gelar kehormatan lokal karena selalu punya waktu santai untuk merangkul teman-teman, mencairkan suasana asrama, dan menyebarkan keceriaan.</p>
+                        <div class="project-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>🚀 Project Arkanu</h3>
+                        <p>Payung dari seluruh karya dan inisiatif saya selama di ASBOCH. Mulai dari gerakan literasi, kampanye kesehatan, hingga konten kreatif yang menghibur dan menginspirasi.</p>
                         <div class="project-tech">
-                            <span>#ASBOCH</span><span>#GagahnyaSantai</span><span>#Moodmaker</span>
+                            <span>#ProjectArkanu</span><span>#KaryaSantri</span><span>#ASBOCHBangkit</span>
                         </div>
                     </div>
+
+                    <!-- Card 2: Gerakan 1000 Buku (KLS) -->
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-book-open"></i></div>
+                        <h3>Gerakan 1000 Buku</h3>
+                        <p>Inisiatif di bawah KLS untuk mendorong minat baca santri. Saya aktif menjadi motivator dan mengadakan sesi bedah buku mingguan di asrama.</p>
+                        <div class="project-tech">
+                            <span>#Literasi</span><span>#1000Buku</span><span>#KLS</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Edukasi Gizi Sehat (DUKES) -->
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-apple-alt"></i></div>
+                        <h3>Edukasi Gizi Sehat</h3>
+                        <p>Program DUKES yang saya gagas untuk mengedukasi santri tentang pola makan sehat dan gizi seimbang, dengan media poster dan games interaktif.</p>
+                        <div class="project-tech">
+                            <span>#DUKES</span><span>#GiziSehat</span><span>#Edukasi</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Podcast Santri ASBOCH -->
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-podcast"></i></div>
+                        <h3>Podcast Santri ASBOCH</h3>
+                        <p>Konten audio yang saya produksi bersama teman-teman, membahas isu sehari-hari, motivasi, dan cerita inspiratif dari lingkungan pesantren.</p>
+                        <div class="project-tech">
+                            <span>#Podcast</span><span>#SantriASBOCH</span><span>#SuaraSantri</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Jokes "Sup Lezat dan Bergizi" -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-utensils"></i></div>
                         <h3>Jokes "Sup Lezat dan Bergizi"</h3>
-                        <p>Jokes buatan sendiri yang populer di kalangan teman-teman ASBOCH, selalu berhasil memecahkan keheningan.</p>
+                        <p>Karya humor yang menjadi ciri khas saya. Jokes ini selalu berhasil memecahkan kebekuan dan menghadirkan tawa di tengah kesibukan asrama.</p>
                         <div class="project-tech">
-                            <span>#Humor</span><span>#SupLezatDanBergizi</span>
+                            <span>#Humor</span><span>#SupLezatDanBergizi</span><span>#Moodmaker</span>
                         </div>
                     </div>
+
+                    <!-- Card 6: Orang Tergabut se-ASBOCH -->
                     <div class="project-card">
-                        <div class="project-icon"><i class="fas fa-notes-medical"></i></div>
-                        <h3>Kegiatan DUKES & KLS</h3>
-                        <p>Inisiatif program gaya hidup sehat serta literasi seru bagi seluruh santri ASBOCH.</p>
+                        <div class="project-icon"><i class="fas fa-crown"></i></div>
+                        <h3>Orang Tergabut se-ASBOCH</h3>
+                        <p>Gelar kehormatan yang saya sandang karena selalu punya cara untuk mencairkan suasana dan menjadi penghubung antar santri dengan penuh kehangatan.</p>
                         <div class="project-tech">
-                            <span>#DutaKesehatan</span><span>#LiterasiASBOCH</span>
+                            <span>#ASBOCH</span><span>#GagahnyaSantai</span><span>#Bersama</span>
                         </div>
                     </div>
                 </div>
@@ -1293,29 +1312,25 @@
         document.addEventListener("DOMContentLoaded", function() {
 
             // ========================================
-            // 1. THEME TOGGLE (GELAP / TERANG)
+            // 1. THEME TOGGLE
             // ========================================
             const themeToggleBtn = document.getElementById('themeToggle');
             const themeLabel = document.getElementById('themeLabel');
             const body = document.body;
             const icon = themeToggleBtn.querySelector('i');
 
-            // Cek preferensi tersimpan
             const savedTheme = localStorage.getItem('arkanu-theme');
             if (savedTheme === 'light') {
                 body.classList.add('light-mode');
                 icon.className = 'fas fa-sun';
                 themeLabel.textContent = 'Mode Terang';
             } else {
-                // default dark
                 icon.className = 'fas fa-moon';
                 themeLabel.textContent = 'Mode Gelap';
             }
 
-            // Toggle
             themeToggleBtn.addEventListener('click', function() {
                 const isLight = body.classList.toggle('light-mode');
-
                 if (isLight) {
                     icon.className = 'fas fa-sun';
                     themeLabel.textContent = 'Mode Terang';
@@ -1325,8 +1340,6 @@
                     themeLabel.textContent = 'Mode Gelap';
                     localStorage.setItem('arkanu-theme', 'dark');
                 }
-
-                // animasi tambahan
                 themeToggleBtn.style.transform = 'scale(0.9)';
                 setTimeout(() => {
                     themeToggleBtn.style.transform = 'scale(1)';
@@ -1334,7 +1347,7 @@
             });
 
             // ========================================
-            // 2. HOVER EFEK GLOW PADA NAMA
+            // 2. HOVER GLOW NAMA
             // ========================================
             const nameElement = document.querySelector('.name-highlight h1');
             if (nameElement) {
@@ -1347,7 +1360,7 @@
             }
 
             // ========================================
-            // 3. SCROLL REVEAL ANIMATION
+            // 3. SCROLL REVEAL
             // ========================================
             const revealElements = document.querySelectorAll('.reveal');
             revealElements.forEach(el => {
@@ -1362,11 +1375,10 @@
             });
 
             // ========================================
-            // 4. 3D TILT EFFECT FOTO PROFIL
+            // 4. 3D TILT PROFIL
             // ========================================
             const profileTilt = document.getElementById('js-profile-tilt');
             const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
-
             if (profileTilt && profileImg) {
                 profileTilt.addEventListener('mousemove', (e) => {
                     const rect = profileTilt.getBoundingClientRect();
@@ -1376,17 +1388,15 @@
                     const midY = rect.height / 2;
                     const rotateX = ((midY - y) / midY) * 15;
                     const rotateY = ((x - midX) / midX) * 15;
-
                     profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 });
-
                 profileTilt.addEventListener('mouseleave', () => {
                     profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
                 });
             }
 
             // ========================================
-            // 5. LIGHTBOX MODAL GALERI
+            // 5. LIGHTBOX
             // ========================================
             const lightbox = document.getElementById('js-lightbox');
             const lightboxImg = document.getElementById('js-lightbox-img');
@@ -1411,15 +1421,12 @@
                     lightbox.classList.remove('show');
                     document.body.style.overflow = '';
                 });
-
                 lightbox.addEventListener('click', (e) => {
                     if (e.target === lightbox) {
                         lightbox.classList.remove('show');
                         document.body.style.overflow = '';
                     }
                 });
-
-                // Tutup dengan tombol ESC
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape' && lightbox.classList.contains('show')) {
                         lightbox.classList.remove('show');
@@ -1429,7 +1436,7 @@
             }
 
             // ========================================
-            // 6. JAM REAL-TIME
+            // 6. JAM
             // ========================================
             function updateClock() {
                 const now = new Date();
