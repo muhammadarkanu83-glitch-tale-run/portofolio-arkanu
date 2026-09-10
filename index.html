@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Muhammad Arkanu Dzikri - Portfolio & Kamus</title>
+    <title>Muhammad Arkanu Dzikri - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -87,6 +87,7 @@
             transition: background 0.5s ease, color 0.4s ease;
         }
 
+        /* Efek grid futuristik di latar belakang */
         body::before {
             content: "";
             position: fixed;
@@ -119,7 +120,7 @@
             min-height: 100vh;
         }
 
-        /* ===== SIDEBAR KIRI ===== */
+        /* ===== SIDEBAR KIRI (tanpa garis pemisah) ===== */
         .sidebar-left {
             flex: 1.2;
             min-width: 280px;
@@ -134,6 +135,11 @@
             transition: background 0.5s ease, box-shadow 0.4s ease;
         }
 
+        .sidebar-left::after {
+            display: none;
+        }
+
+        /* ===== PROFIL ===== */
         .profile-frame {
             width: 100%;
             height: 280px;
@@ -243,7 +249,7 @@
             margin-bottom: 1rem;
             font-size: 0.9rem;
             color: var(--text-muted);
-            transition: transform 0.2s ease, color 0.2s ease;
+            transition: transform 0.2s ease, color 0.2s ease, color 0.4s ease;
         }
 
         .info-list li:hover {
@@ -277,6 +283,7 @@
         .social-icons a {
             color: #ccf4ff;
             font-size: 1.4rem;
+            transition: 0.2s ease;
             background: rgba(255, 255, 255, 0.03);
             width: 40px;
             height: 40px;
@@ -310,7 +317,7 @@
             background: rgba(0, 120, 200, 0.08);
         }
 
-        .cv-button, .dictionary-btn {
+        .cv-button {
             background: linear-gradient(95deg, rgba(0, 255, 255, 0.15), rgba(100, 0, 255, 0.2));
             border: 1px solid rgba(0, 255, 255, 0.6);
             color: #0ff;
@@ -325,18 +332,15 @@
             text-decoration: none;
             display: block;
             font-size: 0.9rem;
-            cursor: pointer;
-            width: 100%;
         }
 
-        body.light-mode .cv-button, 
-        body.light-mode .dictionary-btn {
+        body.light-mode .cv-button {
             background: linear-gradient(95deg, rgba(0, 120, 200, 0.15), rgba(80, 40, 200, 0.15));
             border-color: rgba(0, 120, 200, 0.5);
             color: #1a6b8a;
         }
 
-        .cv-button:hover, .dictionary-btn:hover {
+        .cv-button:hover {
             background: rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 15px cyan;
             border-color: cyan;
@@ -344,8 +348,7 @@
             transform: scale(1.02);
         }
 
-        body.light-mode .cv-button:hover,
-        body.light-mode .dictionary-btn:hover {
+        body.light-mode .cv-button:hover {
             background: rgba(0, 120, 200, 0.2);
             box-shadow: 0 0 15px rgba(0, 120, 200, 0.4);
             border-color: #1a8fc0;
@@ -502,6 +505,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             letter-spacing: 0.3px;
+            transition: all 0.2s;
             color: #cdf2ff;
             transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.2s, box-shadow 0.2s;
         }
@@ -912,6 +916,9 @@
                 text-align: left;
                 padding: 1.8rem;
             }
+            .sidebar-left::after {
+                display: none;
+            }
             .name-highlight h1 {
                 font-size: 2rem;
             }
@@ -1040,165 +1047,6 @@
         body.light-mode #cornerClock i {
             color: #1a8fc0;
         }
-
-        /* ===== MODAL KAMUS BAHASA JAWA ===== */
-        .dict-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--lightbox-overlay);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 20px;
-        }
-
-        .dict-modal.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .dict-modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            width: 100%;
-            max-width: 700px;
-            max-height: 85vh;
-            border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            backdrop-filter: blur(15px);
-        }
-
-        .dict-modal.show .dict-modal-content {
-            transform: scale(1);
-        }
-
-        .dict-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 10px;
-        }
-
-        .dict-modal-header h2 {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-        }
-
-        .dict-modal-close {
-            font-size: 1.8rem;
-            color: #0ff;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .dict-modal-close:hover {
-            color: #f0f;
-        }
-
-        .dict-search-input {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 1rem;
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .dict-search-input:focus {
-            border-color: #0ff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-        }
-
-        .dict-stats {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .dict-list-container {
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding-right: 5px;
-        }
-
-        .dict-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-left: 4px solid #0ff;
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .dict-card h3 {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .dict-translations {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .dict-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .dict-badge-ngoko {
-            background: rgba(0, 255, 255, 0.15);
-            color: #0ff;
-            border: 0.5px solid cyan;
-        }
-
-        .dict-badge-krama {
-            background: rgba(165, 92, 255, 0.15);
-            color: #a55cff;
-            border: 0.5px solid #a55cff;
-        }
-
-        .dict-example {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 6px 10px;
-            border-radius: 6px;
-        }
-
-        .dict-no-result {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-muted);
-        }
     </style>
 </head>
 <body>
@@ -1250,8 +1098,6 @@
             </div>
 
             <a href="#" class="cv-button"><i class="fas fa-download"></i> Unduh Portfolio</a>
-            <!-- TOMBOL KAMUS BAHASA JAWA -->
-            <button class="dictionary-btn" id="js-open-dict" style="margin-top: 10px;"><i class="fas fa-book"></i> Kamus Bahasa Jawa</button>
 
             <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
                 <i class="fas fa-smile"></i> Sup Lezat & Bergizi
@@ -1315,6 +1161,7 @@
             <section id="projects" class="reveal">
                 <h2 class="section-title"><i class="fas fa-trophy"></i> Karya & Prestasi Unik</h2>
                 <div class="projects-grid">
+                    <!-- Card 1: Project Arkanu (payung utama) -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-rocket"></i></div>
                         <h3>🚀 Project Arkanu</h3>
@@ -1324,6 +1171,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 2: Gerakan 1000 Buku (KLS) -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-book-open"></i></div>
                         <h3>Gerakan 1000 Buku</h3>
@@ -1333,6 +1181,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 3: Edukasi Gizi Sehat (DUKES) -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-apple-alt"></i></div>
                         <h3>Edukasi Gizi Sehat</h3>
@@ -1342,6 +1191,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 4: Podcast Santri ASBOCH -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-podcast"></i></div>
                         <h3>Podcast Santri ASBOCH</h3>
@@ -1351,6 +1201,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 5: Jokes "Sup Lezat dan Bergizi" -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-utensils"></i></div>
                         <h3>Jokes "Sup Lezat dan Bergizi"</h3>
@@ -1360,6 +1211,7 @@
                         </div>
                     </div>
 
+                    <!-- Card 6: Orang Tergabut se-ASBOCH -->
                     <div class="project-card">
                         <div class="project-icon"><i class="fas fa-crown"></i></div>
                         <h3>Orang Tergabut se-ASBOCH</h3>
@@ -1446,7 +1298,7 @@
         </main>
     </div>
 
-    <!-- ===== LIGHTBOX GAMBAR ===== -->
+    <!-- ===== LIGHTBOX ===== -->
     <div class="lightbox-modal" id="js-lightbox">
         <div class="lightbox-content">
             <span class="lightbox-close" id="js-lightbox-close">&times;</span>
@@ -1455,81 +1307,13 @@
         </div>
     </div>
 
-    <!-- ===== MODAL KAMUS BAHASA JAWA ===== -->
-    <div class="dict-modal" id="js-dict-modal">
-        <div class="dict-modal-content">
-            <div class="dict-modal-header">
-                <h2><i class="fas fa-book-open" style="color: #0ff;"></i> Kamus Bahasa Jawa</h2>
-                <span class="dict-modal-close" id="js-dict-close">&times;</span>
-            </div>
-            <input type="text" class="dict-search-input" id="dictSearchInput" placeholder="Cari kata (Indonesia, Ngoko, atau Krama)..." oninput="searchWord()">
-            <div class="dict-stats" id="dictResultStats">Memuat data...</div>
-            <div class="dict-list-container" id="dictList"></div>
-        </div>
-    </div>
-
     <!-- ===== SCRIPT ===== -->
     <script>
-        // Data Kamus Bahasa Jawa
-        const dictionaryData = [
-            { id: 1, idn: "Makan", ngoko: "Mangan", krama: "Nedha / Dhahar", contoh: "Simbah saweg dhahar sekul (Kakek sedang makan nasi)." },
-            { id: 2, idn: "Minum", ngoko: "Ngombe", krama: "Ngunjuk", contoh: "Bapak ngunjuk teh hangat (Bapak minum teh hangat)." },
-            { id: 3, idn: "Tidur", ngoko: "Turu", krama: "Sare", contoh: "Adik sampun sare (Adik sudah tidur)." },
-            { id: 4, idn: "Pergi", ngoko: "Lunga", krama: "Tindak", contoh: "Ibu tindak dateng peken (Ibu pergi ke pasar)." },
-            { id: 5, idn: "Datang", ngoko: "Teka", krama: "Rawuh", contoh: "Pak Guru sampun rawuh (Pak Guru sudah datang)." },
-            { id: 6, idn: "Rumah", ngoko: "Omah", krama: "Griya / Dalem", contoh: "Griya kula wonten ing Solo (Rumah saya ada di Solo)." },
-            { id: 7, idn: "Saya", ngoko: "Aku", krama: "Kula / Dalem", contoh: "Kula badhe pamit (Saya ingin pamit)." },
-            { id: 8, idn: "Kamu", ngoko: "Kowe", krama: "Panjenengan", contoh: "Panjenengan badhe tindak pundi? (Kamu mau pergi ke mana?)" },
-            { id: 9, idn: "Tidak", ngoko: "Ora", krama: "Mboten", contoh: "Kula mboten ngertos (Saya tidak tahu)." },
-            { id: 10, idn: "Bisa", ngoko: "Bisa", krama: "Saged", contoh: "Apakah panjenengan saged melu? (Apakah kamu bisa ikut?)" },
-            { id: 11, idn: "Melihat", ngoko: "Ndeleng", krama: "Mirsani", contoh: "Ibu mirsani TV (Ibu melihat/menonton TV)." },
-            { id: 12, idn: "Beli", ngoko: "Tuku", krama: "Tumbas / Tundhas", contoh: "Adik tumbas roti (Adik membeli roti)." },
-            { id: 13, idn: "Tahu / Mengerti", ngoko: "Ngerti", krama: "Ngertos / Pirsa", contoh: "Mbah, punapa pirsa omah iki? (Mbah, apakah tahu rumah ini?)" },
-            { id: 14, idn: "Kapan", ngoko: "Kapan", krama: "Pikantuk / Benjang", contoh: "Benjang menapa panjenengan rawuh? (Kapan kamu datang?)" }
-        ];
-
-        // Render Kamus
-        function renderDictionary(data) {
-            const listContainer = document.getElementById("dictList");
-            const statsContainer = document.getElementById("dictResultStats");
-            listContainer.innerHTML = "";
-
-            if (data.length === 0) {
-                listContainer.innerHTML = '<div class="dict-no-result">Kata tidak ditemukan. Coba kata kunci lain.</div>';
-                statsContainer.innerText = "Ditemukan 0 kata";
-                return;
-            }
-
-            statsContainer.innerText = `Menampilkan ${data.length} kata`;
-
-            data.forEach(item => {
-                const card = document.createElement("div");
-                card.className = "dict-card";
-                card.innerHTML = `
-                    <h3>${item.idn}</h3>
-                    <div class="dict-translations">
-                        <div><span class="dict-badge dict-badge-ngoko">Ngoko</span> <strong>${item.ngoko}</strong></div>
-                        <div><span class="dict-badge dict-badge-krama">Krama</span> <strong>${item.krama}</strong></div>
-                    </div>
-                    ${item.contoh ? `<div class="dict-example"><strong>Contoh:</strong> ${item.contoh}</div>` : ''}
-                `;
-                listContainer.appendChild(card);
-            });
-        }
-
-        // Pencarian Kamus
-        function searchWord() {
-            const keyword = document.getElementById("dictSearchInput").value.toLowerCase().trim();
-            const filtered = dictionaryData.filter(item => 
-                item.idn.toLowerCase().includes(keyword) ||
-                item.ngoko.toLowerCase().includes(keyword) ||
-                item.krama.toLowerCase().includes(keyword)
-            );
-            renderDictionary(filtered);
-        }
-
         document.addEventListener("DOMContentLoaded", function() {
-            // Theme Toggle
+
+            // ========================================
+            // 1. THEME TOGGLE
+            // ========================================
             const themeToggleBtn = document.getElementById('themeToggle');
             const themeLabel = document.getElementById('themeLabel');
             const body = document.body;
@@ -1556,9 +1340,28 @@
                     themeLabel.textContent = 'Mode Gelap';
                     localStorage.setItem('arkanu-theme', 'dark');
                 }
+                themeToggleBtn.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    themeToggleBtn.style.transform = 'scale(1)';
+                }, 150);
             });
 
-            // Scroll Reveal
+            // ========================================
+            // 2. HOVER GLOW NAMA
+            // ========================================
+            const nameElement = document.querySelector('.name-highlight h1');
+            if (nameElement) {
+                nameElement.addEventListener('mouseenter', () => {
+                    nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
+                });
+                nameElement.addEventListener('mouseleave', () => {
+                    nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
+                });
+            }
+
+            // ========================================
+            // 3. SCROLL REVEAL
+            // ========================================
             const revealElements = document.querySelectorAll('.reveal');
             revealElements.forEach(el => {
                 const observer = new IntersectionObserver((entries) => {
@@ -1571,30 +1374,30 @@
                 observer.observe(el);
             });
 
-            // Modal Kamus Handler
-            const dictModal = document.getElementById('js-dict-modal');
-            const openDictBtn = document.getElementById('js-open-dict');
-            const closeDictBtn = document.getElementById('js-dict-close');
+            // ========================================
+            // 4. 3D TILT PROFIL
+            // ========================================
+            const profileTilt = document.getElementById('js-profile-tilt');
+            const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
+            if (profileTilt && profileImg) {
+                profileTilt.addEventListener('mousemove', (e) => {
+                    const rect = profileTilt.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const midX = rect.width / 2;
+                    const midY = rect.height / 2;
+                    const rotateX = ((midY - y) / midY) * 15;
+                    const rotateY = ((x - midX) / midX) * 15;
+                    profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                profileTilt.addEventListener('mouseleave', () => {
+                    profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+                });
+            }
 
-            openDictBtn.addEventListener('click', () => {
-                dictModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-                renderDictionary(dictionaryData);
-            });
-
-            closeDictBtn.addEventListener('click', () => {
-                dictModal.classList.remove('show');
-                document.body.style.overflow = '';
-            });
-
-            dictModal.addEventListener('click', (e) => {
-                if (e.target === dictModal) {
-                    dictModal.classList.remove('show');
-                    document.body.style.overflow = '';
-                }
-            });
-
-            // Lightbox Handler
+            // ========================================
+            // 5. LIGHTBOX
+            // ========================================
             const lightbox = document.getElementById('js-lightbox');
             const lightboxImg = document.getElementById('js-lightbox-img');
             const lightboxDesc = document.getElementById('js-lightbox-desc');
@@ -1618,20 +1421,37 @@
                     lightbox.classList.remove('show');
                     document.body.style.overflow = '';
                 });
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+                        lightbox.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                });
             }
 
-            // Corner Clock
+            // ========================================
+            // 6. JAM
+            // ========================================
             function updateClock() {
                 const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
                 const display = document.getElementById('clockDisplay');
                 if (display) {
-                    display.textContent = String(now.getHours()).padStart(2, '0') + ':' + 
-                                          String(now.getMinutes()).padStart(2, '0') + ':' + 
-                                          String(now.getSeconds()).padStart(2, '0');
+                    display.textContent = hours + ':' + minutes + ':' + seconds;
                 }
             }
             updateClock();
             setInterval(updateClock, 1000);
+
+            console.log("Muhammad Arkanu Dzikri | Portfolio ASBOCH Berhasil Dimuat.");
         });
     </script>
 </body>
