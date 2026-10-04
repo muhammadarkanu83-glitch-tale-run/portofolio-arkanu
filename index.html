@@ -943,272 +943,341 @@
         }
 
         /* ============================================================
-           ===== HALAMAN KAMUS FULLSCREEN (MODAL) =====
+           ===== KALKULATOR + CODE MODE (EASTER EGG) =====
            ============================================================ */
-        .kamus-page {
-            position: fixed;
+        .calc-wrapper {
+            max-width: 420px;
+            margin: 0 auto;
+            background: var(--project-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 1.2rem;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            transition: background 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* ---- Baris Code Mode (toggle) ---- */
+        .code-mode-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.7rem 1rem;
+            border-radius: 16px;
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 1rem;
+            transition: background 0.35s ease, border-color 0.35s ease,
+                        box-shadow 0.35s ease, transform 0.15s ease;
+        }
+
+        .code-mode-bar.active {
+            border-color: rgba(0, 255, 140, 0.65);
+            background: rgba(0, 255, 140, 0.06);
+            box-shadow: 0 0 18px rgba(0, 255, 140, 0.25);
+        }
+
+        body.light-mode .code-mode-bar.active {
+            border-color: rgba(0, 150, 80, 0.6);
+            background: rgba(0, 180, 100, 0.08);
+            box-shadow: 0 0 18px rgba(0, 150, 80, 0.2);
+        }
+
+        .code-mode-text {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: auto;
+            transition: color 0.35s ease;
+        }
+
+        .code-mode-text i {
+            color: #0ff;
+            transition: color 0.35s ease;
+        }
+
+        body.light-mode .code-mode-text i {
+            color: #1a8fc0;
+        }
+
+        .code-mode-bar.active .code-mode-text i {
+            color: #6bffb0;
+        }
+
+        body.light-mode .code-mode-bar.active .code-mode-text i {
+            color: #0a7a45;
+        }
+
+        .code-mode-status {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--text-muted);
+            transition: all 0.35s ease;
+        }
+
+        .code-mode-bar.active .code-mode-status {
+            color: #6bffb0;
+            border-color: #0f8;
+            background: rgba(0, 255, 140, 0.12);
+            box-shadow: 0 0 12px rgba(0, 255, 140, 0.4);
+        }
+
+        body.light-mode .code-mode-bar.active .code-mode-status {
+            color: #0a7a45;
+        }
+
+        /* ---- Switch Toggle ---- */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            z-index: 10000;
-            overflow-y: auto;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid var(--glass-border);
+            border-radius: 34px;
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        body.light-mode .slider {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--text-muted);
+            border-radius: 50%;
+            transition: transform 0.4s cubic-bezier(.2, .9, .3, 1.4),
+                        background 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .switch input:checked + .slider {
+            background: rgba(0, 255, 140, 0.25);
+            border-color: #0f8;
+            box-shadow: 0 0 14px rgba(0, 255, 140, 0.55);
+        }
+
+        .switch input:checked + .slider::before {
+            transform: translate(26px, -50%);
+            background: #6bffb0;
+            box-shadow: 0 0 10px #0f8;
+        }
+
+        /* ---- Display ---- */
+        .calc-display {
+            background: var(--clock-bg);
+            border: 1px solid var(--clock-border);
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            text-align: right;
+            margin-bottom: 1rem;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            transition: background 0.5s ease, border-color 0.4s ease;
+        }
+
+        .calc-history {
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            min-height: 1.3em;
+            word-break: break-all;
+            transition: color 0.4s ease;
+        }
+
+        .calc-output {
+            font-size: 2.3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+            word-break: break-all;
+            text-shadow: 0 0 14px var(--glow-color);
+            transition: color 0.4s ease, text-shadow 0.4s ease;
+        }
+
+        /* ---- Tombol Kalkulator ---- */
+        .calc-keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .calc-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            padding: 0.9rem 0;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.25s ease,
+                        border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        .calc-btn:hover {
+            border-color: #0ff;
+            box-shadow: 0 0 14px rgba(0, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        body.light-mode .calc-btn:hover {
+            border-color: #1a8fc0;
+            box-shadow: 0 0 14px rgba(0, 120, 200, 0.22);
+        }
+
+        .calc-btn:active,
+        .calc-btn.pressed {
+            transform: scale(0.94);
+            background: rgba(0, 255, 255, 0.15);
+        }
+
+        body.light-mode .calc-btn:active,
+        body.light-mode .calc-btn.pressed {
+            background: rgba(0, 120, 200, 0.15);
+        }
+
+        /* Tombol fungsi (C & backspace) */
+        .calc-btn.fn {
+            color: #ff8fa3;
+            border-color: rgba(255, 100, 130, 0.35);
+        }
+
+        .calc-btn.fn:hover {
+            border-color: #ff6b8b;
+            box-shadow: 0 0 14px rgba(255, 100, 130, 0.35);
+        }
+
+        body.light-mode .calc-btn.fn {
+            color: #b02040;
+            border-color: rgba(200, 40, 80, 0.3);
+        }
+
+        /* Tombol operator */
+        .calc-btn.op {
+            color: #0ff;
+            border-color: rgba(0, 255, 255, 0.35);
+        }
+
+        body.light-mode .calc-btn.op {
+            color: #1a7aaa;
+            border-color: rgba(0, 120, 200, 0.35);
+        }
+
+        /* Tombol sama dengan */
+        .calc-btn.equals {
+            grid-row: span 2;
+            font-weight: 700;
+            background: linear-gradient(150deg, rgba(0, 255, 255, 0.25), rgba(160, 0, 255, 0.35));
+            border-color: rgba(0, 255, 255, 0.6);
+            color: #eaffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+
+        .calc-btn.equals:hover {
+            background: linear-gradient(150deg, rgba(0, 255, 255, 0.45), rgba(160, 0, 255, 0.5));
+            box-shadow: 0 0 22px rgba(0, 255, 255, 0.5);
+        }
+
+        body.light-mode .calc-btn.equals {
+            background: linear-gradient(150deg, rgba(0, 150, 220, 0.22), rgba(120, 40, 200, 0.25));
+            border-color: rgba(0, 120, 200, 0.5);
+            color: #0b1a2e;
+            text-shadow: none;
+        }
+
+        /* Tombol nol (lebar 2 kolom) */
+        .calc-btn.zero {
+            grid-column: span 2;
+        }
+
+        /* ---- Toast notifikasi rahasia ---- */
+        .calc-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translate(-50%, 140%);
+            background: rgba(0, 20, 12, 0.94);
+            color: #6bffb0;
+            border: 1px solid #0f8;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            box-shadow: 0 0 28px rgba(0, 255, 140, 0.5);
+            z-index: 10001;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(100%);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: transform 0.45s cubic-bezier(.2, .9, .3, 1.4), opacity 0.35s ease;
         }
 
-        .kamus-page.show {
+        .calc-toast.show {
+            transform: translate(-50%, 0);
             opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
         }
 
-        body.light-mode .kamus-page {
-            background: var(--bg-primary);
+        body.light-mode .calc-toast {
+            background: rgba(230, 255, 240, 0.97);
+            color: #0a7a45;
+            box-shadow: 0 0 28px rgba(0, 180, 100, 0.45);
         }
 
-        /* Grid background di halaman kamus */
-        .kamus-page::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .kamus-page-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2.5rem 2rem 4rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .kamus-page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .kamus-page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(120deg, #fff, #0ff, #f0f);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-            transition: background 0.4s ease, text-shadow 0.4s ease;
-        }
-
-        body.light-mode .kamus-page-title {
-            background: linear-gradient(120deg, #0b1a2e, #1a7aaa, #7a3aaa);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 25px rgba(0, 120, 200, 0.2);
-        }
-
-        .kamus-page-title small {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #ffd54f;
-            text-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
-            margin-bottom: 0.3rem;
-            background: none;
-            -webkit-text-fill-color: #ffd54f;
-        }
-
-        .kamus-page-close {
-            background: var(--clock-bg);
-            backdrop-filter: blur(4px);
-            border: 1px solid var(--clock-border);
-            color: var(--clock-text);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px var(--shadow-color);
-            outline: none;
-        }
-
-        .kamus-page-close:hover {
-            transform: scale(1.1) rotate(90deg);
-            border-color: #ffd54f;
-            color: #ffd54f;
-            box-shadow: 0 0 20px rgba(255, 200, 0, 0.4);
-        }
-
-        body.light-mode .kamus-page-close:hover {
-            border-color: #b45309;
-            color: #b45309;
-            box-shadow: 0 0 20px rgba(255, 160, 0, 0.3);
-        }
-
-        .kamus-page-search {
-            margin-bottom: 1.5rem;
-        }
-
-        .kamus-page-search input {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            border: 2px solid var(--glass-border);
-            border-radius: 14px;
-            outline: none;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-
-        .kamus-page-search input:focus {
-            border-color: #0ff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
-        }
-
-        body.light-mode .kamus-page-search input:focus {
-            border-color: #1a8fc0;
-            box-shadow: 0 0 20px rgba(0, 120, 200, 0.15);
-        }
-
-        .kamus-page-search input::placeholder {
-            color: var(--text-muted);
-            opacity: 0.6;
-        }
-
-        .kamus-page-stats {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            transition: color 0.4s ease;
-        }
-
-        .kamus-page-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .kamus-page-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-left: 5px solid #ffd54f;
-            padding: 1.2rem 1.4rem;
-            border-radius: 14px;
-            transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        body.light-mode .kamus-page-card {
-            border-left-color: #b45309;
-        }
-
-        .kamus-page-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 200, 0, 0.6);
-            box-shadow: 0 0 20px rgba(255, 200, 0, 0.2);
-        }
-
-        body.light-mode .kamus-page-card:hover {
-            border-color: rgba(180, 83, 9, 0.5);
-            box-shadow: 0 0 20px rgba(180, 83, 9, 0.15);
-        }
-
-        .kamus-page-card h3 {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed var(--glass-border);
-            transition: color 0.4s ease, border-color 0.4s ease;
-        }
-
-        .kamus-page-translations {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .kamus-page-badge {
-            display: inline-block;
-            padding: 2px 9px;
-            font-size: 0.7rem;
-            border-radius: 5px;
-            font-weight: 600;
-            margin-right: 4px;
-        }
-
-        .kamus-page-badge-ngoko {
-            background-color: rgba(25, 118, 210, 0.2);
-            color: #64b5f6;
-        }
-
-        body.light-mode .kamus-page-badge-ngoko {
-            background-color: rgba(25, 118, 210, 0.12);
-            color: #1565c0;
-        }
-
-        .kamus-page-badge-krama {
-            background-color: rgba(56, 142, 60, 0.2);
-            color: #81c784;
-        }
-
-        body.light-mode .kamus-page-badge-krama {
-            background-color: rgba(56, 142, 60, 0.12);
-            color: #2e7d32;
-        }
-
-        .kamus-page-translations strong {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            transition: color 0.4s ease;
-        }
-
-        .kamus-page-example {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: var(--input-bg);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-style: italic;
-            line-height: 1.5;
-            transition: color 0.4s ease, background 0.4s ease;
-        }
-
-        .kamus-page-no-result {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            transition: color 0.4s ease;
+        @media (max-width: 600px) {
+            .calc-wrapper {
+                padding: 0.9rem;
+            }
+            .calc-btn {
+                font-size: 1.05rem;
+                padding: 0.78rem 0;
+                border-radius: 14px;
+            }
+            .calc-output {
+                font-size: 1.8rem;
+            }
+            .calc-display {
+                min-height: 88px;
+            }
+            .code-mode-text {
+                font-size: 0.75rem;
+            }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -1546,6 +1615,65 @@
                 </div>
             </section>
 
+            <!-- ============================================================
+                 ===== SECTION KALKULATOR + CODE MODE (EASTER EGG) =====
+                 ============================================================ -->
+            <section id="calculator" class="reveal">
+                <h2 class="section-title"><i class="fas fa-calculator"></i> Kalkulator Arkan</h2>
+                <div class="glass-card">
+
+                    <div class="calc-wrapper">
+
+                        <!-- ---- Toggle Code Mode (di ATAS kalkulator) ---- -->
+                        <div class="code-mode-bar" id="codeModeBar">
+                            <span class="code-mode-text">
+                                <i class="fas fa-user-secret"></i> Code Mode
+                            </span>
+
+                            <label class="switch" aria-label="Aktifkan Code Mode">
+                                <input type="checkbox" id="codeModeToggle">
+                                <span class="slider"></span>
+                            </label>
+
+                            <span class="code-mode-status" id="codeModeStatus">OFF</span>
+                        </div>
+
+                        <!-- ---- Layar Display ---- -->
+                        <div class="calc-display">
+                            <div class="calc-history" id="calcHistory"></div>
+                            <div class="calc-output" id="calcOutput">0</div>
+                        </div>
+
+                        <!-- ---- Tombol-tombol ---- -->
+                        <div class="calc-keys" id="calcKeys">
+                            <button class="calc-btn fn" data-key="C">C</button>
+                            <button class="calc-btn fn" data-key="B">⌫</button>
+                            <button class="calc-btn op" data-key="/">÷</button>
+                            <button class="calc-btn op" data-key="*">×</button>
+
+                            <button class="calc-btn" data-key="7">7</button>
+                            <button class="calc-btn" data-key="8">8</button>
+                            <button class="calc-btn" data-key="9">9</button>
+                            <button class="calc-btn op" data-key="-">−</button>
+
+                            <button class="calc-btn" data-key="4">4</button>
+                            <button class="calc-btn" data-key="5">5</button>
+                            <button class="calc-btn" data-key="6">6</button>
+                            <button class="calc-btn op" data-key="+">+</button>
+
+                            <button class="calc-btn" data-key="1">1</button>
+                            <button class="calc-btn" data-key="2">2</button>
+                            <button class="calc-btn" data-key="3">3</button>
+                            <button class="calc-btn equals" data-key="=">=</button>
+
+                            <button class="calc-btn zero" data-key="0">0</button>
+                            <button class="calc-btn" data-key=".">.</button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
             <section id="movies-time" class="reveal">
                 <h2 class="section-title"><i class="fas fa-play-circle"></i> Movies Time (Video Arkan)</h2>
                 <div class="glass-card">
@@ -1654,6 +1782,9 @@
             <div class="lightbox-desc" id="js-lightbox-desc"></div>
         </div>
     </div>
+
+    <!-- ===== TOAST NOTIFIKASI CODE MODE ===== -->
+    <div class="calc-toast" id="calcToast">🔓 Access Granted</div>
 
     <!-- ===== SCRIPT ===== -->
     <script>
@@ -1893,6 +2024,269 @@
                     closeKamus();
                 }
             });
+
+            // ========================================
+            // 8. KALKULATOR + CODE MODE (EASTER EGG)
+            // ========================================
+            (function initCalculator() {
+
+                // ---------- Ambil elemen dari HTML ----------
+                const displayEl = document.getElementById('calcOutput');
+                const historyEl = document.getElementById('calcHistory');
+                const keysEl    = document.getElementById('calcKeys');
+                const toggleEl  = document.getElementById('codeModeToggle');
+                const statusEl  = document.getElementById('codeModeStatus');
+                const barEl     = document.getElementById('codeModeBar');
+                const toastEl   = document.getElementById('calcToast');
+
+                // Kalau elemen kalkulator tidak ada, hentikan (biar aman)
+                if (!displayEl || !keysEl) return;
+
+                // ---------- Konstanta rahasia ----------
+                const SECRET_CODE = '310113';                                 // kode rahasia
+                const SECRET_URL  = 'https://www.youtube.com/watch?v=M7oZR-MTEZs'; // tujuan redirect
+
+                // ---------- Status Code Mode ----------
+                let codeModeOn  = false;  // apakah toggle sedang ON
+                let codeBuffer  = '';     // riwayat angka yang benar-benar diketik user
+                let isTriggered = false;  // supaya tidak trigger dua kali
+
+                // ---------- State kalkulator ----------
+                let current  = '0';    // angka yang sedang tampil
+                let previous = null;   // angka sebelumnya (number)
+                let operator = null;   // operator yang dipilih (+, -, *, /)
+                let waiting  = false;  // true = angka berikutnya menimpa display
+                let history  = '';     // teks kecil di atas display
+
+                // ---------- Helper tampilan ----------
+                function render() {
+                    displayEl.textContent = current;
+                    historyEl.textContent = history;
+                }
+
+                // Ubah simbol operator jadi simbol cantik
+                function symbolOf(op) {
+                    return { '+': '+', '-': '−', '*': '×', '/': '÷' }[op] || op;
+                }
+
+                // Rapikan hasil hitungan (biar tidak muncul 0.30000000000000004)
+                function formatResult(n) {
+                    if (!isFinite(n)) return 'Error';
+                    return parseFloat(n.toPrecision(12)).toString();
+                }
+
+                // Hitung dua angka
+                function compute(a, b, op) {
+                    switch (op) {
+                        case '+': return a + b;
+                        case '-': return a - b;
+                        case '*': return a * b;
+                        case '/': return b === 0 ? null : a / b; // bagi nol = Error
+                    }
+                    return b;
+                }
+
+                // ---------- Notifikasi kecil ----------
+                function showToast(msg) {
+                    if (!toastEl) return;
+                    toastEl.textContent = msg;
+                    toastEl.classList.add('show');
+                    setTimeout(() => toastEl.classList.remove('show'), 2200);
+                }
+
+                // ---------- 🔒 INTI FITUR RAHASIA ----------
+                // Dipanggil SETIAP kali user menekan tombol angka 0-9
+                function listenSecret(digit) {
+                    // Kalau Code Mode OFF atau sedang trigger, abaikan
+                    if (!codeModeOn || isTriggered) return;
+
+                    // Tambahkan digit ke buffer riwayat
+                    codeBuffer += digit;
+
+                    // Simpan hanya 6 digit terakhir (sepanjang kode rahasia)
+                    if (codeBuffer.length > SECRET_CODE.length) {
+                        codeBuffer = codeBuffer.slice(-SECRET_CODE.length);
+                    }
+
+                    // Cek apakah urutannya persis 3 → 1 → 0 → 1 → 1 → 3
+                    if (codeBuffer === SECRET_CODE) {
+                        isTriggered = true;
+                        codeBuffer  = '';                 // reset buffer
+
+                        showToast('🔓 Access Granted');   // notifikasi kecil
+
+                        // Beri jeda sebentar supaya notifikasi terlihat, lalu buka link
+                        setTimeout(function () {
+                            window.open(SECRET_URL, '_blank'); // buka di tab baru
+                            isTriggered = false;               // siap menerima kode lagi
+                        }, 1200);
+                    }
+                }
+
+                // ---------- Aksi tombol ----------
+                function inputDigit(d) {
+                    listenSecret(d);            // 👈 deteksi kode rahasia
+
+                    if (waiting) {
+                        current = d;
+                        waiting = false;
+                    } else {
+                        if (current === '0') current = d;
+                        else if (current.length < 15) current += d;
+                    }
+                    render();
+                }
+
+                function inputDecimal() {
+                    codeBuffer = '';            // titik memutus urutan kode
+                    if (waiting) {
+                        current = '0.';
+                        waiting = false;
+                    } else if (!current.includes('.')) {
+                        current += '.';
+                    }
+                    render();
+                }
+
+                function chooseOperator(op) {
+                    codeBuffer = '';            // operator memutus urutan kode
+
+                    if (operator !== null && !waiting) {
+                        // Hitung dulu hasil sebelumnya (operasi berantai)
+                        const res = compute(previous, parseFloat(current), operator);
+                        if (res === null) { showError(); return; }
+                        current  = formatResult(res);
+                        previous = res;
+                    } else {
+                        previous = parseFloat(current);
+                    }
+
+                    operator = op;
+                    waiting  = true;
+                    history  = formatResult(previous) + ' ' + symbolOf(op);
+                    render();
+                }
+
+                function calculate() {
+                    codeBuffer = '';
+                    if (operator === null || previous === null) return;
+
+                    const a = previous;
+                    const b = parseFloat(current);
+                    const res = compute(a, b, operator);
+
+                    if (res === null) { showError(); return; }
+
+                    history  = formatResult(a) + ' ' + symbolOf(operator) + ' ' + formatResult(b) + ' =';
+                    current  = formatResult(res);
+                    previous = null;
+                    operator = null;
+                    waiting  = true;
+                    render();
+                }
+
+                function clearAll() {
+                    codeBuffer = '';
+                    current  = '0';
+                    previous = null;
+                    operator = null;
+                    waiting  = false;
+                    history  = '';
+                    render();
+                }
+
+                function backspace() {
+                    codeBuffer = '';            // hapus memutus urutan kode
+                    if (current === 'Error') { clearAll(); return; }
+                    if (current.length <= 1) current = '0';
+                    else current = current.slice(0, -1);
+                    render();
+                }
+
+                function showError() {
+                    current  = 'Error';
+                    previous = null;
+                    operator = null;
+                    waiting  = true;
+                    history  = '';
+                    render();
+                }
+
+                // ---------- Efek visual tombol saat ditekan via keyboard ----------
+                function flashKey(key) {
+                    const btn = keysEl.querySelector('.calc-btn[data-key="' + key + '"]');
+                    if (!btn) return;
+                    btn.classList.add('pressed');
+                    setTimeout(() => btn.classList.remove('pressed'), 130);
+                }
+
+                // ---------- Klik tombol (event delegation) ----------
+                keysEl.addEventListener('click', function (e) {
+                    const btn = e.target.closest('.calc-btn');
+                    if (!btn) return;
+
+                    const key = btn.dataset.key;
+
+                    if (/^[0-9]$/.test(key))      inputDigit(key);
+                    else if (key === '.')          inputDecimal();
+                    else if (key === 'C')          clearAll();
+                    else if (key === 'B')          backspace();
+                    else if (key === '=')          calculate();
+                    else                           chooseOperator(key); // + - * /
+                });
+
+                // ---------- Input dari keyboard ----------
+                document.addEventListener('keydown', function (e) {
+                    // Jangan ganggu kalau user sedang mengetik di kolom input (mis. cari kamus)
+                    const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : '';
+                    if (tag === 'input' || tag === 'textarea') return;
+
+                    // Jangan aktif kalau halaman Kamus sedang terbuka
+                    if (document.body.classList.contains('kamus-open')) return;
+
+                    const k = e.key;
+
+                    if (/^[0-9]$/.test(k)) {
+                        inputDigit(k); flashKey(k); e.preventDefault();
+                    } else if (k === '.' || k === ',') {
+                        inputDecimal(); flashKey('.'); e.preventDefault();
+                    } else if (k === '+') {
+                        chooseOperator('+'); flashKey('+'); e.preventDefault();
+                    } else if (k === '-') {
+                        chooseOperator('-'); flashKey('-'); e.preventDefault();
+                    } else if (k === '*' || k.toLowerCase() === 'x') {
+                        chooseOperator('*'); flashKey('*'); e.preventDefault();
+                    } else if (k === '/') {
+                        chooseOperator('/'); flashKey('/'); e.preventDefault();
+                    } else if (k === 'Enter' || k === '=') {
+                        calculate(); flashKey('='); e.preventDefault();
+                    } else if (k === 'Backspace') {
+                        backspace(); flashKey('B'); e.preventDefault();
+                    } else if (k.toLowerCase() === 'c') {
+                        clearAll(); flashKey('C'); e.preventDefault();
+                    }
+                });
+
+                // ---------- Toggle Code Mode ----------
+                if (toggleEl) {
+                    toggleEl.addEventListener('change', function () {
+                        codeModeOn = toggleEl.checked;   // ON / OFF
+                        codeBuffer = '';                 // selalu reset buffer saat toggle berubah
+
+                        statusEl.textContent = codeModeOn ? 'ON' : 'OFF';
+                        barEl.classList.toggle('active', codeModeOn);
+
+                        // Animasi halus saat toggle dinyalakan
+                        barEl.style.transform = 'scale(0.97)';
+                        setTimeout(() => { barEl.style.transform = 'scale(1)'; }, 140);
+                    });
+                }
+
+                // ---------- Tampilan awal ----------
+                render();
+
+                console.log('Kalkulator + Code Mode siap. Kode rahasia: ' + SECRET_CODE);
+            })();
 
             console.log("Muhammad Arkanu Dzikri | Portfolio + Kamus Fullscreen Berhasil Dimuat.");
         });
