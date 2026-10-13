@@ -1438,6 +1438,132 @@
         body.kamus-open {
             overflow: hidden;
         }
+
+        /* ============================================================
+           ===== QIBLA COMPASS — STYLE =====
+           ============================================================ */
+        .qc-wrap{
+            display:flex;flex-direction:column;gap:1rem;
+            background:var(--glass-bg);backdrop-filter:blur(10px);
+            border:1px solid var(--glass-border);border-radius:24px;
+            padding:1.25rem;box-shadow:0 8px 20px var(--shadow-color);
+            transition:background .5s ease,border-color .3s ease,box-shadow .3s ease;
+        }
+        .qc-head{display:flex;align-items:flex-start;gap:.75rem}
+        .qc-head-ico{
+            flex:0 0 auto;width:2.4rem;height:2.4rem;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            background:var(--badge-bg);border:1px solid var(--badge-border);
+            color:#0ff;font-size:1.1rem;
+        }
+        body.light-mode .qc-head-ico{color:#1a7aaa}
+        .qc-title{font-size:1rem;font-weight:600;color:var(--text-primary);margin:0}
+        .qc-sub{font-size:.72rem;color:var(--text-muted);margin:.15rem 0 0}
+
+        .qc-stage{position:relative;width:100%;max-width:420px;aspect-ratio:1/1;margin:0 auto}
+        .qc-stage svg{width:100%;height:100%;display:block;user-select:none}
+        .qc-rose{transition:transform 140ms linear;will-change:transform;transform-origin:210px 210px}
+        @media (prefers-reduced-motion:reduce){.qc-rose{transition:none}}
+
+        .qc-badge{
+            position:absolute;left:50%;bottom:-.25rem;transform:translateX(-50%);
+            display:inline-flex;align-items:center;gap:.4rem;
+            padding:.32rem .85rem;border-radius:999px;
+            font-size:.7rem;font-weight:600;letter-spacing:.3px;
+            border:1px solid var(--glass-border);background:var(--badge-bg);
+            color:var(--text-secondary);backdrop-filter:blur(6px);
+            transition:background .35s ease,color .35s ease,border-color .35s ease,box-shadow .35s ease;
+            white-space:nowrap;
+        }
+        .qc-badge.qc-aligned{background:rgba(0,255,140,.14);border-color:#0f8;color:#6bffb0;box-shadow:0 0 14px rgba(0,255,140,.35)}
+        .qc-badge.qc-close{background:rgba(255,200,0,.12);border-color:#ffd54f;color:#ffd54f}
+        .qc-badge.qc-off{background:var(--badge-bg);color:var(--text-muted)}
+        body.light-mode .qc-badge.qc-aligned{color:#0a7a45;border-color:#0a7a45}
+        body.light-mode .qc-badge.qc-close{color:#8a5a00;border-color:#b45309}
+
+        .qc-grid{display:grid;grid-template-columns:1fr;gap:.5rem;margin-top:.25rem}
+        @media (min-width:560px){.qc-grid{grid-template-columns:repeat(3,1fr)}}
+        .qc-cell{
+            border:1px solid var(--glass-border);background:var(--input-bg);
+            border-radius:16px;padding:.7rem .85rem;
+            transition:background .35s ease,border-color .35s ease;
+        }
+        .qc-cell dt{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0}
+        .qc-cell dd{margin:.15rem 0 0;font-size:.85rem;font-weight:600;color:var(--text-primary);
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .qc-cell.qc-cell-qibla{border-color:rgba(0,255,140,.35);background:rgba(0,255,140,.06)}
+        .qc-cell.qc-cell-qibla dd{color:#6bffb0}
+        body.light-mode .qc-cell.qc-cell-qibla dd{color:#0a7a45}
+        body.light-mode .qc-cell.qc-cell-qibla{border-color:rgba(10,122,69,.4);background:rgba(10,122,69,.05)}
+
+        .qc-msg{
+            display:flex;align-items:flex-start;gap:.5rem;
+            padding:.65rem .85rem;border-radius:14px;
+            font-size:.75rem;line-height:1.4;
+            border:1px solid var(--glass-border);background:var(--input-bg);color:var(--text-secondary);
+        }
+        .qc-msg i{margin-top:.1rem;flex:0 0 auto}
+        .qc-msg.qc-err{border-color:rgba(255,100,130,.5);background:rgba(255,100,130,.08);color:#ff8fa3}
+        .qc-msg.qc-warn{border-color:rgba(255,200,0,.5);background:rgba(255,200,0,.08);color:#ffd54f}
+        .qc-msg.qc-info{border-color:rgba(0,200,255,.35);background:rgba(0,200,255,.06);color:#8deeff}
+        body.light-mode .qc-msg.qc-err{color:#a01030}
+        body.light-mode .qc-msg.qc-warn{color:#8a5a00}
+        body.light-mode .qc-msg.qc-info{color:#1a6b8a}
+
+        .qc-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.25rem}
+        .qc-btn{
+            flex:1 1 150px;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+            padding:.6rem 1rem;border-radius:999px;cursor:pointer;
+            font-family:inherit;font-size:.8rem;font-weight:600;letter-spacing:.3px;
+            border:1px solid var(--glass-border);background:var(--input-bg);color:var(--text-primary);
+            transition:transform .2s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease;
+            outline:none;
+        }
+        .qc-btn:hover{border-color:#0ff;box-shadow:0 0 12px rgba(0,255,255,.25);transform:translateY(-1px)}
+        .qc-btn:focus-visible{box-shadow:0 0 0 2px var(--glow-color)}
+        .qc-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+        .qc-btn.qc-btn-primary{background:linear-gradient(95deg,rgba(0,255,255,.15),rgba(100,0,255,.2));border-color:rgba(0,255,255,.6);color:#0ff}
+        .qc-btn.qc-btn-primary:hover{background:rgba(0,255,255,.25);color:#fff}
+        body.light-mode .qc-btn.qc-btn-primary{color:#1a6b8a}
+        body.light-mode .qc-btn.qc-btn-primary:hover{color:#0b1a2e;background:rgba(0,120,200,.15)}
+        body.light-mode .qc-btn:hover{border-color:#1a8fc0;box-shadow:0 0 12px rgba(0,120,200,.2)}
+
+        .qc-manual{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem}
+        .qc-field label{display:block;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.25rem}
+        .qc-field input{
+            width:100%;padding:.5rem .7rem;border-radius:12px;
+            border:1px solid var(--glass-border);background:var(--input-bg);color:var(--text-primary);
+            font-family:inherit;font-size:.85rem;outline:none;
+            transition:border-color .25s ease,box-shadow .25s ease;
+        }
+        .qc-field input:focus{border-color:#0ff;box-shadow:0 0 0 2px rgba(0,255,255,.2)}
+        body.light-mode .qc-field input:focus{border-color:#1a8fc0;box-shadow:0 0 0 2px rgba(0,120,200,.18)}
+
+        .qc-slider-box{margin-top:.5rem;padding:.7rem .85rem;border-radius:16px;border:1px solid var(--glass-border);background:var(--input-bg)}
+        .qc-slider-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+        .qc-slider-head label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);display:flex;align-items:center;gap:.35rem}
+        .qc-slider-head button{
+            font-family:inherit;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+            background:transparent;border:1px solid var(--glass-border);color:var(--text-muted);
+            padding:.15rem .5rem;border-radius:999px;cursor:pointer;transition:all .25s ease;
+        }
+        .qc-slider-head button:hover{border-color:#0ff;color:#0ff}
+        .qc-slider{margin-top:.5rem;width:100%;height:6px;border-radius:999px;appearance:none;
+            background:var(--badge-bg);outline:none;cursor:pointer;accent-color:#0f8}
+        .qc-slider::-webkit-slider-thumb{
+            appearance:none;width:18px;height:18px;border-radius:50%;
+            background:#0f8;border:2px solid var(--text-primary);
+            box-shadow:0 0 10px rgba(0,255,140,.55);cursor:pointer;
+        }
+        .qc-slider::-moz-range-thumb{
+            width:18px;height:18px;border-radius:50%;background:#0f8;
+            border:2px solid var(--text-primary);box-shadow:0 0 10px rgba(0,255,140,.55);cursor:pointer;
+        }
+        .qc-coords{margin:.35rem 0 0;text-align:center;font-size:.68rem;color:var(--text-muted)}
+        .qc-deg-lbl{font-variant-numeric:tabular-nums;font-size:9px;fill:var(--text-muted)}
+        .qc-card-lbl-main{font-size:17px;font-weight:700}
+        .qc-card-lbl-sub{font-size:7.5px;fill:var(--text-muted)}
+        .qc-card-lbl-mini{font-size:12.5px;font-weight:600}
     </style>
 </head>
 <body>
@@ -1671,6 +1797,94 @@
                         </div>
 
                     </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 ===== SECTION QIBLA COMPASS (BARU) =====
+                 ============================================================ -->
+            <section id="qibla" class="reveal">
+                <h2 class="section-title"><i class="fas fa-compass" style="margin-right:8px;"></i> Kompas Kiblat</h2>
+
+                <div class="qc-wrap" id="qcRoot" aria-busy="true">
+
+                    <header class="qc-head">
+                        <span class="qc-head-ico" aria-hidden="true"><i class="fas fa-kaaba"></i></span>
+                        <div>
+                            <h3 class="qc-title">Arah Kiblat</h3>
+                            <p class="qc-sub">Arah kiblat presisi berdasarkan koordinat Anda menuju Ka'bah, Makkah.</p>
+                        </div>
+                    </header>
+
+                    <div class="qc-stage" id="qcStage">
+                        <svg id="qcSvg" viewBox="0 0 420 420" role="img" aria-labelledby="qcAriaLabel"></svg>
+                        <span class="qc-badge qc-off" id="qcBadge" role="status" aria-live="polite">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            <span id="qcBadgeText">Menunggu data…</span>
+                        </span>
+                    </div>
+
+                    <dl class="qc-grid">
+                        <div class="qc-cell">
+                            <dt>Heading Perangkat</dt>
+                            <dd id="qcHeadingVal">—</dd>
+                        </div>
+                        <div class="qc-cell qc-cell-qibla">
+                            <dt>Arah Kiblat</dt>
+                            <dd id="qcQiblaVal">—</dd>
+                        </div>
+                        <div class="qc-cell">
+                            <dt>Jarak ke Ka'bah</dt>
+                            <dd id="qcDistVal">—</dd>
+                        </div>
+                    </dl>
+
+                    <div id="qcMessages" style="display:flex;flex-direction:column;gap:.5rem"></div>
+
+                    <div class="qc-actions">
+                        <button type="button" class="qc-btn qc-btn-primary" id="qcLocateBtn">
+                            <i class="fas fa-location-crosshairs"></i> Gunakan Lokasi Saya
+                        </button>
+                        <button type="button" class="qc-btn" id="qcManualBtn" aria-expanded="false" aria-controls="qcManualForm">
+                            <i class="fas fa-map-pin"></i> Input Manual
+                        </button>
+                        <button type="button" class="qc-btn" id="qcSensorBtn" style="display:none">
+                            <i class="fas fa-compass"></i> Aktifkan Sensor Kompas
+                        </button>
+                    </div>
+
+                    <form id="qcManualForm" class="qc-manual" hidden>
+                        <div class="qc-field">
+                            <label for="qcLat">Latitude</label>
+                            <input id="qcLat" type="text" inputmode="decimal" placeholder="-6.2000" autocomplete="off">
+                        </div>
+                        <div class="qc-field">
+                            <label for="qcLng">Longitude</label>
+                            <input id="qcLng" type="text" inputmode="decimal" placeholder="106.8166" autocomplete="off">
+                        </div>
+                        <div style="grid-column:1/-1">
+                            <p id="qcManualErr" role="alert" style="display:none;margin:.25rem 0 0;font-size:.72rem;color:#ff8fa3"></p>
+                            <button type="submit" class="qc-btn" style="margin-top:.5rem;width:100%">
+                                <i class="fas fa-check"></i> Terapkan Koordinat
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="qc-slider-box">
+                        <div class="qc-slider-head">
+                            <label for="qcSlider"><i class="fas fa-sliders-h"></i> Putar Kompas Manual</label>
+                            <button type="button" id="qcSliderReset" style="display:none">
+                                <i class="fas fa-rotate-left"></i> Pakai Sensor
+                            </button>
+                        </div>
+                        <input id="qcSlider" class="qc-slider" type="range" min="0" max="359" step="1" value="0"
+                               aria-label="Putar kompas manual, dalam derajat">
+                        <div style="display:flex;justify-content:space-between;margin-top:.35rem;font-size:.6rem;font-family:monospace;color:var(--text-muted)">
+                            <span>0°</span><span>90°</span><span>180°</span><span>270°</span><span>359°</span>
+                        </div>
+                    </div>
+
+                    <p class="qc-coords" id="qcCoords">Koordinat belum diatur.</p>
                 </div>
             </section>
 
@@ -2030,7 +2244,6 @@
             // ========================================
             (function initCalculator() {
 
-                // ---------- Ambil elemen dari HTML ----------
                 const displayEl = document.getElementById('calcOutput');
                 const historyEl = document.getElementById('calcHistory');
                 const keysEl    = document.getElementById('calcKeys');
@@ -2039,54 +2252,45 @@
                 const barEl     = document.getElementById('codeModeBar');
                 const toastEl   = document.getElementById('calcToast');
 
-                // Kalau elemen kalkulator tidak ada, hentikan (biar aman)
                 if (!displayEl || !keysEl) return;
 
-                // ---------- Konstanta rahasia ----------
-                const SECRET_CODE = '310113';                                 // kode rahasia
-                const SECRET_URL  = 'https://www.youtube.com/watch?v=M7oZR-MTEZs'; // tujuan redirect
+                const SECRET_CODE = '310113';
+                const SECRET_URL  = 'https://www.youtube.com/watch?v=M7oZR-MTEZs';
 
-                // ---------- Status Code Mode ----------
-                let codeModeOn  = false;  // apakah toggle sedang ON
-                let codeBuffer  = '';     // riwayat angka yang benar-benar diketik user
-                let isTriggered = false;  // supaya tidak trigger dua kali
+                let codeModeOn  = false;
+                let codeBuffer  = '';
+                let isTriggered = false;
 
-                // ---------- State kalkulator ----------
-                let current  = '0';    // angka yang sedang tampil
-                let previous = null;   // angka sebelumnya (number)
-                let operator = null;   // operator yang dipilih (+, -, *, /)
-                let waiting  = false;  // true = angka berikutnya menimpa display
-                let history  = '';     // teks kecil di atas display
+                let current  = '0';
+                let previous = null;
+                let operator = null;
+                let waiting  = false;
+                let history  = '';
 
-                // ---------- Helper tampilan ----------
                 function render() {
                     displayEl.textContent = current;
                     historyEl.textContent = history;
                 }
 
-                // Ubah simbol operator jadi simbol cantik
                 function symbolOf(op) {
                     return { '+': '+', '-': '−', '*': '×', '/': '÷' }[op] || op;
                 }
 
-                // Rapikan hasil hitungan (biar tidak muncul 0.30000000000000004)
                 function formatResult(n) {
                     if (!isFinite(n)) return 'Error';
                     return parseFloat(n.toPrecision(12)).toString();
                 }
 
-                // Hitung dua angka
                 function compute(a, b, op) {
                     switch (op) {
                         case '+': return a + b;
                         case '-': return a - b;
                         case '*': return a * b;
-                        case '/': return b === 0 ? null : a / b; // bagi nol = Error
+                        case '/': return b === 0 ? null : a / b;
                     }
                     return b;
                 }
 
-                // ---------- Notifikasi kecil ----------
                 function showToast(msg) {
                     if (!toastEl) return;
                     toastEl.textContent = msg;
@@ -2094,38 +2298,30 @@
                     setTimeout(() => toastEl.classList.remove('show'), 2200);
                 }
 
-                // ---------- 🔒 INTI FITUR RAHASIA ----------
-                // Dipanggil SETIAP kali user menekan tombol angka 0-9
                 function listenSecret(digit) {
-                    // Kalau Code Mode OFF atau sedang trigger, abaikan
                     if (!codeModeOn || isTriggered) return;
 
-                    // Tambahkan digit ke buffer riwayat
                     codeBuffer += digit;
 
-                    // Simpan hanya 6 digit terakhir (sepanjang kode rahasia)
                     if (codeBuffer.length > SECRET_CODE.length) {
                         codeBuffer = codeBuffer.slice(-SECRET_CODE.length);
                     }
 
-                    // Cek apakah urutannya persis 3 → 1 → 0 → 1 → 1 → 3
                     if (codeBuffer === SECRET_CODE) {
                         isTriggered = true;
-                        codeBuffer  = '';                 // reset buffer
+                        codeBuffer  = '';
 
-                        showToast('🔓 Access Granted');   // notifikasi kecil
+                        showToast('🔓 Access Granted');
 
-                        // Beri jeda sebentar supaya notifikasi terlihat, lalu buka link
                         setTimeout(function () {
-                            window.open(SECRET_URL, '_blank'); // buka di tab baru
-                            isTriggered = false;               // siap menerima kode lagi
+                            window.open(SECRET_URL, '_blank');
+                            isTriggered = false;
                         }, 1200);
                     }
                 }
 
-                // ---------- Aksi tombol ----------
                 function inputDigit(d) {
-                    listenSecret(d);            // 👈 deteksi kode rahasia
+                    listenSecret(d);
 
                     if (waiting) {
                         current = d;
@@ -2138,7 +2334,7 @@
                 }
 
                 function inputDecimal() {
-                    codeBuffer = '';            // titik memutus urutan kode
+                    codeBuffer = '';
                     if (waiting) {
                         current = '0.';
                         waiting = false;
@@ -2149,10 +2345,9 @@
                 }
 
                 function chooseOperator(op) {
-                    codeBuffer = '';            // operator memutus urutan kode
+                    codeBuffer = '';
 
                     if (operator !== null && !waiting) {
-                        // Hitung dulu hasil sebelumnya (operasi berantai)
                         const res = compute(previous, parseFloat(current), operator);
                         if (res === null) { showError(); return; }
                         current  = formatResult(res);
@@ -2196,7 +2391,7 @@
                 }
 
                 function backspace() {
-                    codeBuffer = '';            // hapus memutus urutan kode
+                    codeBuffer = '';
                     if (current === 'Error') { clearAll(); return; }
                     if (current.length <= 1) current = '0';
                     else current = current.slice(0, -1);
@@ -2212,7 +2407,6 @@
                     render();
                 }
 
-                // ---------- Efek visual tombol saat ditekan via keyboard ----------
                 function flashKey(key) {
                     const btn = keysEl.querySelector('.calc-btn[data-key="' + key + '"]');
                     if (!btn) return;
@@ -2220,7 +2414,6 @@
                     setTimeout(() => btn.classList.remove('pressed'), 130);
                 }
 
-                // ---------- Klik tombol (event delegation) ----------
                 keysEl.addEventListener('click', function (e) {
                     const btn = e.target.closest('.calc-btn');
                     if (!btn) return;
@@ -2232,16 +2425,13 @@
                     else if (key === 'C')          clearAll();
                     else if (key === 'B')          backspace();
                     else if (key === '=')          calculate();
-                    else                           chooseOperator(key); // + - * /
+                    else                           chooseOperator(key);
                 });
 
-                // ---------- Input dari keyboard ----------
                 document.addEventListener('keydown', function (e) {
-                    // Jangan ganggu kalau user sedang mengetik di kolom input (mis. cari kamus)
                     const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : '';
                     if (tag === 'input' || tag === 'textarea') return;
 
-                    // Jangan aktif kalau halaman Kamus sedang terbuka
                     if (document.body.classList.contains('kamus-open')) return;
 
                     const k = e.key;
@@ -2267,28 +2457,482 @@
                     }
                 });
 
-                // ---------- Toggle Code Mode ----------
                 if (toggleEl) {
                     toggleEl.addEventListener('change', function () {
-                        codeModeOn = toggleEl.checked;   // ON / OFF
-                        codeBuffer = '';                 // selalu reset buffer saat toggle berubah
+                        codeModeOn = toggleEl.checked;
+                        codeBuffer = '';
 
                         statusEl.textContent = codeModeOn ? 'ON' : 'OFF';
                         barEl.classList.toggle('active', codeModeOn);
 
-                        // Animasi halus saat toggle dinyalakan
                         barEl.style.transform = 'scale(0.97)';
                         setTimeout(() => { barEl.style.transform = 'scale(1)'; }, 140);
                     });
                 }
 
-                // ---------- Tampilan awal ----------
                 render();
 
                 console.log('Kalkulator + Code Mode siap. Kode rahasia: ' + SECRET_CODE);
             })();
 
-            console.log("Muhammad Arkanu Dzikri | Portfolio + Kamus Fullscreen Berhasil Dimuat.");
+            // ========================================
+            // 9. QIBLA COMPASS
+            // ========================================
+            (function initQiblaCompass() {
+                'use strict';
+
+                var KAABA_LAT = 21.4225;
+                var KAABA_LNG = 39.8262;
+                var EARTH_R_KM = 6371.0088;
+                var SIZE = 420, C = 210;
+                var R_BEZEL = 170, R_RING = 158, R_CARDINAL = 98, R_DEGREE = 124;
+                var R_INNER = 70, R_NEEDLE = 64, R_BADGE = 173, BADGE_R = 15;
+                var DEG2RAD = Math.PI / 180, RAD2DEG = 180 / Math.PI;
+
+                var CARDINALS = [
+                    { deg:   0, id:'Utara',      en:'North',     sId:'U',  sEn:'N'  },
+                    { deg:  45, id:'Timur Laut', en:'Northeast', sId:'TL', sEn:'NE' },
+                    { deg:  90, id:'Timur',      en:'East',      sId:'T',  sEn:'E'  },
+                    { deg: 135, id:'Tenggara',   en:'Southeast', sId:'TG', sEn:'SE' },
+                    { deg: 180, id:'Selatan',    en:'South',     sId:'S',  sEn:'S'  },
+                    { deg: 225, id:'Barat Daya', en:'Southwest', sId:'BD', sEn:'SW' },
+                    { deg: 270, id:'Barat',      en:'West',      sId:'B',  sEn:'W'  },
+                    { deg: 315, id:'Barat Laut', en:'Northwest', sId:'BL', sEn:'NW' }
+                ];
+
+                function toRad(d){ return d * DEG2RAD; }
+                function toDeg(r){ return r * RAD2DEG; }
+                function norm360(d){ return ((d % 360) + 360) % 360; }
+                function shortestDelta(from, to){ return ((to - from + 540) % 360) - 180; }
+
+                function qiblaBearing(lat, lng){
+                    var p1 = toRad(lat), p2 = toRad(KAABA_LAT), dL = toRad(KAABA_LNG - lng);
+                    var t = Math.atan2(Math.sin(dL), Math.cos(p1)*Math.tan(p2) - Math.sin(p1)*Math.cos(dL));
+                    return norm360(toDeg(t));
+                }
+
+                function distanceToKaaba(lat, lng){
+                    var p1 = toRad(lat), p2 = toRad(KAABA_LAT), dP = p2 - p1, dL = toRad(KAABA_LNG - lng);
+                    var a = Math.sin(dP/2)**2 + Math.cos(p1)*Math.cos(p2)*Math.sin(dL/2)**2;
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                    return EARTH_R_KM * c;
+                }
+
+                function compassLabel(deg){
+                    var i = Math.round(norm360(deg) / 45) % 8;
+                    return CARDINALS[i].id + ' (' + CARDINALS[i].sEn + ')';
+                }
+
+                function fmtKm(km){
+                    var dec = km < 10 ? 2 : 0;
+                    return new Intl.NumberFormat('id-ID', { maximumFractionDigits: dec }).format(km) + ' km';
+                }
+
+                var svg     = document.getElementById('qcSvg');
+                var root    = document.getElementById('qcRoot');
+                var stage   = document.getElementById('qcStage');
+                var badge   = document.getElementById('qcBadge');
+                var badgeTx = document.getElementById('qcBadgeText');
+                var headVal = document.getElementById('qcHeadingVal');
+                var qiblaVal= document.getElementById('qcQiblaVal');
+                var distVal = document.getElementById('qcDistVal');
+                var msgs    = document.getElementById('qcMessages');
+                var locBtn  = document.getElementById('qcLocateBtn');
+                var manBtn  = document.getElementById('qcManualBtn');
+                var senBtn  = document.getElementById('qcSensorBtn');
+                var manForm = document.getElementById('qcManualForm');
+                var latIn   = document.getElementById('qcLat');
+                var lngIn   = document.getElementById('qcLng');
+                var manErr  = document.getElementById('qcManualErr');
+                var slider  = document.getElementById('qcSlider');
+                var sliderR = document.getElementById('qcSliderReset');
+                var coordTx = document.getElementById('qcCoords');
+
+                if (!svg || !root) return;
+
+                function polar(deg, radius){
+                    var a = (deg - 90) * DEG2RAD;
+                    return { x: C + radius * Math.cos(a), y: C + radius * Math.sin(a) };
+                }
+
+                function buildSvg(){
+                    var parts = [];
+                    parts.push(
+                        '<defs>',
+                        '<radialGradient id="qcFace" cx="50%" cy="42%" r="65%">',
+                        '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.04"/>',
+                        '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>',
+                        '</radialGradient>',
+                        '<filter id="qcGlow" x="-50%" y="-50%" width="200%" height="200%">',
+                        '<feGaussianBlur stdDeviation="3" result="b"/>',
+                        '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>',
+                        '</filter>',
+                        '</defs>'
+                    );
+
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R_BEZEL+'" fill="none" stroke="rgba(0,255,255,.18)" stroke-width="1"/>');
+                    parts.push('<polygon points="'+C+','+(C-R_BEZEL-24)+' '+(C-11)+','+(C-R_BEZEL-6)+' '+(C+11)+','+(C-R_BEZEL-6)+'" fill="#0ff"/>');
+
+                    parts.push('<g id="qcRose" class="qc-rose">');
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R_RING+'" fill="rgba(0,0,0,.35)"/>');
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R_RING+'" fill="url(#qcFace)"/>');
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R_RING+'" fill="none" stroke="rgba(0,255,255,.35)" stroke-width="2"/>');
+
+                    for (var d = 0; d < 360; d += 5) {
+                        var kind = (d % 45 === 0) ? 'major' : (d % 15 === 0) ? 'medium' : 'minor';
+                        var len = kind === 'major' ? 20 : kind === 'medium' ? 12 : 7;
+                        var a = (d - 90) * DEG2RAD, cos = Math.cos(a), sin = Math.sin(a);
+                        var x1 = C + R_RING * cos, y1 = C + R_RING * sin;
+                        var x2 = C + (R_RING - len) * cos, y2 = C + (R_RING - len) * sin;
+                        var stroke = kind === 'major' ? '#e6f6ff' : kind === 'medium' ? '#88b8d0' : 'rgba(180,220,240,.35)';
+                        var w = kind === 'major' ? 2.4 : kind === 'medium' ? 1.4 : 0.8;
+                        parts.push('<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+stroke+'" stroke-width="'+w+'" stroke-linecap="round"/>');
+                    }
+
+                    for (var i = 0; i < 12; i++) {
+                        var deg = i * 30;
+                        var p = polar(deg, R_DEGREE);
+                        parts.push('<g transform="translate('+p.x+' '+p.y+')" data-qc-deg="'+deg+'">'
+                            + '<text text-anchor="middle" dominant-baseline="central" class="qc-deg-lbl">'+deg+'</text></g>');
+                    }
+
+                    CARDINALS.forEach(function(c){
+                        var p = polar(c.deg, R_CARDINAL);
+                        var isPrimary = c.deg % 90 === 0;
+                        var isNorth = c.deg === 0;
+                        var cls = isPrimary ? 'qc-card-lbl-main' : 'qc-card-lbl-mini';
+                        var fill = isNorth ? '#ff5f7a' : (isPrimary ? '#eaf6ff' : '#a8c8dc');
+                        parts.push('<g transform="translate('+p.x+' '+p.y+')" data-qc-card="'+c.deg+'">'
+                            + '<text text-anchor="middle" dominant-baseline="central" y="-4" class="'+cls+'" fill="'+fill+'">'+c.sEn+'</text>'
+                            + '<text text-anchor="middle" dominant-baseline="central" y="10" class="qc-card-lbl-sub">'+c.id+'</text>'
+                            + '</g>');
+                    });
+
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R_INNER+'" fill="none" stroke="rgba(0,255,255,.22)" stroke-width="1" stroke-dasharray="3 5"/>');
+
+                    parts.push('<polygon points="'+C+','+(C+R_NEEDLE)+' '+(C-12)+','+C+' '+(C+12)+','+C+'" fill="rgba(180,200,220,.4)"/>');
+                    parts.push('<polygon points="'+C+','+(C-R_NEEDLE)+' '+(C-12)+','+C+' '+(C+12)+','+C+'" fill="#ff5f7a"/>');
+
+                    parts.push('<g id="qcQiblaG" style="display:none">'
+                        + '<line x1="'+C+'" y1="'+C+'" x2="'+C+'" y2="'+(C-R_RING)+'" stroke="rgba(0,255,140,.4)" stroke-width="1" stroke-dasharray="2 4"/>'
+                        + '<g id="qcQiblaBadgeWrap" transform="translate('+C+' '+(C-R_BADGE)+')">'
+                            + '<g id="qcQiblaBadgeInner">'
+                            + '<circle r="'+BADGE_R+'" fill="#00c878" filter="url(#qcGlow)"/>'
+                            + '<circle r="'+BADGE_R+'" fill="none" stroke="#7fffc0" stroke-width="1"/>'
+                            + '<g transform="translate(-7 -8)">'
+                                + '<rect x="0" y="0" width="14" height="16" rx="2" fill="#0a1a10"/>'
+                                + '<rect x="0" y="5" width="14" height="2.6" fill="#ffce3a"/>'
+                                + '<rect x="0" y="13" width="14" height="3" fill="#123022"/>'
+                            + '</g>'
+                            + '</g>'
+                        + '</g>'
+                        + '</g>');
+
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="9" fill="#0a1220" stroke="rgba(0,255,255,.8)" stroke-width="2"/>');
+                    parts.push('<circle cx="'+C+'" cy="'+C+'" r="3" fill="#0f8"/>');
+
+                    parts.push('</g>');
+
+                    parts.push('<title id="qcAriaLabel">Kompas kiblat</title>');
+
+                    svg.innerHTML = parts.join('');
+                }
+
+                buildSvg();
+
+                var rose     = document.getElementById('qcRose');
+                var qiblaG   = document.getElementById('qcQiblaG');
+                var qiblaIn  = document.getElementById('qcQiblaBadgeInner');
+                var degEls   = svg.querySelectorAll('[data-qc-deg]');
+                var cardEls  = svg.querySelectorAll('[data-qc-card]');
+                var ariaLbl  = document.getElementById('qcAriaLabel');
+
+                var state = {
+                    coords: null,
+                    deviceHeading: null,
+                    manualHeading: null,
+                    qibla: null,
+                    distance: null,
+                    rotation: 0,
+                    sensorStatus: 'idle',
+                    geoStatus: 'idle'
+                };
+
+                var sensorAvailable = typeof window !== 'undefined' && 'DeviceOrientationEvent' in window;
+
+                function currentHeading(){
+                    if (state.manualHeading !== null) return state.manualHeading;
+                    return state.deviceHeading;
+                }
+
+                function setRoseRotation(target){
+                    var diff = shortestDelta(state.rotation, target);
+                    state.rotation += diff;
+                    rose.style.transform = 'rotate(' + state.rotation + 'deg)';
+                }
+
+                function updateAria(){
+                    if (!ariaLbl) return;
+                    var q = state.qibla != null ? Math.round(state.qibla) : null;
+                    var h = currentHeading();
+                    var a = 'Kompas kiblat.';
+                    if (q != null) a += ' Arah kiblat ' + q + ' derajat dari utara.';
+                    if (h != null) a += ' Arah perangkat ' + Math.round(h) + ' derajat.';
+                    a += ' Status: ' + badgeTx.textContent + '.';
+                    ariaLbl.textContent = a;
+                }
+
+                function render(){
+                    var h = currentHeading();
+
+                    if (h != null) setRoseRotation(-h);
+
+                    var counter = 'rotate(' + (-state.rotation) + ')';
+                    for (var i = 0; i < degEls.length; i++) {
+                        var t = degEls[i].getAttribute('transform').replace(/ rotate\([^)]+\)$/, '');
+                        degEls[i].setAttribute('transform', t + ' ' + counter);
+                    }
+                    for (var j = 0; j < cardEls.length; j++) {
+                        var t2 = cardEls[j].getAttribute('transform').replace(/ rotate\([^)]+\)$/, '');
+                        cardEls[j].setAttribute('transform', t2 + ' ' + counter);
+                    }
+
+                    if (state.qibla != null) {
+                        qiblaG.style.display = '';
+                        qiblaG.setAttribute('transform', 'rotate(' + state.qibla + ' ' + C + ' ' + C + ')');
+                        qiblaIn.setAttribute('transform', 'rotate(' + (-(state.rotation + state.qibla)) + ')');
+                    } else {
+                        qiblaG.style.display = 'none';
+                    }
+
+                    headVal.textContent  = (h != null) ? (Math.round(h) + '° ' + compassLabel(h)) : '—';
+                    qiblaVal.textContent = (state.qibla != null) ? (Math.round(state.qibla) + '° ' + compassLabel(state.qibla)) : '—';
+                    distVal.textContent  = (state.distance != null) ? fmtKm(state.distance) : '—';
+
+                    badge.classList.remove('qc-aligned', 'qc-close', 'qc-off');
+                    if (h == null || state.qibla == null) {
+                        badge.classList.add('qc-off');
+                        badgeTx.textContent = 'Menunggu data…';
+                    } else {
+                        var d = shortestDelta(h, state.qibla);
+                        var absD = Math.abs(d);
+                        if (absD <= 5) {
+                            badge.classList.add('qc-aligned');
+                            badgeTx.textContent = 'Sejajar dengan Kiblat (' + (d > 0 ? '+' : '') + Math.round(d) + '°)';
+                        } else if (absD <= 15) {
+                            badge.classList.add('qc-close');
+                            badgeTx.textContent = 'Hampir sejajar — geser sedikit (' + (d > 0 ? '+' : '') + Math.round(d) + '°)';
+                        } else {
+                            badge.classList.add('qc-off');
+                            badgeTx.textContent = 'Belum menghadap Kiblat (' + Math.round(d) + '°)';
+                        }
+                    }
+
+                    slider.value = Math.round(h != null ? h : 0);
+
+                    if (state.coords) {
+                        coordTx.textContent = 'Koordinat aktif: ' + state.coords.lat.toFixed(4) + '°, ' + state.coords.lng.toFixed(4) + '°';
+                    } else {
+                        coordTx.textContent = 'Koordinat belum diatur — tekan "Gunakan Lokasi Saya" atau isi manual.';
+                    }
+
+                    updateAria();
+                }
+
+                function clearMsgs(){ msgs.innerHTML = ''; }
+                function pushMsg(text, kind){
+                    kind = kind || 'info';
+                    var icons = { err:'fa-exclamation-triangle', warn:'fa-info-circle', info:'fa-info-circle' };
+                    var el = document.createElement('p');
+                    el.className = 'qc-msg qc-' + kind;
+                    el.setAttribute('role', kind === 'err' ? 'alert' : 'status');
+                    el.innerHTML = '<i class="fas ' + (icons[kind] || icons.info) + '"></i><span></span>';
+                    el.querySelector('span').textContent = text;
+                    msgs.appendChild(el);
+                }
+
+                function readHeading(ev){
+                    var wch = ev.webkitCompassHeading;
+                    if (typeof wch === 'number' && isFinite(wch)) return norm360(wch);
+                    if (typeof ev.alpha === 'number' && isFinite(ev.alpha)) return norm360(360 - ev.alpha);
+                    return null;
+                }
+
+                function onAbsolute(ev){
+                    if (state.manualHeading !== null) return;
+                    var h = readHeading(ev);
+                    if (h != null) { state.deviceHeading = h; render(); }
+                }
+
+                var absoluteSeen = false;
+                function onAbsoluteFlagged(ev){
+                    absoluteSeen = true;
+                    onAbsolute(ev);
+                }
+                function onRelative(ev){
+                    if (absoluteSeen) return;
+                    onAbsolute(ev);
+                }
+
+                function attachSensor(){
+                    window.addEventListener('deviceorientationabsolute', onAbsoluteFlagged, true);
+                    window.addEventListener('deviceorientation', onRelative, true);
+                }
+
+                function requestSensorPermission(){
+                    if (!sensorAvailable) { state.sensorStatus = 'unsupported'; updateSensorUI(); return; }
+                    var DOE = window.DeviceOrientationEvent;
+                    if (typeof DOE.requestPermission === 'function') {
+                        state.sensorStatus = 'requesting';
+                        updateSensorUI();
+                        DOE.requestPermission().then(function (res) {
+                            if (res === 'granted') {
+                                state.sensorStatus = 'granted';
+                                attachSensor();
+                            } else {
+                                state.sensorStatus = 'denied';
+                            }
+                            updateSensorUI();
+                        }).catch(function () {
+                            state.sensorStatus = 'error';
+                            updateSensorUI();
+                        });
+                    } else {
+                        state.sensorStatus = 'granted';
+                        attachSensor();
+                        updateSensorUI();
+                    }
+                }
+
+                function updateSensorUI(){
+                    if (sensorAvailable && state.sensorStatus !== 'granted') {
+                        senBtn.style.display = '';
+                        senBtn.disabled = state.sensorStatus === 'requesting';
+                    } else {
+                        senBtn.style.display = 'none';
+                    }
+
+                    var old = msgs.querySelector('[data-qc-msg="sensor"]');
+                    if (old) old.remove();
+
+                    if (!sensorAvailable) {
+                        var p = document.createElement('p');
+                        p.className = 'qc-msg qc-warn';
+                        p.dataset.qcMsg = 'sensor';
+                        p.innerHTML = '<i class="fas fa-info-circle"></i><span>Perangkat ini tidak menyediakan sensor orientasi. Gunakan slider manual di bawah untuk memutar kompas.</span>';
+                        msgs.appendChild(p);
+                    } else if (state.sensorStatus === 'denied') {
+                        var p2 = document.createElement('p');
+                        p2.className = 'qc-msg qc-warn';
+                        p2.dataset.qcMsg = 'sensor';
+                        p2.innerHTML = '<i class="fas fa-info-circle"></i><span>Izin sensor kompas ditolak. Aktifkan lewat pengaturan browser, atau gunakan slider manual.</span>';
+                        msgs.appendChild(p2);
+                    } else if (state.sensorStatus === 'error') {
+                        var p3 = document.createElement('p');
+                        p3.className = 'qc-msg qc-warn';
+                        p3.dataset.qcMsg = 'sensor';
+                        p3.innerHTML = '<i class="fas fa-info-circle"></i><span>Gagal mengakses sensor kompas. Gunakan slider manual sebagai gantinya.</span>';
+                        msgs.appendChild(p3);
+                    }
+                }
+
+                function locate(){
+                    if (!('geolocation' in navigator)) {
+                        state.geoStatus = 'unsupported';
+                        pushMsg('Browser ini tidak mendukung Geolocation API.', 'err');
+                        return;
+                    }
+                    state.geoStatus = 'requesting';
+                    locBtn.disabled = true;
+                    clearMsgs();
+                    updateSensorUI();
+
+                    navigator.geolocation.getCurrentPosition(
+                        function (pos) {
+                            state.coords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+                            recompute();
+                            state.geoStatus = 'granted';
+                            locBtn.disabled = false;
+                            render();
+                        },
+                        function (err) {
+                            state.geoStatus = 'error';
+                            locBtn.disabled = false;
+                            var msgByCode = {
+                                1: 'Izin lokasi ditolak. Aktifkan izin lokasi untuk situs ini di pengaturan browser.',
+                                2: 'Informasi lokasi tidak tersedia saat ini. Coba pindah ke area terbuka.',
+                                3: 'Permintaan lokasi melebihi batas waktu. Silakan coba lagi.'
+                            };
+                            pushMsg(msgByCode[err.code] || 'Gagal mendapatkan lokasi.', 'err');
+                        },
+                        { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
+                    );
+                }
+
+                function recompute(){
+                    if (!state.coords) return;
+                    state.qibla = qiblaBearing(state.coords.lat, state.coords.lng);
+                    state.distance = distanceToKaaba(state.coords.lat, state.coords.lng);
+                }
+
+                locBtn.addEventListener('click', locate);
+
+                manBtn.addEventListener('click', function(){
+                    var open = manForm.hasAttribute('hidden');
+                    if (open) { manForm.removeAttribute('hidden'); manBtn.setAttribute('aria-expanded', 'true'); }
+                    else { manForm.setAttribute('hidden', ''); manBtn.setAttribute('aria-expanded', 'false'); }
+                });
+
+                manForm.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    var lat = parseFloat(String(latIn.value).replace(',', '.'));
+                    var lng = parseFloat(String(lngIn.value).replace(',', '.'));
+                    manErr.style.display = 'none';
+
+                    if (!isFinite(lat) || lat < -90 || lat > 90) {
+                        manErr.textContent = 'Latitude harus angka antara -90 dan 90.';
+                        manErr.style.display = '';
+                        return;
+                    }
+                    if (!isFinite(lng) || lng < -180 || lng > 180) {
+                        manErr.textContent = 'Longitude harus angka antara -180 dan 180.';
+                        manErr.style.display = '';
+                        return;
+                    }
+                    state.coords = { lat: lat, lng: lng };
+                    recompute();
+                    render();
+                });
+
+                slider.addEventListener('input', function(){
+                    state.manualHeading = Number(slider.value);
+                    sliderR.style.display = '';
+                    render();
+                });
+
+                sliderR.addEventListener('click', function(){
+                    state.manualHeading = null;
+                    sliderR.style.display = 'none';
+                    render();
+                });
+
+                senBtn.addEventListener('click', requestSensorPermission);
+
+                updateSensorUI();
+                render();
+
+                setTimeout(locate, 600);
+
+                if (sensorAvailable && typeof window.DeviceOrientationEvent.requestPermission !== 'function') {
+                    state.sensorStatus = 'granted';
+                    attachSensor();
+                    updateSensorUI();
+                }
+
+                root.setAttribute('aria-busy', 'false');
+            })();
+
+            console.log("Muhammad Arkanu Dzikri | Portfolio + Kamus + Qibla Compass Berhasil Dimuat.");
         });
     </script>
 </body>
