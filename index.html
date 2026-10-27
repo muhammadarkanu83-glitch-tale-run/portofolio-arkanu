@@ -1293,6 +1293,301 @@ body.kamus-open{overflow:hidden}
 .qc-card-lbl-main{font-size:17px;font-weight:700;font-family:var(--font-sans)}
 .qc-card-lbl-sub{font-size:7.5px;fill:var(--color-text-muted);font-family:var(--font-sans)}
 .qc-card-lbl-mini{font-size:12.5px;font-weight:600;font-family:var(--font-sans)}
+
+/* =========================================================
+   BLOG PAGE
+   ========================================================= */
+.blog-page{
+  position:fixed;inset:0;
+  background:var(--color-bg-primary);
+  -webkit-backdrop-filter:blur(30px) saturate(180%);
+  backdrop-filter:blur(30px) saturate(180%);
+  z-index:var(--z-modal);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--duration-normal) var(--ease-out);
+  overflow-y:auto;
+}
+.blog-page.show{opacity:1;pointer-events:auto}
+.blog-page-inner{max-width:900px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-16)}
+.blog-page-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--space-4);
+  padding-bottom:var(--space-6);
+  border-bottom:1px solid var(--color-border);
+  margin-bottom:var(--space-6);
+}
+.blog-page-title{
+  font-family:var(--font-serif);
+  font-size:var(--fs-2xl);
+  font-weight:var(--fw-semibold);
+  color:var(--color-text-primary);
+  letter-spacing:var(--ls-tight);
+  line-height:var(--lh-tight);
+}
+.blog-page-title small{
+  display:block;
+  font-family:var(--font-sans);
+  font-size:var(--fs-xs);
+  font-weight:var(--fw-medium);
+  color:var(--color-text-muted);
+  letter-spacing:var(--ls-wide);
+  text-transform:uppercase;
+  margin-bottom:var(--space-1);
+}
+.blog-header-actions{display:flex;align-items:center;gap:var(--space-2)}
+
+.blog-admin-btn{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-2) var(--space-4);
+  border-radius:var(--radius-full);
+  background:var(--input-bg);
+  border:1px solid var(--color-border);
+  color:var(--color-text-secondary);
+  font-family:var(--font-sans);
+  font-size:var(--fs-xs);
+  font-weight:var(--fw-semibold);
+  letter-spacing:var(--ls-wide);
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.blog-admin-btn:hover{
+  border-color:var(--color-primary);
+  color:var(--color-primary);
+  box-shadow:0 0 12px var(--color-primary-glow);
+}
+.blog-admin-btn.active{
+  background:rgba(48,209,88,.14);
+  border-color:var(--color-success);
+  color:var(--color-success);
+}
+.blog-admin-btn.active:hover{
+  border-color:var(--color-success);
+  color:var(--color-success);
+  box-shadow:0 0 12px rgba(48,209,88,.35);
+}
+
+.blog-admin-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--space-3);
+  padding:var(--space-3) var(--space-4);
+  border-radius:var(--radius-lg);
+  background:rgba(48,209,88,.10);
+  border:1px solid var(--color-success);
+  color:var(--color-success);
+  font-size:var(--fs-sm);
+  font-weight:var(--fw-semibold);
+  margin-bottom:var(--space-4);
+}
+.blog-admin-bar button{
+  background:transparent;
+  border:1px solid var(--color-success);
+  color:var(--color-success);
+  padding:.3rem .8rem;
+  border-radius:var(--radius-full);
+  font-family:var(--font-sans);
+  font-size:.7rem;
+  font-weight:var(--fw-bold);
+  letter-spacing:var(--ls-wide);
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.blog-admin-bar button:hover{background:var(--color-success);color:#fff}
+
+.blog-toolbar{display:flex;justify-content:flex-end;margin-bottom:var(--space-4)}
+.blog-toolbar button{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-2) var(--space-5);
+  border-radius:var(--radius-full);
+  background:var(--color-primary);
+  border:1px solid var(--color-primary);
+  color:#fff;
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  font-weight:var(--fw-semibold);
+  letter-spacing:var(--ls-wide);
+  cursor:pointer;
+  transition:all var(--duration-normal) var(--ease-out);
+}
+.blog-toolbar button:hover{
+  background:var(--color-primary-hover);
+  border-color:var(--color-primary-hover);
+  transform:translateY(-1px);
+  box-shadow:var(--shadow-md),0 0 20px var(--color-primary-glow);
+}
+
+.blog-list{display:flex;flex-direction:column;gap:var(--space-4)}
+.blog-card{
+  background:var(--card-bg);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-xl);
+  padding:var(--space-5) var(--space-6);
+  box-shadow:var(--shadow-sm);
+  transition:transform var(--duration-fast) var(--ease-out),
+             box-shadow var(--duration-fast) var(--ease-out),
+             border-color var(--duration-fast) var(--ease-out);
+}
+.blog-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--color-border-strong);
+}
+.blog-card h3{
+  font-family:var(--font-serif);
+  font-size:var(--fs-xl);
+  font-weight:var(--fw-semibold);
+  color:var(--color-text-primary);
+  letter-spacing:var(--ls-tight);
+  margin-bottom:var(--space-2);
+}
+.blog-meta{
+  display:flex;flex-wrap:wrap;gap:var(--space-3);
+  font-size:var(--fs-xs);
+  color:var(--color-text-muted);
+  margin-bottom:var(--space-4);
+}
+.blog-meta i{color:var(--color-primary);margin-right:var(--space-1)}
+.blog-body{
+  font-size:var(--fs-sm);
+  color:var(--color-text-secondary);
+  line-height:var(--lh-loose);
+}
+.blog-actions{
+  display:flex;gap:var(--space-2);
+  margin-top:var(--space-4);
+  padding-top:var(--space-4);
+  border-top:1px dashed var(--color-border);
+}
+.blog-actions button{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:.35rem .9rem;
+  border-radius:var(--radius-full);
+  font-family:var(--font-sans);
+  font-size:.72rem;
+  font-weight:var(--fw-semibold);
+  letter-spacing:var(--ls-wide);
+  cursor:pointer;
+  border:1px solid var(--color-border);
+  background:var(--input-bg);
+  color:var(--color-text-secondary);
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.blog-actions .blog-edit:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.blog-actions .blog-delete{color:var(--color-error);border-color:rgba(255,69,58,.35)}
+.blog-actions .blog-delete:hover{background:rgba(255,69,58,.1);border-color:var(--color-error);color:var(--color-error)}
+
+.blog-empty{
+  text-align:center;
+  padding:var(--space-16) var(--space-4);
+  color:var(--color-text-muted);
+  font-size:var(--fs-base);
+  line-height:var(--lh-loose);
+}
+.blog-empty i{font-size:var(--fs-3xl);color:var(--color-primary);margin-bottom:var(--space-3);display:block;opacity:.7}
+
+/* Blog Modals */
+.blog-modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.72);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  z-index:calc(var(--z-modal) + 1);
+  display:flex;align-items:center;justify-content:center;
+  padding:var(--space-4);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--duration-normal) var(--ease-out);
+}
+.blog-modal.show{opacity:1;pointer-events:auto}
+html.light-mode .blog-modal{background:rgba(0,0,0,.45)}
+.blog-modal-content{
+  width:100%;max-width:540px;
+  background:var(--color-bg-elevated);
+  border:1px solid var(--color-border-strong);
+  border-radius:var(--radius-2xl);
+  padding:var(--space-6);
+  box-shadow:var(--shadow-xl);
+  transform:scale(.95);
+  transition:transform var(--duration-normal) var(--ease-out);
+}
+.blog-modal.show .blog-modal-content{transform:scale(1)}
+.blog-modal-content h3{
+  font-family:var(--font-serif);
+  font-size:var(--fs-lg);
+  font-weight:var(--fw-semibold);
+  margin-bottom:var(--space-2);
+  color:var(--color-text-primary);
+  display:flex;align-items:center;gap:var(--space-2);
+}
+.blog-modal-content h3 i{color:var(--color-primary)}
+.blog-modal-content p{
+  font-size:var(--fs-sm);
+  color:var(--color-text-secondary);
+  margin-bottom:var(--space-4);
+}
+.blog-modal-content input,
+.blog-modal-content textarea{
+  width:100%;
+  padding:var(--space-3) var(--space-4);
+  margin-bottom:var(--space-3);
+  border-radius:var(--radius-md);
+  border:1px solid var(--color-border);
+  background:var(--input-bg);
+  color:var(--color-text-primary);
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  outline:none;
+  transition:border-color var(--duration-fast) var(--ease-out),
+             box-shadow var(--duration-fast) var(--ease-out);
+}
+.blog-modal-content textarea{resize:vertical;min-height:180px;line-height:var(--lh-normal)}
+.blog-modal-content input:focus,
+.blog-modal-content textarea:focus{
+  border-color:var(--color-primary);
+  box-shadow:0 0 0 3px var(--color-primary-soft);
+}
+.blog-modal-actions{
+  display:flex;gap:var(--space-2);justify-content:flex-end;
+  margin-top:var(--space-3);
+}
+.blog-modal-actions button{
+  padding:var(--space-2) var(--space-5);
+  border-radius:var(--radius-full);
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  font-weight:var(--fw-semibold);
+  letter-spacing:var(--ls-wide);
+  cursor:pointer;
+  border:1px solid var(--color-border);
+  background:var(--input-bg);
+  color:var(--color-text-secondary);
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.blog-modal-actions button.primary{
+  background:var(--color-primary);
+  border-color:var(--color-primary);
+  color:#fff;
+}
+.blog-modal-actions button.primary:hover{
+  background:var(--color-primary-hover);
+  border-color:var(--color-primary-hover);
+  box-shadow:0 0 16px var(--color-primary-glow);
+}
+.blog-modal-actions button:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.blog-modal-actions button.primary:hover{color:#fff}
+.blog-login-err{
+  color:var(--color-error);
+  font-size:.75rem;
+  margin:0 0 var(--space-2);
+}
+@media (max-width:600px){
+  .blog-page-inner{padding:var(--space-6) var(--space-4) var(--space-12)}
+  .blog-page-title{font-size:var(--fs-xl)}
+  .blog-card{padding:var(--space-4)}
+  .blog-card h3{font-size:var(--fs-lg)}
+}
 </style>
 </head>
 <body>
@@ -1347,6 +1642,10 @@ body.kamus-open{overflow:hidden}
 
     <button class="kamus-button" id="openKamusBtn">
       <i class="fas fa-book-open"></i> Buka Kamus Jawa
+    </button>
+
+    <button class="kamus-button" id="openBlogBtn">
+      <i class="fas fa-blog"></i> Buka Blog
     </button>
 
     <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
@@ -1629,6 +1928,64 @@ body.kamus-open{overflow:hidden}
     </div>
     <div class="kamus-page-stats" id="kamusPageStats">Memuat kata...</div>
     <div class="kamus-page-list" id="kamusPageList"></div>
+  </div>
+</div>
+
+<!-- ===== HALAMAN BLOG ===== -->
+<div class="blog-page" id="blogPage">
+  <div class="blog-page-inner">
+    <div class="blog-page-header">
+      <div class="blog-page-title">
+        <small>Catatan &amp; Tulisan</small>
+        <i class="fas fa-blog" style="margin-right:8px;"></i> Blog Arkanu
+      </div>
+      <div class="blog-header-actions">
+        <button class="blog-admin-btn" id="blogAdminBtn">
+          <i class="fas fa-lock"></i> Admin
+        </button>
+        <button class="kamus-page-close" id="closeBlogBtn" aria-label="Tutup Blog">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="blog-admin-bar" id="blogAdminBar" hidden>
+      <span><i class="fas fa-unlock"></i> Mode Admin aktif — Anda dapat mengedit blog.</span>
+      <button id="blogLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="blog-toolbar" id="blogToolbar" hidden>
+      <button id="blogNewPostBtn"><i class="fas fa-plus"></i> Tulis Postingan Baru</button>
+    </div>
+
+    <div class="blog-list" id="blogList"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL LOGIN ADMIN ===== -->
+<div class="blog-modal" id="blogLoginModal">
+  <div class="blog-modal-content">
+    <h3><i class="fas fa-lock"></i> Admin Login</h3>
+    <p>Masukkan kode akses admin untuk mengedit blog.</p>
+    <input type="password" id="blogAdminCode" placeholder="Kode akses" inputmode="numeric" autocomplete="off">
+    <p class="blog-login-err" id="blogLoginErr" style="display:none"></p>
+    <div class="blog-modal-actions">
+      <button id="blogLoginCancel">Batal</button>
+      <button class="primary" id="blogLoginSubmit"><i class="fas fa-unlock"></i> Masuk</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL EDITOR POSTINGAN ===== -->
+<div class="blog-modal" id="blogEditorModal">
+  <div class="blog-modal-content">
+    <h3><i class="fas fa-pen"></i> <span id="blogEditorModalTitle">Tulis Postingan</span></h3>
+    <input type="text" id="blogEditorTitleInput" placeholder="Judul postingan..." maxlength="140">
+    <textarea id="blogEditorContent" placeholder="Tulis isi blog di sini..." rows="8"></textarea>
+    <div class="blog-modal-actions">
+      <button id="blogEditorCancel">Batal</button>
+      <button class="primary" id="blogEditorSave"><i class="fas fa-save"></i> Simpan</button>
+    </div>
   </div>
 </div>
 
@@ -2324,6 +2681,278 @@ document.addEventListener("DOMContentLoaded", function() {
   })();
 
   console.log("Muhammad Arkanu Dzikri | Portfolio + Kamus + Qibla Compass Berhasil Dimuat.");
+});
+</script>
+
+<!-- ===== BLOG SCRIPT ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+
+  var ADMIN_CODE  = "15243";
+  var STORAGE_KEY = "arkanu-blog-posts";
+  var ADMIN_KEY   = "arkanu-blog-admin";
+
+  var defaultPosts = [
+    {
+      id: "post-1",
+      title: "Selamat Datang di Blog Arkanu",
+      author: "Muhammad Arkanu Dzikri",
+      date: "2025-01-15",
+      content: "Assalamualaikum warahmatullahi wabarakatuh!\n\nSelamat datang di blog pribadi saya. Di sini saya akan berbagi cerita, pengalaman, dan pemikiran selama menempuh pendidikan di As-Syifa Boarding School (ASBOCH).\n\nSemoga tulisan-tulisan saya bermanfaat untuk teman-teman semua. Tetap semangat belajar, jaga kesehatan, dan jangan lupa tersenyum!\n\nSalam hangat,\nArkanu"
+    },
+    {
+      id: "post-2",
+      title: "Cerita Dibalik Jokes \"Sup Lezat dan Bergizi\"",
+      author: "Muhammad Arkanu Dzikri",
+      date: "2025-02-20",
+      content: "Banyak yang bertanya kenapa saya dijuluki \"Orang Tergabut se-ASBOCH\".\n\nSemua berawal dari jokes sederhana \"Sup lezat dan bergizi\" yang saya lontarkan di tengah kebosanan jam pelajaran. Ternyata jokes itu berhasil mencairkan suasana dan akhirnya jadi ciri khas saya.\n\nDari sini saya belajar: humor itu bisa jadi jembatan persahabatan. Tidak perlu jadi yang paling pintar, cukup jadi yang paling bisa menghadirkan tawa."
+    }
+  ];
+
+  function loadPosts() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaultPosts.slice();
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length >= 0) return parsed;
+      return defaultPosts.slice();
+    } catch (e) { return defaultPosts.slice(); }
+  }
+  function persist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(posts)); } catch (e) {}
+  }
+
+  var posts = loadPosts();
+  var isAdmin = false;
+  try { isAdmin = sessionStorage.getItem(ADMIN_KEY) === "1"; } catch (e) {}
+  var editingId = null;
+
+  var blogPage      = document.getElementById("blogPage");
+  var openBtn       = document.getElementById("openBlogBtn");
+  var closeBtn      = document.getElementById("closeBlogBtn");
+  var adminBtn      = document.getElementById("blogAdminBtn");
+  var adminBar      = document.getElementById("blogAdminBar");
+  var adminLogout   = document.getElementById("blogLogoutBtn");
+  var toolbar       = document.getElementById("blogToolbar");
+  var newBtn        = document.getElementById("blogNewPostBtn");
+  var listEl        = document.getElementById("blogList");
+
+  var loginModal    = document.getElementById("blogLoginModal");
+  var loginInput    = document.getElementById("blogAdminCode");
+  var loginErr      = document.getElementById("blogLoginErr");
+  var loginSubmit   = document.getElementById("blogLoginSubmit");
+  var loginCancel   = document.getElementById("blogLoginCancel");
+
+  var editorModal   = document.getElementById("blogEditorModal");
+  var editorTitle   = document.getElementById("blogEditorModalTitle");
+  var editorTitleIn = document.getElementById("blogEditorTitleInput");
+  var editorContent = document.getElementById("blogEditorContent");
+  var editorSave    = document.getElementById("blogEditorSave");
+  var editorCancel  = document.getElementById("blogEditorCancel");
+
+  if (!blogPage || !openBtn) return;
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function formatDate(d) {
+    if (!d) return "";
+    try {
+      var dt = new Date(d);
+      if (isNaN(dt.getTime())) return d;
+      return dt.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+    } catch (e) { return d; }
+  }
+
+  function render() {
+    if (!listEl) return;
+    if (!posts.length) {
+      listEl.innerHTML = '<div class="blog-empty"><i class="fas fa-feather"></i>Belum ada postingan.<br>Admin bisa menulis postingan pertama.</div>';
+    } else {
+      listEl.innerHTML = posts.map(function (p) {
+        var actions = isAdmin
+          ? '<footer class="blog-actions">' +
+              '<button class="blog-edit" data-id="' + escapeHtml(p.id) + '"><i class="fas fa-pen"></i> Edit</button>' +
+              '<button class="blog-delete" data-id="' + escapeHtml(p.id) + '"><i class="fas fa-trash"></i> Hapus</button>' +
+            '</footer>'
+          : "";
+        return '<article class="blog-card">' +
+          '<h3>' + escapeHtml(p.title) + '</h3>' +
+          '<div class="blog-meta">' +
+            '<span><i class="fas fa-user"></i>' + escapeHtml(p.author || "Anonim") + '</span>' +
+            '<span><i class="fas fa-calendar"></i>' + escapeHtml(formatDate(p.date)) + '</span>' +
+          '</div>' +
+          '<div class="blog-body">' + escapeHtml(p.content).replace(/\n/g, "<br>") + '</div>' +
+          actions +
+        '</article>';
+      }).join("");
+    }
+    updateAdminUI();
+  }
+
+  function updateAdminUI() {
+    if (isAdmin) {
+      adminBtn.innerHTML = '<i class="fas fa-unlock"></i> Admin';
+      adminBtn.classList.add("active");
+      adminBar.hidden = false;
+      toolbar.hidden = false;
+    } else {
+      adminBtn.innerHTML = '<i class="fas fa-lock"></i> Admin';
+      adminBtn.classList.remove("active");
+      adminBar.hidden = true;
+      toolbar.hidden = true;
+    }
+  }
+
+  function openBlog() {
+    blogPage.classList.add("show");
+    document.body.classList.add("kamus-open");
+    render();
+  }
+  function closeBlog() {
+    blogPage.classList.remove("show");
+    document.body.classList.remove("kamus-open");
+    closeLoginModal();
+    closeEditorModal();
+  }
+
+  openBtn.addEventListener("click", openBlog);
+  closeBtn.addEventListener("click", closeBlog);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && blogPage.classList.contains("show")) {
+      if (editorModal.classList.contains("show")) { closeEditorModal(); return; }
+      if (loginModal.classList.contains("show")) { closeLoginModal(); return; }
+      closeBlog();
+    }
+  });
+
+  /* ---------- Login Modal ---------- */
+  function openLoginModal() {
+    loginInput.value = "";
+    loginErr.style.display = "none";
+    loginModal.classList.add("show");
+    setTimeout(function () { loginInput.focus(); }, 120);
+  }
+  function closeLoginModal() { loginModal.classList.remove("show"); }
+
+  adminBtn.addEventListener("click", function () {
+    if (isAdmin) {
+      if (window.confirm("Logout dari mode admin?")) {
+        isAdmin = false;
+        try { sessionStorage.removeItem(ADMIN_KEY); } catch (e) {}
+        render();
+      }
+    } else {
+      openLoginModal();
+    }
+  });
+
+  adminLogout.addEventListener("click", function () {
+    isAdmin = false;
+    try { sessionStorage.removeItem(ADMIN_KEY); } catch (e) {}
+    render();
+  });
+
+  loginCancel.addEventListener("click", closeLoginModal);
+  loginModal.addEventListener("click", function (e) {
+    if (e.target === loginModal) closeLoginModal();
+  });
+
+  function submitLogin() {
+    var val = loginInput.value.trim();
+    if (val === ADMIN_CODE) {
+      isAdmin = true;
+      try { sessionStorage.setItem(ADMIN_KEY, "1"); } catch (e) {}
+      closeLoginModal();
+      render();
+    } else {
+      loginErr.textContent = "Kode akses salah. Coba lagi.";
+      loginErr.style.display = "";
+      loginInput.select();
+    }
+  }
+  loginSubmit.addEventListener("click", submitLogin);
+  loginInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); submitLogin(); }
+  });
+
+  /* ---------- Editor Modal ---------- */
+  function openEditor(post) {
+    editingId = post ? post.id : null;
+    editorTitle.textContent = post ? "Edit Postingan" : "Tulis Postingan Baru";
+    editorTitleIn.value = post ? post.title : "";
+    editorContent.value = post ? post.content : "";
+    editorModal.classList.add("show");
+    setTimeout(function () { editorTitleIn.focus(); }, 120);
+  }
+  function closeEditorModal() {
+    editorModal.classList.remove("show");
+    editingId = null;
+  }
+
+  newBtn.addEventListener("click", function () {
+    if (!isAdmin) return;
+    openEditor(null);
+  });
+  editorCancel.addEventListener("click", closeEditorModal);
+  editorModal.addEventListener("click", function (e) {
+    if (e.target === editorModal) closeEditorModal();
+  });
+
+  editorSave.addEventListener("click", function () {
+    if (!isAdmin) return;
+    var t = editorTitleIn.value.trim();
+    var c = editorContent.value.trim();
+    if (!t || !c) {
+      alert("Judul dan isi tidak boleh kosong.");
+      return;
+    }
+    var today = new Date().toISOString().slice(0, 10);
+    if (editingId) {
+      posts = posts.map(function (p) {
+        return p.id === editingId
+          ? { id: p.id, title: t, content: c, author: p.author || "Admin", date: today }
+          : p;
+      });
+    } else {
+      posts = [{
+        id: "post-" + Date.now(),
+        title: t,
+        content: c,
+        author: "Admin",
+        date: today
+      }].concat(posts);
+    }
+    persist();
+    closeEditorModal();
+    render();
+  });
+
+  /* ---------- Edit / Delete (event delegation) ---------- */
+  listEl.addEventListener("click", function (e) {
+    var btn = e.target.closest("button");
+    if (!btn) return;
+    var id = btn.getAttribute("data-id");
+    if (btn.classList.contains("blog-edit")) {
+      if (!isAdmin) return;
+      var p = posts.filter(function (x) { return x.id === id; })[0];
+      if (p) openEditor(p);
+    } else if (btn.classList.contains("blog-delete")) {
+      if (!isAdmin) return;
+      if (window.confirm("Hapus postingan ini?")) {
+        posts = posts.filter(function (x) { return x.id !== id; });
+        persist();
+        render();
+      }
+    }
+  });
+
+  updateAdminUI();
+  console.log("Blog Arkanu siap. Admin code: rahasia 🔒");
 });
 </script>
 </body>
