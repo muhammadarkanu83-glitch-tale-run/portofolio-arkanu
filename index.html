@@ -1022,6 +1022,195 @@ html.light-mode .calc-toast{background:rgba(255,255,255,.97);color:#1d1d1f}
 }
 
 /* =========================================================
+   CHATBOT (rule-based)
+   ========================================================= */
+.chatbot-fab{
+  position:fixed;bottom:24px;right:24px;
+  z-index:calc(var(--z-fixed) + 5);
+  width:60px;height:60px;border-radius:var(--radius-full);
+  background:linear-gradient(150deg,var(--color-primary),var(--color-accent));
+  color:#fff;border:none;cursor:pointer;
+  box-shadow:var(--shadow-lg),0 0 24px var(--color-primary-glow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  transition:transform var(--duration-normal) var(--ease-spring),
+             box-shadow var(--duration-normal) var(--ease-out),
+             opacity var(--duration-fast) var(--ease-out);
+}
+.chatbot-fab:hover{transform:scale(1.08);box-shadow:var(--shadow-xl),0 0 32px var(--color-primary-glow)}
+.chatbot-fab:focus-visible{outline:3px solid var(--color-primary-glow);outline-offset:3px}
+.chatbot-fab-dot{
+  position:absolute;top:4px;right:4px;width:12px;height:12px;
+  border-radius:50%;background:var(--color-success);
+  border:2px solid var(--color-bg-primary);
+  animation:cbPulse 2s infinite;
+}
+@keyframes cbPulse{0%,100%{box-shadow:0 0 0 0 rgba(48,209,88,.7)}50%{box-shadow:0 0 0 8px rgba(48,209,88,0)}}
+
+.chatbot-panel{
+  position:fixed;bottom:100px;right:24px;
+  z-index:calc(var(--z-fixed) + 6);
+  width:380px;max-width:calc(100vw - 32px);
+  height:560px;max-height:calc(100vh - 140px);
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(30px) saturate(180%);
+  backdrop-filter:blur(30px) saturate(180%);
+  border:1px solid var(--glass-border-strong);
+  border-radius:var(--radius-2xl);
+  box-shadow:var(--shadow-xl);
+  display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;pointer-events:none;transform:translateY(20px) scale(.96);
+  transform-origin:bottom right;
+  transition:opacity var(--duration-normal) var(--ease-out),
+             transform var(--duration-normal) var(--ease-spring);
+}
+.chatbot-panel.open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+
+.chatbot-header{
+  display:flex;align-items:center;gap:var(--space-3);
+  padding:var(--space-4) var(--space-5);
+  border-bottom:1px solid var(--color-border);
+  background:rgba(10,132,255,.06);flex-shrink:0;
+}
+.chatbot-avatar{
+  width:38px;height:38px;border-radius:var(--radius-full);
+  background:linear-gradient(150deg,var(--color-primary),var(--color-accent));
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;box-shadow:0 0 14px var(--color-primary-glow);
+}
+.chatbot-header-info{flex:1;min-width:0}
+.chatbot-title{
+  font-family:var(--font-sans);font-size:var(--fs-sm);
+  font-weight:var(--fw-bold);color:var(--color-text-primary);
+  letter-spacing:-.01em;margin:0;
+}
+.chatbot-subtitle{
+  font-size:.68rem;color:var(--color-text-muted);
+  display:flex;align-items:center;gap:4px;margin:2px 0 0;
+}
+.chatbot-subtitle::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--color-success);box-shadow:0 0 6px var(--color-success);
+}
+.chatbot-header-btn{
+  width:32px;height:32px;border-radius:var(--radius-full);
+  background:transparent;border:1px solid transparent;
+  color:var(--color-text-secondary);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.chatbot-header-btn:hover{background:var(--color-primary-soft);color:var(--color-primary);border-color:var(--color-primary)}
+.chatbot-header-btn:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+
+.chatbot-messages{
+  flex:1;overflow-y:auto;padding:var(--space-4);
+  display:flex;flex-direction:column;gap:var(--space-3);
+  scroll-behavior:smooth;
+}
+.chatbot-msg{
+  display:flex;flex-direction:column;max-width:85%;
+  animation:cbMsgIn .25s var(--ease-out);
+}
+@keyframes cbMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.chatbot-msg.user{align-self:flex-end;align-items:flex-end}
+.chatbot-msg.bot{align-self:flex-start;align-items:flex-start}
+.chatbot-bubble{
+  padding:var(--space-3) var(--space-4);
+  border-radius:var(--radius-lg);
+  font-size:var(--fs-sm);line-height:var(--lh-normal);
+  word-wrap:break-word;overflow-wrap:break-word;
+}
+.chatbot-msg.user .chatbot-bubble{
+  background:var(--color-primary);color:#fff;
+  border-bottom-right-radius:4px;
+}
+.chatbot-msg.bot .chatbot-bubble{
+  background:var(--input-bg);color:var(--color-text-primary);
+  border:1px solid var(--color-border);
+  border-bottom-left-radius:4px;
+}
+.chatbot-bubble a{color:var(--color-primary);text-decoration:underline;font-weight:var(--fw-semibold);word-break:break-all}
+.chatbot-msg.user .chatbot-bubble a{color:#fff}
+.chatbot-bubble strong{font-weight:var(--fw-bold)}
+.chatbot-bubble ul{margin:var(--space-2) 0;padding-left:var(--space-5)}
+.chatbot-bubble li{margin-bottom:2px}
+.chatbot-time{
+  font-size:.6rem;color:var(--color-text-muted);
+  margin-top:4px;padding:0 4px;
+  font-variant-numeric:tabular-nums;
+}
+.chatbot-typing{
+  display:flex;gap:4px;
+  padding:var(--space-3) var(--space-4);
+  background:var(--input-bg);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-lg);border-bottom-left-radius:4px;
+  width:fit-content;
+}
+.chatbot-typing span{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--color-text-muted);
+  animation:cbBounce 1.2s infinite;
+}
+.chatbot-typing span:nth-child(2){animation-delay:.15s}
+.chatbot-typing span:nth-child(3){animation-delay:.3s}
+@keyframes cbBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+
+.chatbot-quickreplies{
+  display:flex;gap:var(--space-2);
+  padding:0 var(--space-4) var(--space-3);
+  overflow-x:auto;scrollbar-width:thin;flex-shrink:0;
+}
+.chatbot-quickreplies::-webkit-scrollbar{height:4px}
+.chatbot-quickreplies:empty{display:none}
+.chatbot-chip{
+  flex-shrink:0;padding:6px 12px;
+  border-radius:var(--radius-full);
+  background:var(--badge-bg);border:1px solid var(--color-border-strong);
+  color:var(--color-text-secondary);
+  font-family:var(--font-sans);font-size:.72rem;font-weight:var(--fw-semibold);
+  cursor:pointer;white-space:nowrap;
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.chatbot-chip:hover{background:var(--color-primary-soft);border-color:var(--color-primary);color:var(--color-primary);transform:translateY(-1px)}
+.chatbot-chip:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+
+.chatbot-input-wrap{
+  display:flex;gap:var(--space-2);
+  padding:var(--space-3) var(--space-4);
+  border-top:1px solid var(--color-border);
+  background:var(--color-surface);flex-shrink:0;
+}
+.chatbot-input{
+  flex:1;resize:none;
+  border:1px solid var(--color-border);border-radius:var(--radius-lg);
+  background:var(--input-bg);color:var(--color-text-primary);
+  font-family:var(--font-sans);font-size:var(--fs-sm);
+  padding:var(--space-3) var(--space-4);outline:none;
+  min-height:42px;max-height:100px;line-height:1.4;
+  transition:border-color var(--duration-fast) var(--ease-out),box-shadow var(--duration-fast) var(--ease-out);
+}
+.chatbot-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-soft)}
+.chatbot-send{
+  width:42px;height:42px;border-radius:var(--radius-full);
+  background:var(--color-primary);color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;
+  flex-shrink:0;transition:all var(--duration-fast) var(--ease-out);
+}
+.chatbot-send:hover:not(:disabled){background:var(--color-primary-hover);box-shadow:0 0 16px var(--color-primary-glow)}
+.chatbot-send:disabled{opacity:.4;cursor:not-allowed}
+
+@media (max-width:500px){
+  .chatbot-fab{bottom:16px;right:16px;width:54px;height:54px}
+  .chatbot-panel{
+    bottom:0;right:0;left:0;
+    width:100vw;height:100vh;max-width:100vw;max-height:100vh;
+    border-radius:0;transform:translateY(100%);
+  }
+  .chatbot-panel.open{transform:translateY(0)}
+}
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width:850px){
@@ -1998,6 +2187,43 @@ html.light-mode .blog-modal{background:rgba(0,0,0,.45)}
   </div>
 </div>
 
+<!-- ===== CHATBOT WIDGET ===== -->
+<button class="chatbot-fab" id="chatbotFab" type="button"
+        aria-label="Buka asisten chatbot" aria-expanded="false" aria-controls="chatbotPanel">
+  <i class="fas fa-comment-dots" aria-hidden="true"></i>
+  <span class="chatbot-fab-dot" aria-hidden="true"></span>
+</button>
+
+<section class="chatbot-panel" id="chatbotPanel" role="dialog" aria-modal="false"
+         aria-labelledby="chatbotTitle" aria-hidden="true">
+  <header class="chatbot-header">
+    <div class="chatbot-avatar" aria-hidden="true"><i class="fas fa-robot"></i></div>
+    <div class="chatbot-header-info">
+      <h3 class="chatbot-title" id="chatbotTitle">Arkanu Assistant</h3>
+      <p class="chatbot-subtitle">Online • Rule-based</p>
+    </div>
+    <button class="chatbot-header-btn" id="chatbotReset" type="button"
+            aria-label="Reset percakapan" title="Reset">
+      <i class="fas fa-rotate-left" aria-hidden="true"></i>
+    </button>
+    <button class="chatbot-header-btn" id="chatbotClose" type="button"
+            aria-label="Tutup asisten" title="Tutup">
+      <i class="fas fa-times" aria-hidden="true"></i>
+    </button>
+  </header>
+  <div class="chatbot-messages" id="chatbotMessages" role="log"
+       aria-live="polite" aria-label="Riwayat percakapan"></div>
+  <div class="chatbot-quickreplies" id="chatbotQuickReplies" aria-label="Saran pertanyaan"></div>
+  <form class="chatbot-input-wrap" id="chatbotForm" novalidate>
+    <textarea class="chatbot-input" id="chatbotInput"
+              placeholder="Tanya apa saja soal Arkanu…"
+              rows="1" maxlength="500" aria-label="Ketik pesan Anda"></textarea>
+    <button class="chatbot-send" id="chatbotSend" type="submit" aria-label="Kirim pesan">
+      <i class="fas fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </form>
+</section>
+
 <!-- ===== TOAST ===== -->
 <div class="calc-toast" id="calcToast">🔓 Access Granted</div>
 
@@ -2954,6 +3180,781 @@ document.addEventListener("DOMContentLoaded", function () {
   updateAdminUI();
   console.log("Blog Arkanu siap. Admin code: rahasia 🔒");
 });
+</script>
+
+<!-- ===== CHATBOT SCRIPT (rule-based) ===== -->
+<script>
+/* =========================================================
+   CHATBOT — Rule-based (vanilla JS, zero dependencies)
+   Peta struktur (mirror dari blueprint TS yang diminta):
+     KNOWLEDGE            ↔ src/data/chatbot/knowledge.ts
+     RULES                ↔ src/data/chatbot/rules.ts
+     normalize/levenshtein↔ src/lib/chatbot/normalize.ts
+     scoreRule/runEngine  ↔ src/lib/chatbot/matcher.ts + engine.ts
+     UI controller        ↔ src/components/chatbot/*
+   ========================================================= */
+(function initChatbot() {
+  'use strict';
+
+  if (window.__arkanuChatbotLoaded) return;
+  window.__arkanuChatbotLoaded = true;
+
+  /* ===================================================
+     1) KNOWLEDGE BASE
+     =================================================== */
+  var KNOWLEDGE = {
+    profile: {
+      name: 'Muhammad Arkanu Dzikri',
+      nickname: 'Arkanu',
+      role: 'Murid / Santri',
+      grade: 'Kelas 8',
+      school: 'SMP As-Syifa Boarding School (ASBOCH)',
+      title: 'Orang Tergabut se-ASBOCH',
+      signatureJoke: 'Sup Lezat dan Bergizi',
+      bio_id: 'Saya **Muhammad Arkanu Dzikri**, santri kelas 8 SMP As-Syifa Boarding School (ASBOCH). Aktif di **DUKES** (Duta Kesehatan) dan **KLS** (Komunitas Literasi Sekolah). Dikenal sebagai **"Orang Tergabut se-ASBOCH"** dengan jokes ikonik **"Sup Lezat dan Bergizi"** yang selalu mencairkan suasana.',
+      bio_en: 'I am **Muhammad Arkanu Dzikri**, an 8th-grade student at As-Syifa Boarding School (ASBOCH). Active in **DUKES** (Health Ambassadors) and **KLS** (School Literacy Community). Known as the **"Chillest Person in ASBOCH"** with the iconic **"Delicious and Nutritious Soup"** joke.'
+    },
+    skills: [
+      { name_id: 'Edukasi Kesehatan (DUKES)', name_en: 'Health Education (DUKES)' },
+      { name_id: 'Literasi & Kreativitas (KLS)', name_en: 'Literacy & Creativity (KLS)' },
+      { name_id: 'Public Speaking & Sosialisasi', name_en: 'Public Speaking & Socialization' },
+      { name_id: 'Humoris & Pencipta Jokes', name_en: 'Humor & Joke Creator' },
+      { name_id: 'Kepribadian Penyayang', name_en: 'Caring Personality' },
+      { name_id: 'Master Gabut se-ASBOCH', name_en: 'Master of Chill (ASBOCH)' }
+    ],
+    experiences: [
+      { org: 'SMP As-Syifa Boarding School (ASBOCH)', role_id: 'Santri Kelas 8', role_en: '8th-Grade Student',
+        desc_id: 'Hidup di asrama, belajar kemandirian, kebersamaan, dan berkarya.',
+        desc_en: 'Boarding school life — learning independence, togetherness, and creativity.' },
+      { org: 'DUKES (Duta Kesehatan)', role_id: 'Anggota Aktif', role_en: 'Active Member',
+        desc_id: 'Mengedukasi santri tentang kesehatan, kebersihan, dan gizi seimbang.',
+        desc_en: 'Educating students about health, hygiene, and balanced nutrition.' },
+      { org: 'KLS (Komunitas Literasi Sekolah)', role_id: 'Anggota Aktif', role_en: 'Active Member',
+        desc_id: 'Memajukan minat baca, menulis, dan kreativitas literasi di sekolah.',
+        desc_en: 'Promoting reading, writing, and literacy creativity at school.' }
+    ],
+    projects: [
+      { id: 'project-arkanu', name: 'Project Arkanu',
+        desc_id: 'Payung dari semua karya Arkanu di ASBOCH — gerakan literasi, kampanye kesehatan, dan konten kreatif.',
+        desc_en: 'Umbrella for all of Arkanu\'s work at ASBOCH — literacy movements, health campaigns, and creative content.' },
+      { id: 'gerakan-1000-buku', name: 'Gerakan 1000 Buku',
+        desc_id: 'Inisiatif KLS untuk mendorong minat baca santri. Arkanu aktif sebagai motivator dan host sesi bedah buku mingguan.',
+        desc_en: 'A KLS initiative to boost students\' reading interest. Arkanu actively motivates and hosts weekly book review sessions.' },
+      { id: 'edukasi-gizi-sehat', name: 'Edukasi Gizi Sehat',
+        desc_id: 'Program DUKES untuk edukasi pola makan sehat & gizi seimbang via poster dan games interaktif.',
+        desc_en: 'A DUKES program educating students on healthy eating and balanced nutrition via posters and interactive games.' },
+      { id: 'podcast-santri', name: 'Podcast Santri ASBOCH',
+        desc_id: 'Konten audio bareng teman-teman, bahas isu sehari-hari, motivasi, dan cerita inspiratif dari pesantren.',
+        desc_en: 'Audio content with friends covering daily issues, motivation, and inspiring stories from the boarding school.' },
+      { id: 'jokes-sup-lezat', name: 'Jokes "Sup Lezat dan Bergizi"',
+        desc_id: 'Jokes khas Arkanu yang selalu berhasil mencairkan suasana dan menghadirkan tawa di asrama.',
+        desc_en: 'Arkanu\'s signature joke that always breaks the ice and brings laughter in the dorm.' },
+      { id: 'orang-tergabut', name: 'Orang Tergabut se-ASBOCH',
+        desc_id: 'Gelar kehormatan karena selalu bisa mencairkan suasana dan jadi penghubung antar santri.',
+        desc_en: 'An honorary title for always lightening the mood and being the connector among students.' }
+    ],
+    services: [
+      { name_id: 'Kolaborasi konten literasi (KLS)', name_en: 'Literacy content collaboration (KLS)' },
+      { name_id: 'Edukasi kesehatan santri (DUKES)', name_en: 'Student health education (DUKES)' },
+      { name_id: 'MC / Public speaking acara sekolah', name_en: 'MC / Public speaking for school events' },
+      { name_id: 'Pembuatan jokes & konten humor', name_en: 'Jokes & humor content creation' }
+    ],
+    contact: {
+      email: 'muhammmad.arkanu83@smp.belajar.id',
+      instagram: '@arkanu_dzikri'
+    },
+    location: {
+      base_id: 'As-Syifa Boarding School, Indonesia',
+      base_en: 'As-Syifa Boarding School, Indonesia',
+      remote_id: 'Arkanu masih santri kelas 8, jadi belum menerima kerja remote/onsite profesional. Tapi terbuka untuk kolaborasi santri dan project sekolah. Untuk undangan resmi, hubungi email.',
+      remote_en: 'Arkanu is still an 8th-grade student, so not available for professional remote/onsite work. Open to student collaborations and school projects. For official invitations, please email.'
+    },
+    cv: {
+      buttonSelector: '.cv-button',
+      note_id: 'Tombol "Unduh Portfolio" ada di sidebar kiri. Kalau link belum aktif, minta file via email ke arkanu@example.com.',
+      note_en: 'The "Unduh Portfolio" button is in the left sidebar. If the link isn\'t active yet, request the file via email at arkanu@example.com.'
+    }
+  };
+
+  /* ===================================================
+     2) RULES
+     =================================================== */
+  var RULES = [
+    {
+      id: 'greeting',
+      intents: ['halo','hai','hi','hello','hey','assalamualaikum','salam','permisi','apa kabar','pagi','siang','sore','malam'],
+      priority: 2,
+      response: function (ctx) {
+        return ctx.lang === 'en'
+          ? 'Hi! 👋 I\'m **Arkanu Assistant**, here to answer anything about Arkanu — profile, skills, projects, and contact. What would you like to know?'
+          : 'Assalamualaikum! 👋 Aku **Arkanu Assistant**, siap bantu jelasin tentang Arkanu — profil, skill, project, sampai cara kontak. Mau mulai dari mana?';
+      },
+      followUps: [
+        { label: 'Ringkas profil', send: 'ringkas profil' },
+        { label: 'Project terbaik?', send: 'project terbaik' },
+        { label: 'Cara kontak?', send: 'cara kontak' }
+      ]
+    },
+    {
+      id: 'profile',
+      intents: ['profil','profile','tentang','siapa','about','who are you','who is','bio','kenalan','perkenalan','ringkas profil','ringkasan'],
+      priority: 5,
+      response: function (ctx) {
+        return ctx.lang === 'en' ? KNOWLEDGE.profile.bio_en : KNOWLEDGE.profile.bio_id;
+      },
+      followUps: [
+        { label: 'Skill utama?', send: 'skill utama' },
+        { label: 'Pengalaman?', send: 'pengalaman' },
+        { label: 'Cara kontak?', send: 'cara kontak' }
+      ]
+    },
+    {
+      id: 'skills',
+      intents: ['skill','keahlian','kemampuan','bisa apa','tech stack','kompetensi','skill utama'],
+      priority: 5,
+      response: function (ctx) {
+        var list = KNOWLEDGE.skills.map(function (s) {
+          return '• ' + (ctx.lang === 'en' ? s.name_en : s.name_id);
+        }).join('\n');
+        return (ctx.lang === 'en' ? '**Arkanu\'s main skills:**\n' : '**Skill & karakter utama Arkanu:**\n') + list;
+      },
+      followUps: [
+        { label: 'Pengalaman?', send: 'pengalaman' },
+        { label: 'Lihat project', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'experience',
+      intents: ['pengalaman','experience','kerja di mana','organisasi','sekolah','asal','aktivitas'],
+      priority: 5,
+      response: function (ctx) {
+        var list = KNOWLEDGE.experiences.map(function (e, i) {
+          var role = ctx.lang === 'en' ? e.role_en : e.role_id;
+          var desc = ctx.lang === 'en' ? e.desc_en : e.desc_id;
+          return (i + 1) + '. **' + e.org + '** — ' + role + '\n   ' + desc;
+        }).join('\n\n');
+        return (ctx.lang === 'en' ? '**Arkanu\'s organizational experience:**\n\n' : '**Pengalaman & organisasi Arkanu:**\n\n') + list;
+      },
+      followUps: [
+        { label: 'Skill utama?', send: 'skill utama' },
+        { label: 'Lihat project', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'projects-list',
+      intents: ['project','projek','proyek','karya','portofolio karya','hasil karya','project apa aja'],
+      priority: 5,
+      response: function (ctx) {
+        var list = KNOWLEDGE.projects.map(function (p, i) {
+          return (i + 1) + '. ' + p.name;
+        }).join('\n');
+        return (ctx.lang === 'en'
+          ? '**Arkanu has 6 main works:**\n' + list + '\n\nWhich one would you like to know more about?'
+          : '**Arkanu punya 6 karya utama:**\n' + list + '\n\nMau detail yang mana?');
+      },
+      followUps: [
+        { label: 'Project Arkanu', send: 'detail project arkanu' },
+        { label: 'Jokes Sup Lezat', send: 'detail jokes sup lezat' },
+        { label: 'Gerakan 1000 Buku', send: 'detail gerakan 1000 buku' }
+      ]
+    },
+    {
+      id: 'project-best',
+      intents: ['project terbaik','projek terbaik','project favorit','best project','karya terbaik','paling keren'],
+      priority: 7,
+      response: function (ctx) {
+        return ctx.lang === 'en'
+          ? 'Arkanu\'s favorite work: the **"Delicious and Nutritious Soup"** joke 🍲 — the iconic joke that made him known as the "Chillest Person in ASBOCH". Also **"1000 Books Movement"** under KLS is a proud project because it directly impacts students\' reading interest.'
+          : 'Karya favorit Arkanu: **Jokes "Sup Lezat dan Bergizi"** 🍲 — jokes ikonik yang bikin dia dikenal sebagai **"Orang Tergabut se-ASBOCH"**. Selain itu, **Gerakan 1000 Buku** di KLS juga jadi project kebanggaan karena berdampak langsung ke minat baca santri.';
+      },
+      followUps: [
+        { label: 'Detail jokes', send: 'detail jokes sup lezat' },
+        { label: 'Detail 1000 Buku', send: 'detail gerakan 1000 buku' },
+        { label: 'Project lain?', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'project-arkanu',
+      intents: ['project arkanu','projek arkanu','projectnya arkanu','projeknya arkanu'],
+      patterns: [/projec?t(nya)?\s+arkanu\b/i],
+      priority: 6,
+      response: function (ctx) {
+        var p = KNOWLEDGE.projects[0];
+        return '**' + p.name + '**\n' + (ctx.lang === 'en' ? p.desc_en : p.desc_id);
+      },
+      followUps: [
+        { label: 'Project lain?', send: 'project apa aja' },
+        { label: 'Skill Arkanu?', send: 'skill utama' }
+      ]
+    },
+    {
+      id: 'project-1000buku',
+      intents: ['1000 buku','gerakan buku','gerakan 1000 buku','seribu buku'],
+      priority: 6,
+      response: function (ctx) {
+        var p = KNOWLEDGE.projects[1];
+        return '**' + p.name + '**\n' + (ctx.lang === 'en' ? p.desc_en : p.desc_id);
+      },
+      followUps: [
+        { label: 'Project lain?', send: 'project apa aja' },
+        { label: 'Cara kontak?', send: 'cara kontak' }
+      ]
+    },
+    {
+      id: 'project-gizi',
+      intents: ['edukasi gizi','gizi sehat','program gizi','gizi'],
+      priority: 6,
+      response: function (ctx) {
+        var p = KNOWLEDGE.projects[2];
+        return '**' + p.name + '**\n' + (ctx.lang === 'en' ? p.desc_en : p.desc_id);
+      },
+      followUps: [
+        { label: 'Project lain?', send: 'project apa aja' },
+        { label: 'Organisasi DUKES?', send: 'pengalaman' }
+      ]
+    },
+    {
+      id: 'project-podcast',
+      intents: ['podcast','podcast santri','podcast asboch'],
+      priority: 6,
+      response: function (ctx) {
+        var p = KNOWLEDGE.projects[3];
+        return '**' + p.name + '**\n' + (ctx.lang === 'en' ? p.desc_en : p.desc_id);
+      },
+      followUps: [
+        { label: 'Project lain?', send: 'project apa aja' },
+        { label: 'Cara kontak?', send: 'cara kontak' }
+      ]
+    },
+    {
+      id: 'project-jokes',
+      intents: ['jokes','sup lezat','sup bergizi','sup lezat dan bergizi','lelucon','humor'],
+      priority: 6,
+      response: function (ctx) {
+        var p = KNOWLEDGE.projects[4];
+        return '**' + p.name + '**\n' + (ctx.lang === 'en' ? p.desc_en : p.desc_id) +
+          (ctx.lang === 'en' ? '' : '\n\n_"Sup lezat dan bergizi!"_ 🍲');
+      },
+      followUps: [
+        { label: 'Kenapa dijuluki itu?', send: 'orang tergabut' },
+        { label: 'Project lain?', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'project-tergabut',
+      intents: ['tergabut','orang tergabut','paling gabut','master gabut','julukan'],
+      priority: 6,
+      response: function (ctx) {
+        var p = KNOWLEDGE.projects[5];
+        return '**' + p.name + '**\n' + (ctx.lang === 'en' ? p.desc_en : p.desc_id);
+      },
+      followUps: [
+        { label: 'Jokes Sup Lezat', send: 'detail jokes sup lezat' },
+        { label: 'Project lain?', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'services',
+      intents: ['jasa','layanan','bisa bantu apa','freelance','kolaborasi','service'],
+      priority: 4,
+      response: function (ctx) {
+        var list = KNOWLEDGE.services.map(function (s) {
+          return '• ' + (ctx.lang === 'en' ? s.name_en : s.name_id);
+        }).join('\n');
+        return (ctx.lang === 'en'
+          ? 'Things Arkanu can help with (as a student):\n' + list + '\n\nOpen for collaborations — reach out via email.'
+          : 'Yang bisa Arkanu bantu (sebagai pelajar):\n' + list + '\n\nTerbuka untuk kolaborasi santri — hubungi via email ya.');
+      },
+      followUps: [
+        { label: 'Cara kontak?', send: 'cara kontak' },
+        { label: 'Bisa remote?', send: 'remote' }
+      ]
+    },
+    {
+      id: 'contact',
+      intents: ['kontak','contact','email','hubungi','hire','menghubungi','instagram','ig'],
+      priority: 5,
+      response: function (ctx) {
+        return (ctx.lang === 'en'
+          ? '**Contact Arkanu:**\n• Email: ' + KNOWLEDGE.contact.email + '\n• Instagram: ' + KNOWLEDGE.contact.instagram + '\n\nFeel free to reach out!'
+          : '**Kontak Arkanu:**\n• Email: ' + KNOWLEDGE.contact.email + '\n• Instagram: ' + KNOWLEDGE.contact.instagram + '\n\nJangan ragu untuk menyapa ya!');
+      },
+      followUps: [
+        { label: 'Lihat CV', send: 'download cv' },
+        { label: 'Buka Blog', action: { type: 'open', target: 'openBlogBtn' } }
+      ]
+    },
+    {
+      id: 'cv',
+      intents: ['cv','resume','download','unduh','portofolio pdf','curriculum vitae'],
+      priority: 5,
+      response: function (ctx) {
+        return ctx.lang === 'en' ? KNOWLEDGE.cv.note_en : KNOWLEDGE.cv.note_id;
+      },
+      followUps: [
+        { label: 'Ringkas profil', send: 'ringkas profil' },
+        { label: 'Cara kontak?', send: 'cara kontak' }
+      ]
+    },
+    {
+      id: 'location',
+      intents: ['lokasi','dimana','alamat','remote','onsite','remote work','remote kerja','tinggal di mana'],
+      priority: 4,
+      response: function (ctx) {
+        var base = ctx.lang === 'en' ? KNOWLEDGE.location.base_en : KNOWLEDGE.location.base_id;
+        var remote = ctx.lang === 'en' ? KNOWLEDGE.location.remote_en : KNOWLEDGE.location.remote_id;
+        return '📍 **' + base + '**\n' + remote;
+      },
+      followUps: [
+        { label: 'Cara kontak?', send: 'cara kontak' },
+        { label: 'Lihat project', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'rate',
+      intents: ['harga','rate','biaya','tarif','price','cost','fee'],
+      priority: 4,
+      response: function (ctx) {
+        return ctx.lang === 'en'
+          ? 'Arkanu is a student, so there\'s no official rate. For collaborations or invitations, please contact via email: ' + KNOWLEDGE.contact.email
+          : 'Arkanu masih pelajar, jadi belum punya tarif resmi. Untuk kolaborasi atau undangan, hubungi via email ' + KNOWLEDGE.contact.email + ' ya.';
+      },
+      followUps: [
+        { label: 'Cara kontak?', send: 'cara kontak' },
+        { label: 'Yang bisa dibantu?', send: 'jasa' }
+      ]
+    },
+    {
+      id: 'thanks',
+      intents: ['makasih','terima kasih','thanks','thank you','thx','tengkyu'],
+      priority: 2,
+      response: function (ctx) {
+        return ctx.lang === 'en'
+          ? 'You\'re welcome! 😊 Happy to help. Anything else?'
+          : 'Sama-sama! 😊 Senang bisa bantu. Ada lagi yang mau ditanya?';
+      },
+      followUps: [
+        { label: 'Cara kontak?', send: 'cara kontak' },
+        { label: 'Lihat project', send: 'project apa aja' }
+      ]
+    },
+    {
+      id: 'goodbye',
+      intents: ['bye','sampai jumpa','goodbye','selamat tinggal','dadah','sampai nanti'],
+      priority: 2,
+      response: function (ctx) {
+        return ctx.lang === 'en'
+          ? 'Goodbye! 👋 Ping me again if you need anything about Arkanu.'
+          : 'Sampai jumpa! 👋 Kalau butuh apa-apa soal Arkanu, panggil aku lagi ya.';
+      },
+      followUps: []
+    }
+  ];
+
+  /* ===================================================
+     3) NORMALIZE + SIMILARITY
+     =================================================== */
+  function normalize(text) {
+    return String(text || '')
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function levenshtein(a, b) {
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    var m = [];
+    for (var i = 0; i <= b.length; i++) m[i] = [i];
+    for (var j = 0; j <= a.length; j++) m[0][j] = j;
+    for (i = 1; i <= b.length; i++) {
+      for (j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) m[i][j] = m[i - 1][j - 1];
+        else m[i][j] = Math.min(m[i - 1][j - 1] + 1, m[i][j - 1] + 1, m[i - 1][j] + 1);
+      }
+    }
+    return m[b.length][a.length];
+  }
+
+  function similarity(a, b) {
+    var maxLen = Math.max(a.length, b.length);
+    if (maxLen === 0) return 1;
+    return 1 - levenshtein(a, b) / maxLen;
+  }
+
+  var EN_INDICATORS = [
+    'hello','hi there','who are you','who is arkanu','what is','what are',
+    'how do','how can','tell me','could you','would you','thank you','goodbye',
+    'your skill','your project','about you','about arkanu','best project',
+    'contact you','your contact','can you','please tell','what\'s'
+  ];
+  function detectLang(text) {
+    var low = String(text).toLowerCase();
+    for (var i = 0; i < EN_INDICATORS.length; i++) {
+      if (low.indexOf(EN_INDICATORS[i]) !== -1) return 'en';
+    }
+    return 'id';
+  }
+
+  /* ===================================================
+     4) MATCHER + ENGINE
+     =================================================== */
+  var state = {
+    messages: [],
+    lastIntent: null,
+    lang: 'id',
+    messageCount: 0,
+    hasWelcomed: false
+  };
+
+  function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function scoreRule(rule, norm, tokens) {
+    var score = 0;
+    for (var i = 0; i < rule.intents.length; i++) {
+      var kw = rule.intents[i].toLowerCase();
+      var re = new RegExp('(^|\\s)' + escapeRegex(kw) + '(\\s|$)');
+      if (re.test(norm)) { score += 3; continue; }
+      if (norm.indexOf(kw) !== -1) { score += 1.5; continue; }
+      var bestSim = 0;
+      for (var j = 0; j < tokens.length; j++) {
+        var t = tokens[j];
+        if (Math.abs(t.length - kw.length) > 3) continue;
+        var s = similarity(t, kw);
+        if (s > bestSim) bestSim = s;
+      }
+      if (bestSim >= 0.8) score += bestSim * 2;
+    }
+    if (rule.patterns) {
+      for (var k = 0; k < rule.patterns.length; k++) {
+        if (rule.patterns[k].test(norm)) score += 2;
+      }
+    }
+    score += (rule.priority || 0) * 0.1;
+    return score;
+  }
+
+  function matchRule(norm) {
+    var tokens = norm.split(' ').filter(Boolean);
+    var best = null, bestScore = 0;
+    for (var i = 0; i < RULES.length; i++) {
+      var s = scoreRule(RULES[i], norm, tokens);
+      if (s > bestScore) { bestScore = s; best = RULES[i]; }
+    }
+    return { rule: best, score: bestScore };
+  }
+
+  function tryFollowUp(norm, lang) {
+    if (!state.lastIntent) return null;
+    var numMatch = norm.match(/\b(?:nomor|no|project|projek|yang|ke)\s*(\d+)\b/);
+    if (numMatch && /^project/.test(state.lastIntent)) {
+      var idx = parseInt(numMatch[1], 10) - 1;
+      var p = KNOWLEDGE.projects[idx];
+      if (p) {
+        return {
+          text: '**' + p.name + '**\n' + (lang === 'en' ? p.desc_en : p.desc_id),
+          followUps: [
+            { label: 'Project lain?', send: 'project apa aja' },
+            { label: 'Cara kontak?', send: 'cara kontak' }
+          ],
+          intentId: p.id
+        };
+      }
+    }
+    if (/\b(detail|detailnya|selengkapnya|lengkap|more)\b/.test(norm)) {
+      if (state.lastIntent === 'projects-list') {
+        var labels = KNOWLEDGE.projects.slice(0, 3).map(function (x) {
+          return { label: x.name, send: 'detail ' + x.name.toLowerCase() };
+        });
+        return {
+          text: (lang === 'en'
+            ? 'Which project? ' + KNOWLEDGE.projects.map(function (x, i) { return (i + 1) + '. ' + x.name; }).join(' | ')
+            : 'Project yang mana? ' + KNOWLEDGE.projects.map(function (x, i) { return (i + 1) + '. ' + x.name; }).join(' | ')),
+          followUps: labels,
+          intentId: 'projects-list'
+        };
+      }
+    }
+    return null;
+  }
+
+  function buildFallback(lang) {
+    return lang === 'en'
+      ? 'Hmm, I don\'t have info on that yet. Try asking about **skills**, **projects**, or **contact** — or email directly at ' + KNOWLEDGE.contact.email + '. 😊'
+      : 'Hmm, aku belum punya info soal itu. Coba tanya soal **skill**, **project**, atau **kontak** ya — atau langsung email ke ' + KNOWLEDGE.contact.email + '. 😊';
+  }
+
+  function runEngine(userText) {
+    var text = String(userText || '').slice(0, 500);
+    var lang = detectLang(text);
+    var norm = normalize(text);
+    state.lang = lang;
+
+    if (!norm) return { text: buildFallback(lang), followUps: defaultFollowUps(), intentId: 'fallback' };
+
+    var ctxResp = tryFollowUp(norm, lang);
+    if (ctxResp) { state.lastIntent = ctxResp.intentId; return ctxResp; }
+
+    var m = matchRule(norm);
+    var ctx = { lang: lang, lastIntent: state.lastIntent, knowledge: KNOWLEDGE };
+
+    if (!m.rule || m.score < 2) {
+      state.lastIntent = 'fallback';
+      return { text: buildFallback(lang), followUps: defaultFollowUps(), intentId: 'fallback' };
+    }
+
+    var resp = m.rule.response;
+    var out = typeof resp === 'function' ? resp(ctx) : resp;
+
+    state.lastIntent = m.rule.id;
+
+    if (typeof out === 'string') {
+      return {
+        text: out,
+        followUps: (m.rule.followUps || []).slice(0, 3),
+        actions: m.rule.actions || [],
+        intentId: m.rule.id
+      };
+    }
+    return {
+      text: out.text || '',
+      followUps: (out.followUps || m.rule.followUps || []).slice(0, 3),
+      actions: out.actions || m.rule.actions || [],
+      intentId: m.rule.id
+    };
+  }
+
+  function defaultFollowUps() {
+    return [
+      { label: 'Ringkas profil', send: 'ringkas profil' },
+      { label: 'Skill utama?', send: 'skill utama' },
+      { label: 'Cara kontak?', send: 'cara kontak' }
+    ];
+  }
+
+  /* ===================================================
+     5) UI CONTROLLER
+     =================================================== */
+  function initUI() {
+    var fab = document.getElementById('chatbotFab');
+    var panel = document.getElementById('chatbotPanel');
+    var messagesEl = document.getElementById('chatbotMessages');
+    var quickEl = document.getElementById('chatbotQuickReplies');
+    var form = document.getElementById('chatbotForm');
+    var input = document.getElementById('chatbotInput');
+    var sendBtn = document.getElementById('chatbotSend');
+    var closeBtn = document.getElementById('chatbotClose');
+    var resetBtn = document.getElementById('chatbotReset');
+
+    if (!fab || !panel || !messagesEl || !form) return;
+
+    var MAX_MESSAGES = 100;
+    var isOpen = false;
+    var isTyping = false;
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function formatBot(text) {
+      var s = escapeHtml(text);
+      s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+      s = s.replace(/([\w.+-]+@[\w.-]+\.\w+)/g, '<a href="mailto:$1">$1</a>');
+      s = s.replace(/\n/g, '<br>');
+      return s;
+    }
+    function formatUser(text) {
+      return escapeHtml(text).replace(/\n/g, '<br>');
+    }
+    function nowTime() {
+      var d = new Date();
+      return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    }
+
+    function appendMessage(role, text) {
+      var wrap = document.createElement('div');
+      wrap.className = 'chatbot-msg ' + role;
+      var bubble = document.createElement('div');
+      bubble.className = 'chatbot-bubble';
+      bubble.innerHTML = role === 'user' ? formatUser(text) : formatBot(text);
+      var time = document.createElement('span');
+      time.className = 'chatbot-time';
+      time.textContent = nowTime();
+      wrap.appendChild(bubble);
+      wrap.appendChild(time);
+      messagesEl.appendChild(wrap);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return wrap;
+    }
+
+    function showTyping() {
+      var wrap = document.createElement('div');
+      wrap.className = 'chatbot-msg bot';
+      wrap.id = 'chatbotTypingBubble';
+      var bubble = document.createElement('div');
+      bubble.className = 'chatbot-typing';
+      bubble.setAttribute('aria-label', 'Asisten sedang mengetik');
+      bubble.innerHTML = '<span></span><span></span><span></span>';
+      wrap.appendChild(bubble);
+      messagesEl.appendChild(wrap);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+    function hideTyping() {
+      var el = document.getElementById('chatbotTypingBubble');
+      if (el) el.remove();
+    }
+
+    function renderQuickReplies(list) {
+      quickEl.innerHTML = '';
+      if (!list || !list.length) return;
+      list.forEach(function (qr) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chatbot-chip';
+        chip.textContent = qr.label;
+        chip.addEventListener('click', function () { handleQuickReply(qr); });
+        quickEl.appendChild(chip);
+      });
+    }
+
+    function handleQuickReply(qr) {
+      if (qr.action) {
+        if (qr.action.type === 'link') {
+          window.open(qr.action.href, qr.action.external === false ? '_self' : '_blank', 'noopener');
+        } else if (qr.action.type === 'open') {
+          var target = document.getElementById(qr.action.target);
+          if (target) target.click();
+          closeChat();
+        } else if (qr.action.type === 'scroll') {
+          var el = document.querySelector(qr.action.target);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          closeChat();
+        }
+        return;
+      }
+      if (qr.send) submitUserMessage(qr.send);
+    }
+
+    function getTypingDelay(responseText) {
+      var len = String(responseText || '').length;
+      return Math.min(700, Math.max(300, len * 8));
+    }
+
+    function pushBotResponse(response) {
+      state.messages.push({ role: 'bot', text: response.text, at: Date.now() });
+      appendMessage('bot', response.text);
+      renderQuickReplies(response.followUps || []);
+      if (response.intentId) state.lastIntent = response.intentId;
+    }
+
+    function submitUserMessage(rawText) {
+      var text = String(rawText || '').trim();
+      if (!text) return;
+      if (state.messageCount >= MAX_MESSAGES) {
+        appendMessage('bot', 'Sesi ini sudah mencapai batas percakapan. Klik tombol **Reset** di header untuk mulai lagi ya.');
+        return;
+      }
+      if (isTyping) return;
+
+      state.messageCount++;
+      state.messages.push({ role: 'user', text: text, at: Date.now() });
+      appendMessage('user', text);
+      renderQuickReplies([]);
+
+      var response = runEngine(text);
+      isTyping = true;
+      sendBtn.disabled = true;
+      showTyping();
+
+      setTimeout(function () {
+        hideTyping();
+        pushBotResponse(response);
+        isTyping = false;
+        sendBtn.disabled = false;
+        if (isOpen) input.focus();
+      }, getTypingDelay(response.text));
+    }
+
+    function openChat() {
+      isOpen = true;
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+      fab.setAttribute('aria-expanded', 'true');
+      fab.style.opacity = '0';
+      fab.style.pointerEvents = 'none';
+      setTimeout(function () { if (isOpen) input.focus(); }, 220);
+      if (!state.hasWelcomed) {
+        state.hasWelcomed = true;
+        var welcome = runEngine('halo');
+        pushBotResponse(welcome);
+      }
+    }
+    function closeChat() {
+      isOpen = false;
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      fab.setAttribute('aria-expanded', 'false');
+      fab.style.opacity = '';
+      fab.style.pointerEvents = '';
+      setTimeout(function () { fab.focus(); }, 200);
+    }
+
+    function resetChat() {
+      state.messages = [];
+      state.lastIntent = null;
+      state.messageCount = 0;
+      state.lang = 'id';
+      messagesEl.innerHTML = '';
+      quickEl.innerHTML = '';
+      hideTyping();
+      state.hasWelcomed = true;
+      var welcome = runEngine('halo');
+      pushBotResponse(welcome);
+      if (isOpen) input.focus();
+    }
+
+    fab.addEventListener('click', function () { isOpen ? closeChat() : openChat(); });
+    closeBtn.addEventListener('click', closeChat);
+    resetBtn.addEventListener('click', resetChat);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var val = input.value;
+      input.value = '';
+      input.style.height = 'auto';
+      submitUserMessage(val);
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+    });
+    input.addEventListener('input', function () {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen) {
+        closeChat();
+      }
+    });
+
+    renderQuickReplies(defaultFollowUps());
+    console.log('[Chatbot] Rule-based assistant siap. Total rules: ' + RULES.length);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initUI);
+  } else {
+    initUI();
+  }
+})();
 </script>
 </body>
 </html>
