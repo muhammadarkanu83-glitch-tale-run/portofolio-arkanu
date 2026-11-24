@@ -7,12 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Space Grotesk', sans-serif;
             background: radial-gradient(circle at 20% 30%, #05070a, #000000);
@@ -21,119 +16,74 @@
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
-
-        /* Efek grid futuristik di latar belakang */
         body::before {
             content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
                 linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
-
-        .glow-text {
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.5), 0 0 2px rgba(0, 255, 255, 0.8);
-        }
-
+        .glow-text { text-shadow: 0 0 8px rgba(0, 255, 255, 0.5), 0 0 2px rgba(0, 255, 255, 0.8); }
         .portfolio-container {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
+            display: flex; flex-wrap: wrap;
+            max-width: 1400px; margin: 0 auto;
+            position: relative; z-index: 2; min-height: 100vh;
         }
-
-        /* SIDEBAR KIRI */
         .sidebar-left {
-            flex: 1.2;
-            min-width: 280px;
+            flex: 1.2; min-width: 280px;
             background: rgba(8, 12, 20, 0.6);
             backdrop-filter: blur(16px);
             border-right: 1px solid rgba(0, 255, 255, 0.25);
             box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
             padding: 2rem 1.8rem;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition: all 0.3s ease;
+            display: flex; flex-direction: column;
+            position: relative; transition: all 0.3s ease;
         }
-
         .sidebar-left::after {
-            content: "";
-            position: absolute;
-            top: 10%;
-            right: -1px;
-            width: 2px;
-            height: 80%;
+            content: ""; position: absolute;
+            top: 10%; right: -1px; width: 2px; height: 80%;
             background: linear-gradient(to bottom, #0ff, #f0f, #0ff);
-            filter: blur(3px);
-            opacity: 0.7;
+            filter: blur(3px); opacity: 0.7;
         }
-
-        /* Bingkai Foto Profil (3D Tilt) */
         .profile-frame {
-            width: 100%;
-            height: 280px;
-            border-radius: 20px;
-            overflow: hidden;
+            width: 100%; height: 280px;
+            border-radius: 20px; overflow: hidden;
             border: 2px solid rgba(0, 255, 255, 0.4);
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
             margin-bottom: 1.5rem;
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            transform-style: preserve-3d; perspective: 1000px;
             cursor: pointer;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             background: rgba(0, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
-
         .profile-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.1s ease-out;
             backface-visibility: hidden;
         }
-
         .profile-frame:hover {
             border-color: #0ff;
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
         }
-
         .name-highlight {
             margin-bottom: 1.8rem;
-            border-left: 4px solid #0ff;
-            padding-left: 1.2rem;
+            border-left: 4px solid #0ff; padding-left: 1.2rem;
         }
-
         .name-highlight h1 {
-            font-size: 2.3rem;
-            font-weight: 700;
+            font-size: 2.3rem; font-weight: 700;
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, #ffffff, #88f7ff, #a55cff);
-            background-clip: text;
-            -webkit-background-clip: text;
+            background-clip: text; -webkit-background-clip: text;
             color: transparent;
             text-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
+            line-height: 1.2; margin-bottom: 0.5rem;
             transition: text-shadow 0.3s ease;
         }
-
         .badge-title {
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.85rem; font-weight: 500;
             color: #8deeff;
             background: rgba(0, 255, 255, 0.12);
             display: inline-block;
@@ -142,63 +92,34 @@
             backdrop-filter: blur(4px);
             border: 0.5px solid rgba(0, 255, 255, 0.4);
         }
-
         .short-bio {
             margin: 1.5rem 0;
             color: #c4d4ff;
-            font-weight: 300;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-weight: 300; font-size: 0.9rem; line-height: 1.5;
         }
-
-        .info-list {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
+        .info-list { list-style: none; margin: 1.5rem 0; }
         .info-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 1rem; font-size: 0.9rem;
             color: #b8c7ff;
             transition: transform 0.2s ease, color 0.2s ease;
         }
-        
-        .info-list li:hover {
-            transform: translateX(5px);
-            color: #0ff;
-        }
-
+        .info-list li:hover { transform: translateX(5px); color: #0ff; }
         .info-list li i {
-            width: 28px;
-            font-size: 1.2rem;
-            color: #0ff;
+            width: 28px; font-size: 1.2rem; color: #0ff;
             text-shadow: 0 0 3px cyan;
         }
-
-        .social-icons {
-            display: flex;
-            gap: 1.2rem;
-            margin: 2rem 0 1.5rem;
-        }
-
+        .social-icons { display: flex; gap: 1.2rem; margin: 2rem 0 1.5rem; }
         .social-icons a {
-            color: #ccf4ff;
-            font-size: 1.4rem;
+            color: #ccf4ff; font-size: 1.4rem;
             transition: 0.2s ease;
             background: rgba(255, 255, 255, 0.03);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
             backdrop-filter: blur(4px);
             border: 0.5px solid rgba(0, 255, 255, 0.3);
         }
-
         .social-icons a:hover {
             color: #0ff;
             transform: translateY(-4px) scale(1.1);
@@ -206,69 +127,38 @@
             box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
             background: rgba(0, 255, 255, 0.1);
         }
-
         .cv-button {
             background: linear-gradient(95deg, rgba(0, 255, 255, 0.15), rgba(100, 0, 255, 0.2));
             border: 1px solid rgba(0, 255, 255, 0.6);
             color: #0ff;
-            padding: 0.7rem 0;
-            text-align: center;
-            border-radius: 40px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-            margin-top: 0.5rem;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
+            padding: 0.7rem 0; text-align: center;
+            border-radius: 40px; font-weight: 500;
+            letter-spacing: 0.5px; transition: 0.3s;
+            backdrop-filter: blur(5px); margin-top: 0.5rem;
+            text-decoration: none; display: block; font-size: 0.9rem;
         }
-
         .cv-button:hover {
             background: rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 15px cyan;
-            border-color: cyan;
-            color: white;
+            border-color: cyan; color: white;
             transform: scale(1.02);
         }
-
-        /* MAIN CONTENT */
-        .main-content {
-            flex: 2.5;
-            padding: 2rem 2.2rem;
-            overflow-x: hidden;
-        }
-
-        section {
-            margin-bottom: 3.5rem;
-        }
-
+        .main-content { flex: 2.5; padding: 2rem 2.2rem; overflow-x: hidden; }
+        section { margin-bottom: 3.5rem; }
         .reveal {
-            position: relative;
-            transform: translateY(40px);
-            opacity: 0;
+            position: relative; transform: translateY(40px); opacity: 0;
             transition: transform 0.8s ease, opacity 0.8s ease;
         }
-        
-        .reveal.active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
+        .reveal.active { transform: translateY(0); opacity: 1; }
         .section-title {
-            font-size: 1.7rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            margin-bottom: 1.5rem;
+            font-size: 1.7rem; font-weight: 600;
+            letter-spacing: -0.3px; margin-bottom: 1.5rem;
             display: inline-block;
             background: linear-gradient(120deg, #fff, #0ff);
-            background-clip: text;
-            -webkit-background-clip: text;
+            background-clip: text; -webkit-background-clip: text;
             color: transparent;
-            border-left: 4px solid #0ff;
-            padding-left: 1rem;
+            border-left: 4px solid #0ff; padding-left: 1rem;
         }
-
         .glass-card {
             background: rgba(12, 18, 28, 0.55);
             backdrop-filter: blur(10px);
@@ -278,391 +168,409 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-
         .glass-card:hover {
             border-color: rgba(0, 255, 255, 0.7);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
             transform: translateY(-3px);
         }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            color: #d9e6ff;
-        }
-
+        .about-text p { margin-bottom: 1rem; color: #d9e6ff; }
         .experience-item {
             margin-bottom: 1.7rem;
-            border-left: 2px solid #0ff;
-            padding-left: 1.2rem;
+            border-left: 2px solid #0ff; padding-left: 1.2rem;
             transition: border-color 0.3s, transform 0.3s;
         }
-        
-        .experience-item:hover {
-            border-left-color: #f0f;
-            transform: translateX(4px);
-        }
-
+        .experience-item:hover { border-left-color: #f0f; transform: translateX(4px); }
         .exp-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #b1f0ff;
-            display: flex;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 0.3rem;
+            font-size: 1.2rem; font-weight: 600; color: #b1f0ff;
+            display: flex; align-items: baseline; flex-wrap: wrap;
+            gap: 12px; margin-bottom: 0.3rem;
         }
-
         .exp-date {
-            font-size: 0.75rem;
-            background: rgba(0, 255, 255, 0.2);
-            padding: 0.2rem 0.7rem;
-            border-radius: 30px;
-            color: #0ff;
+            font-size: 0.75rem; background: rgba(0, 255, 255, 0.2);
+            padding: 0.2rem 0.7rem; border-radius: 30px; color: #0ff;
         }
-
-        .exp-company {
-            font-size: 0.9rem;
-            color: #aac8ff;
-            margin-bottom: 0.5rem;
-        }
-
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 0.5rem;
-        }
-
+        .exp-company { font-size: 0.9rem; color: #aac8ff; margin-bottom: 0.5rem; }
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 0.5rem; }
         .skill-pill {
             background: rgba(0, 255, 255, 0.08);
             backdrop-filter: blur(4px);
             border: 0.5px solid rgba(0, 255, 255, 0.3);
             border-radius: 60px;
             padding: 0.5rem 1.2rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            transition: all 0.2s;
+            font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 0.3px; transition: all 0.2s;
             color: #cdf2ff;
         }
-
         .skill-pill:hover {
             background: rgba(0, 255, 255, 0.2);
             border-color: #0ff;
             transform: scale(1.05) translateY(-2px);
-            color: white;
-            box-shadow: 0 0 12px cyan;
+            color: white; box-shadow: 0 0 12px cyan;
         }
-
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            gap: 1.5rem; margin-top: 1rem;
         }
-
         .project-card {
             background: rgba(6, 12, 22, 0.7);
             backdrop-filter: blur(8px);
-            border-radius: 28px;
-            padding: 1.4rem;
+            border-radius: 28px; padding: 1.4rem;
             border: 1px solid rgba(0, 255, 255, 0.2);
             transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
         }
-
         .project-card:hover {
             border-color: #f0f;
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
             transform: translateY(-6px);
         }
-
         .project-icon {
-            font-size: 2rem;
-            color: #0ff;
+            font-size: 2rem; color: #0ff;
             margin-bottom: 1rem;
             transition: transform 0.3s ease;
         }
-        
-        .project-card:hover .project-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .project-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.6rem;
-            font-weight: 600;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 0.8rem 0;
-        }
-
+        .project-card:hover .project-icon { transform: scale(1.1) rotate(5deg); }
+        .project-card h3 { font-size: 1.25rem; margin-bottom: 0.6rem; font-weight: 600; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.8rem 0; }
         .project-tech span {
             background: rgba(0, 0, 0, 0.5);
-            font-size: 0.7rem;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            color: #0ff;
+            font-size: 0.7rem; padding: 0.2rem 0.7rem;
+            border-radius: 20px; color: #0ff;
             border: 0.2px solid cyan;
         }
-
-        .project-card p {
-            font-size: 0.85rem;
-            color: #cbddf5;
-        }
-
-        /* Area Video */
+        .project-card p { font-size: 0.85rem; color: #cbddf5; }
         .video-wrapper {
-            position: relative;
-            width: 100%;
-            border-radius: 14px;
-            overflow: hidden;
+            position: relative; width: 100%;
+            border-radius: 14px; overflow: hidden;
             background: #000;
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-
         .video-wrapper video {
-            width: 100%;
-            display: block;
-            max-height: 500px;
-            object-fit: contain;
+            width: 100%; display: block;
+            max-height: 500px; object-fit: contain;
         }
-
-        /* Area Audio */
         .audio-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
-            padding: 1rem 0;
+            display: flex; flex-direction: column;
+            gap: 12px; align-items: center; padding: 1rem 0;
         }
-
-        .audio-container audio {
-            width: 100%;
-            max-width: 600px;
-            outline: none;
-        }
-
+        .audio-container audio { width: 100%; max-width: 600px; outline: none; }
         .audio-meta {
-            font-size: 0.85rem;
-            color: #8deeff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 0.85rem; color: #8deeff;
+            display: flex; align-items: center; gap: 8px;
             background: rgba(0, 255, 255, 0.05);
-            padding: 0.4rem 1.2rem;
-            border-radius: 30px;
+            padding: 0.4rem 1.2rem; border-radius: 30px;
             border: 0.5px solid rgba(0, 255, 255, 0.2);
         }
-
-        /* Galeri Foto */
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1rem; margin-top: 1rem;
         }
-
         .gallery-item {
-            position: relative;
-            border-radius: 16px;
+            position: relative; border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(0, 255, 255, 0.2);
-            height: 180px;
-            cursor: pointer;
+            height: 180px; cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
         }
-
         .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: all 0.4s ease;
         }
-
         .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            position: absolute; bottom: 0; left: 0; width: 100%;
             background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 12px;
-            font-size: 0.75rem;
-            color: #fff;
+            padding: 12px; font-size: 0.75rem; color: #fff;
             transform: translateY(100%);
             transition: transform 0.3s ease;
         }
-
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
-        }
-
-        .gallery-item:hover img {
-            filter: brightness(0.8) scale(1.05);
-        }
-        
+        .gallery-item:hover .gallery-caption { transform: translateY(0); }
+        .gallery-item:hover img { filter: brightness(0.8) scale(1.05); }
         .gallery-item:hover {
             border-color: #0ff;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
             transform: scale(1.02);
         }
-
-        /* Lightbox Modal Galeri */
         .lightbox-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(4, 6, 10, 0.92);
             backdrop-filter: blur(8px);
             z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        
-        .lightbox-modal.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
+        .lightbox-modal.show { opacity: 1; pointer-events: auto; }
         .lightbox-content {
-            max-width: 85%;
-            max-height: 80vh;
+            max-width: 85%; max-height: 80vh;
             position: relative;
             transform: scale(0.9);
             transition: transform 0.3s ease;
             text-align: center;
         }
-        
-        .lightbox-modal.show .lightbox-content {
-            transform: scale(1);
-        }
-        
+        .lightbox-modal.show .lightbox-content { transform: scale(1); }
         .lightbox-img {
-            max-width: 100%;
-            max-height: 75vh;
+            max-width: 100%; max-height: 75vh;
             border-radius: 12px;
             border: 2px solid rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
         }
-        
         .lightbox-desc {
-            color: #fff;
-            margin-top: 15px;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
+            color: #fff; margin-top: 15px;
+            font-size: 1rem; letter-spacing: 0.5px;
             text-shadow: 0 0 8px cyan;
         }
-        
         .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: #0ff;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.2s;
+            position: absolute; top: -40px; right: 0;
+            color: #0ff; font-size: 2rem;
+            cursor: pointer; transition: color 0.2s;
         }
-        
-        .lightbox-close:hover {
-            color: #f0f;
-        }
-
-        /* Contact Area */
+        .lightbox-close:hover { color: #f0f; }
         .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-top: 1rem;
+            display: flex; flex-wrap: wrap;
+            gap: 1.2rem; margin-top: 1rem;
         }
-
         .contact-item {
             background: rgba(255, 255, 255, 0.03);
             padding: 0.8rem 1.3rem;
             border-radius: 48px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
+            display: inline-flex; align-items: center; gap: 12px;
             border: 0.5px solid rgba(0, 255, 255, 0.3);
             transition: all 0.3s ease;
         }
-
-        .contact-item i {
-            font-size: 1.2rem;
-            color: #0ff;
-        }
-
+        .contact-item i { font-size: 1.2rem; color: #0ff; }
         .contact-item a, .contact-item span {
-            color: #e0f0ff;
-            text-decoration: none;
-            font-size: 0.9rem;
+            color: #e0f0ff; text-decoration: none; font-size: 0.9rem;
         }
-
         .contact-item:hover {
             background: rgba(0, 255, 255, 0.1);
             border-color: cyan;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,255,255,0.2);
         }
-
         footer {
-            text-align: center;
-            font-size: 0.7rem;
-            margin-top: 3rem;
-            padding-top: 1rem;
+            text-align: center; font-size: 0.7rem;
+            margin-top: 3rem; padding-top: 1rem;
             border-top: 1px dashed rgba(0, 255, 255, 0.2);
             color: #7f9eff;
         }
-
         @media (max-width: 850px) {
-            .portfolio-container {
-                flex-direction: column;
-            }
+            .portfolio-container { flex-direction: column; }
             .sidebar-left {
                 border-right: none;
                 border-bottom: 1px solid rgba(0, 255, 255, 0.4);
                 backdrop-filter: blur(20px);
-                width: 100%;
-                text-align: left;
-                padding: 1.8rem;
+                width: 100%; text-align: left; padding: 1.8rem;
             }
-            .sidebar-left::after {
-                display: none;
-            }
-            .name-highlight h1 {
-                font-size: 2rem;
-            }
-            .main-content {
-                padding: 1.5rem;
-            }
-            .section-title {
-                font-size: 1.5rem;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
+            .sidebar-left::after { display: none; }
+            .name-highlight h1 { font-size: 2rem; }
+            .main-content { padding: 1.5rem; }
+            .section-title { font-size: 1.5rem; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0f1a; }
+        ::-webkit-scrollbar-thumb { background: #0ff; border-radius: 8px; }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* ============ CHATBOT ML UI ============ */
+        .chatbot-toggle {
+            position: fixed; bottom: 25px; right: 25px;
+            width: 62px; height: 62px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0ff, #a55cff);
+            border: none; color: #000; font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+            z-index: 9998;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        ::-webkit-scrollbar-track {
-            background: #0a0f1a;
+        .chatbot-toggle:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 40px cyan;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #0ff;
-            border-radius: 8px;
+        .chatbot-toggle .badge {
+            position: absolute; top: -3px; right: -3px;
+            background: #ff3d7f; color: #fff;
+            font-size: 0.65rem; font-weight: 700;
+            padding: 2px 6px; border-radius: 20px;
+            box-shadow: 0 0 8px #ff3d7f;
+        }
+        .chatbot-panel {
+            position: fixed; bottom: 100px; right: 25px;
+            width: 360px; max-width: calc(100vw - 40px);
+            height: 520px; max-height: calc(100vh - 130px);
+            background: rgba(8, 12, 20, 0.97);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.25);
+            z-index: 9997;
+            display: flex; flex-direction: column;
+            opacity: 0; pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .chatbot-panel.open {
+            opacity: 1; pointer-events: auto; transform: translateY(0);
+        }
+        .chatbot-header {
+            padding: 14px 18px;
+            background: linear-gradient(90deg, rgba(0,255,255,0.15), rgba(165,92,255,0.15));
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .chatbot-avatar {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: linear-gradient(135deg, #0ff, #a55cff);
+            display: flex; align-items: center; justify-content: center;
+            color: #000; font-size: 1.1rem;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+        }
+        .chatbot-header-info h4 {
+            font-size: 1rem; font-weight: 700;
+            background: linear-gradient(120deg, #fff, #0ff);
+            background-clip: text; -webkit-background-clip: text;
+            color: transparent;
+        }
+        .chatbot-status {
+            font-size: 0.72rem; color: #7fffd4;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .chatbot-status .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #7fffd4;
+            box-shadow: 0 0 8px #7fffd4;
+            animation: pulse 1.5s infinite;
+        }
+        .chatbot-status.training .dot {
+            background: #ffb800; box-shadow: 0 0 8px #ffb800;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .chatbot-close {
+            margin-left: auto;
+            background: transparent; border: none;
+            color: #0ff; font-size: 1.2rem;
+            cursor: pointer; transition: color 0.2s;
+        }
+        .chatbot-close:hover { color: #f0f; }
+        .chatbot-messages {
+            flex: 1; overflow-y: auto;
+            padding: 16px;
+            display: flex; flex-direction: column; gap: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #0ff transparent;
+        }
+        .chatbot-messages::-webkit-scrollbar { width: 4px; }
+        .chatbot-messages::-webkit-scrollbar-thumb { background: #0ff; border-radius: 4px; }
+        .msg {
+            max-width: 82%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 0.87rem;
+            line-height: 1.45;
+            animation: msgIn 0.25s ease;
+            word-wrap: break-word;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .msg.bot {
+            align-self: flex-start;
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            color: #d6f5ff;
+            border-bottom-left-radius: 4px;
+        }
+        .msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, rgba(0,255,255,0.25), rgba(165,92,255,0.25));
+            border: 1px solid rgba(0, 255, 255, 0.45);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .msg.typing {
+            color: #7fffd4; font-style: italic; font-size: 0.8rem;
+        }
+        .msg .confidence {
+            display: block; margin-top: 5px;
+            font-size: 0.65rem; opacity: 0.55;
+            color: #0ff;
+        }
+        .chatbot-suggestions {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            padding: 8px 14px;
+            border-top: 1px solid rgba(0, 255, 255, 0.15);
+        }
+        .suggestion-chip {
+            background: rgba(0, 255, 255, 0.08);
+            border: 0.5px solid rgba(0, 255, 255, 0.35);
+            color: #b8f0ff;
+            font-size: 0.7rem; padding: 5px 10px;
+            border-radius: 20px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .suggestion-chip:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #0ff; color: #fff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.4);
+        }
+        .chatbot-input-area {
+            display: flex; padding: 10px 12px;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            gap: 8px; align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .chatbot-input-area input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 40px;
+            padding: 10px 14px;
+            color: #eef5ff;
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .chatbot-input-area input:focus {
+            border-color: #0ff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        .chatbot-input-area input:disabled {
+            opacity: 0.5; cursor: not-allowed;
+        }
+        .chatbot-send {
+            background: linear-gradient(135deg, #0ff, #a55cff);
+            border: none; color: #000;
+            width: 40px; height: 40px;
+            border-radius: 50%; cursor: pointer;
+            font-size: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .chatbot-send:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px cyan;
+        }
+        .chatbot-send:disabled {
+            opacity: 0.4; cursor: not-allowed;
+        }
+        @media (max-width: 500px) {
+            .chatbot-panel {
+                right: 12px; bottom: 90px;
+                width: calc(100vw - 24px);
+                height: calc(100vh - 130px);
+            }
+            .chatbot-toggle { bottom: 18px; right: 18px; }
         }
     </style>
 </head>
@@ -673,34 +581,28 @@
         <div class="profile-frame" id="js-profile-tilt">
             <img src="foto_arkanu.jpg" alt="Muhammad Arkanu Dzikri" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Muhammad+Arkanu+Dzikri&background=0D8ABC&color=fff&size=512';">
         </div>
-
         <div class="name-highlight">
             <h1>Muhammad<br>Arkanu Dzikri</h1>
             <div class="badge-title">
                 <i class="fas fa-school" style="font-size: 0.8rem;"></i> As-Syifa Boarding School
             </div>
         </div>
-        
         <div class="short-bio">
             Siswa Kelas 8 SMP As-Syifa Boarding School (ASBOCH) | Anggota DUKES & KLS | Orang Tergabut se-ASBOCH | Penemu Jokes "Sup Lezat dan Bergizi".
         </div>
-        
         <ul class="info-list">
             <li><i class="fas fa-graduation-cap"></i> <span>SMP As-Syifa Boarding School</span></li>
             <li><i class="fas fa-award"></i> <span>Orang Tergabut se-ASBOCH</span></li>
             <li><i class="fas fa-users"></i> <span>DUKES & KLS</span></li>
             <li><i class="fas fa-heart"></i> <span>Humoris & Penyayang</span></li>
         </ul>
-        
         <div class="social-icons">
             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
-        
         <a href="#" class="cv-button"><i class="fas fa-download"></i> Unduh Portfolio</a>
-        
         <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.5; margin-top: 2rem;">
             <i class="fas fa-smile"></i> Sup Lezat & Bergizi
         </div>
@@ -873,87 +775,529 @@
     </div>
 </div>
 
+<!-- ============ CHATBOT ML UI ============ -->
+<button class="chatbot-toggle" id="js-chat-toggle" aria-label="Buka ArkanBot">
+    <i class="fas fa-robot"></i>
+    <span class="badge" id="js-chat-badge">ML</span>
+</button>
+
+<div class="chatbot-panel" id="js-chat-panel">
+    <div class="chatbot-header">
+        <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
+        <div class="chatbot-header-info">
+            <h4>ArkanBot 🤖</h4>
+            <div class="chatbot-status training" id="js-chat-status">
+                <span class="dot"></span> <span id="js-status-text">Melatih model ML...</span>
+            </div>
+        </div>
+        <button class="chatbot-close" id="js-chat-close" aria-label="Tutup">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="chatbot-messages" id="js-chat-messages"></div>
+    <div class="chatbot-suggestions" id="js-chat-suggestions">
+        <span class="suggestion-chip" data-q="Siapa Arkanu?">Siapa Arkanu?</span>
+        <span class="suggestion-chip" data-q="Apa itu DUKES?">Apa itu DUKES?</span>
+        <span class="suggestion-chip" data-q="Cerita tentang sup lezat dan bergizi">Sup Lezat</span>
+        <span class="suggestion-chip" data-q="Kontak Arkanu">Kontak</span>
+    </div>
+    <div class="chatbot-input-area">
+        <input type="text" id="js-chat-input" placeholder="Tanya apa saja ke ArkanBot..." autocomplete="off" disabled>
+        <button class="chatbot-send" id="js-chat-send" disabled aria-label="Kirim">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        
-        // 1. HOVER EFEK GLOW PADA NAMA
-        const nameElement = document.querySelector('.name-highlight h1');
-        if(nameElement) {
-            nameElement.addEventListener('mouseenter', () => {
-                nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
-            });
-            nameElement.addEventListener('mouseleave', () => {
-                nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
-            });
-        }
-
-        // 2. SCROLL REVEAL ANIMATION
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.1 });
-            observer.observe(el);
+/* ============================================================
+   1. PORTFOLIO INTERACTIONS (tetap seperti aslinya)
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", function() {
+    const nameElement = document.querySelector('.name-highlight h1');
+    if(nameElement) {
+        nameElement.addEventListener('mouseenter', () => {
+            nameElement.style.textShadow = '0 0 15px cyan, 0 0 30px #0ff';
         });
-
-        // 3. 3D TILT EFFECT FOTO PROFIL
-        const profileTilt = document.getElementById('js-profile-tilt');
-        const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
-        
-        if (profileTilt && profileImg) {
-            profileTilt.addEventListener('mousemove', (e) => {
-                const rect = profileTilt.getBoundingClientRect();
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top; 
-                const midX = rect.width / 2;
-                const midY = rect.height / 2;
-                const rotateX = ((midY - y) / midY) * 15;
-                const rotateY = ((x - midX) / midX) * 15;
-                
-                profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-            
-            profileTilt.addEventListener('mouseleave', () => {
-                profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
-            });
-        }
-
-        // 4. LIGHTBOX MODAL GALERI
-        const lightbox = document.getElementById('js-lightbox');
-        const lightboxImg = document.getElementById('js-lightbox-img');
-        const lightboxDesc = document.getElementById('js-lightbox-desc');
-        const lightboxClose = document.getElementById('js-lightbox-close');
-        const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if (img && lightbox && lightboxImg && lightboxDesc) {
-                    lightboxImg.src = img.src;
-                    lightboxDesc.textContent = img.alt;
-                    lightbox.classList.add('show');
-                }
-            });
+        nameElement.addEventListener('mouseleave', () => {
+            nameElement.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.5)';
         });
+    }
 
-        if (lightboxClose && lightbox) {
-            lightboxClose.addEventListener('click', () => {
-                lightbox.classList.remove('show');
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('active');
             });
-            
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    lightbox.classList.remove('show');
-                }
-            });
-        }
-
-        console.log("Muhammad Arkanu Dzikri | Portfolio ASBOCH Berhasil Dimuat.");
+        }, { threshold: 0.1 });
+        observer.observe(el);
     });
+
+    const profileTilt = document.getElementById('js-profile-tilt');
+    const profileImg = profileTilt ? profileTilt.querySelector('img') : null;
+    if (profileTilt && profileImg) {
+        profileTilt.addEventListener('mousemove', (e) => {
+            const rect = profileTilt.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top; 
+            const midX = rect.width / 2;
+            const midY = rect.height / 2;
+            const rotateX = ((midY - y) / midY) * 15;
+            const rotateY = ((x - midX) / midX) * 15;
+            profileImg.style.transform = `scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        profileTilt.addEventListener('mouseleave', () => {
+            profileImg.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+        });
+    }
+
+    const lightbox = document.getElementById('js-lightbox');
+    const lightboxImg = document.getElementById('js-lightbox-img');
+    const lightboxDesc = document.getElementById('js-lightbox-desc');
+    const lightboxClose = document.getElementById('js-lightbox-close');
+    const galleryItems = document.querySelectorAll('.js-lightbox-trigger');
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            if (img && lightbox && lightboxImg && lightboxDesc) {
+                lightboxImg.src = img.src;
+                lightboxDesc.textContent = img.alt;
+                lightbox.classList.add('show');
+            }
+        });
+    });
+    if (lightboxClose && lightbox) {
+        lightboxClose.addEventListener('click', () => lightbox.classList.remove('show'));
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.classList.remove('show');
+        });
+    }
+});
+
+/* ============================================================
+   2. MACHINE LEARNING CHATBOT (TensorFlow.js)
+   ============================================================ */
+
+// ---------- DATASET INTENT ----------
+const INTENTS = [
+    {
+        tag: 'greeting',
+        patterns: [
+            'halo', 'hai', 'hello', 'hi', 'hey', 'selamat pagi', 'selamat siang',
+            'selamat sore', 'selamat malam', 'assalamualaikum', 'halo bot',
+            'hai bot', 'pagi', 'siang', 'sore', 'malam', 'yo', 'woi', 'permisi'
+        ],
+        responses: [
+            'Halo! 👋 Aku ArkanBot, asisten virtual-nya Arkanu. Mau tanya apa hari ini?',
+            'Hai! Salam kenal, aku bot-nya Arkanu 😄 Ada yang bisa aku bantu?',
+            'Halo juga! Aku di sini siap jawab pertanyaanmu tentang Arkanu. Tanya apa aja ya!'
+        ]
+    },
+    {
+        tag: 'about',
+        patterns: [
+            'siapa arkanu', 'tentang arkan', 'profil arkanu', 'siapa itu arkanu',
+            'ceritakan tentang arkan', 'arkanu siapa', 'biodata arkanu', 'arkan siapa',
+            'siapa arkan', 'tentang kamu', 'kamu siapa', 'arkanu itu siapa',
+            'kenalan dong', 'perkenalkan arkanu', 'info arkanu', 'data arkanu'
+        ],
+        responses: [
+            'Muhammad Arkanu Dzikri adalah santri kelas 8 SMP As-Syifa Boarding School (ASBOCH). Dia humoris, penyayang, dan dijuluki "Orang Tergabut se-ASBOCH"! 🎉',
+            'Arkanu itu siswa ASBOCH yang aktif di DUKES & KLS, pencipta jokes "Sup Lezat dan Bergizi", dan mood maker sejati di asrama! 😄'
+        ]
+    },
+    {
+        tag: 'school',
+        patterns: [
+            'sekolah', 'asboch', 'smp', 'asyifa', 'as-syifa', 'boarding school',
+            'sekolahnya dimana', 'sekolah arkanu', 'arkanu sekolah dimana',
+            'asrama', 'santri', 'sekolahnya apa', 'sekolahnya di mana'
+        ],
+        responses: [
+            'Arkanu bersekolah di SMP As-Syifa Boarding School (ASBOCH). Di sana dia aktif di DUKES dan KLS! 🏫',
+            'ASBOCH = As-Syifa Boarding School. Di sanalah Arkanu tinggal, belajar, dan menyebarkan tawa bersama teman-teman asrama!'
+        ]
+    },
+    {
+        tag: 'dukes',
+        patterns: [
+            'dukes', 'duta kesehatan', 'kesehatan', 'organisasi kesehatan',
+            'apa itu dukes', 'dukes itu apa', 'kegiatan dukes', 'dukes asboch',
+            'edukasi kesehatan', 'gizi'
+        ],
+        responses: [
+            'DUKES = Duta Kesehatan! Arkanu aktif mengedukasi santri ASBOCH tentang pentingnya menjaga kesehatan, kebersihan, dan gizi seimbang. 🏥',
+            'Di DUKES, Arkanu ikut menyebarkan kesadaran hidup sehat ke seluruh santri ASBOCH. Keren kan? 💪'
+        ]
+    },
+    {
+        tag: 'kls',
+        patterns: [
+            'kls', 'literasi', 'komunitas literasi', 'membaca', 'menulis',
+            'apa itu kls', 'kls itu apa', 'kegiatan kls', 'komunitas literasi sekolah',
+            'buku', 'literasi sekolah'
+        ],
+        responses: [
+            'KLS = Komunitas Literasi Sekolah! Di sini Arkanu mengembangkan minat baca, tulis, dan kreativitas literasi di ASBOCH. 📚',
+            'KLS adalah wadah Arkanu menyalurkan hobi literasi dan mengajak teman-teman ASBOCH makin cinta baca-tulis! ✍️'
+        ]
+    },
+    {
+        tag: 'sup',
+        patterns: [
+            'sup', 'sup lezat', 'lezat dan bergizi', 'jokes', 'lucu', 'humor',
+            'garing', 'jokes arkanu', 'jokes sup', 'lawakan', 'lelucon',
+            'apa itu sup lezat', 'cerita sup', 'makanan favorit', 'sup lezat dan bergizi'
+        ],
+        responses: [
+            '"Sup Lezat dan Bergizi" adalah jokes ikonik ciptaan Arkanu yang selalu berhasil mencairkan suasana di ASBOCH! 🍲😄',
+            'Jokes "Sup Lezat dan Bergizi" itu trademark-nya Arkanu loh! Dijamin bikin ngakak dan suasana jadi hangat. 🍲✨'
+        ]
+    },
+    {
+        tag: 'tergabut',
+        patterns: [
+            'tergabut', 'gabut', 'paling gabut', 'orang tergabut', 'gelar arkanu',
+            'julukan arkanu', 'orang tergabut se-asboch', 'kenapa tergabut',
+            'gabut se asboch', 'tergabut se asboch'
+        ],
+        responses: [
+            'Arkanu dijuluki "Orang Tergabut se-ASBOCH" karena selalu punya waktu santai untuk merangkul teman dan menyebarkan keceriaan! 👑',
+            'Gelar "Orang Tergabut se-ASBOCH" itu bukan sembarang gelar — Arkanu memang jagonya bikin suasana jadi cair! 😎'
+        ]
+    },
+    {
+        tag: 'contact',
+        patterns: [
+            'kontak', 'email', 'instagram', 'hubungi', 'sapa', 'dm',
+            'kontak arkanu', 'email arkanu', 'ig arkanu', 'sosmed arkanu',
+            'bagaimana menghubungi', 'cara hubungi arkanu'
+        ],
+        responses: [
+            'Kamu bisa menghubungi Arkanu via email arkanu@example.com atau Instagram @arkanu_dzikri. 📧📸',
+            'Sapa Arkanu di Instagram @arkanu_dzikri atau kirim email ke arkanu@example.com ya! 👋'
+        ]
+    },
+    {
+        tag: 'music',
+        patterns: [
+            'musik', 'lagu', 'audio', 'musik kesukaan', 'favorit', 'playlist',
+            'lagu favorit', 'musik arkanu', 'lagu arkanu', 'dengerin lagu',
+            'musik apa', 'lagu apa'
+        ],
+        responses: [
+            'Arkanu punya selera musik unik! 🎵 Scroll ke bagian "Musik Kesukaan Arkan" di portfolio untuk dengerin langsung!',
+            'Cek section "Musik Kesukaan Arkan" di portfolio — di situ ada audio pilihan Arkanu! 🎧'
+        ]
+    },
+    {
+        tag: 'video',
+        patterns: [
+            'video', 'movie', 'film', 'nonton', 'movies time', 'video arkan',
+            'nonton apa', 'video favorit', 'film favorit'
+        ],
+        responses: [
+            'Ada section "Movies Time" di portfolio — scroll ke sana buat nonton video pilihan Arkan! 🎬',
+            'Video kesukaan Arkan ada di section "Movies Time" 🎥 Cek langsung di portfolio ya!'
+        ]
+    },
+    {
+        tag: 'thanks',
+        patterns: [
+            'makasih', 'terima kasih', 'thanks', 'thank you', 'tq', 'thx',
+            'makasih ya', 'terima kasih banyak', 'oke makasih', 'sip makasih'
+        ],
+        responses: [
+            'Sama-sama! Senang bisa bantu 😊',
+            'Dengan senang hati! Jangan lupa sebar kebaikan dan tawa ya! 🌟',
+            'You\'re welcome! Semoga harimu secerah senyum Arkanu! 😄'
+        ]
+    },
+    {
+        tag: 'goodbye',
+        patterns: [
+            'bye', 'dadah', 'sampai jumpa', 'selamat tinggal', 'goodbye',
+            'see you', 'sampai ketemu', 'pamit', 'sudah dulu', 'cukup dulu'
+        ],
+        responses: [
+            'Sampai jumpa! Jangan lupa makan sup lezat dan bergizi ya! 🍲😄',
+            'Dadah! Semoga harimu menyenangkan dan penuh tawa! 👋',
+            'See you! Kembali lagi kalau mau nanya-nanya soal Arkanu ya! 🤖'
+        ]
+    },
+    {
+        tag: 'praise',
+        patterns: [
+            'keren', 'hebat', 'mantap', 'bagus', 'wow', 'nice', 'cool',
+            'keren banget', 'hebat sekali', 'top', 'mantul', 'kece'
+        ],
+        responses: [
+            'Makasih! Nanti aku sampaikan ke Arkanu 😎✨',
+            'Wih, makasih pujiannya! Arkanu memang keren! 🔥',
+            'Hehe makasih! Jangan lupa cek portfolio lengkapnya ya! 💫'
+        ]
+    },
+    {
+        tag: 'bot_identity',
+        patterns: [
+            'kamu bot', 'kamu siapa', 'arkanbot', 'bot apa ini', 'ini bot',
+            'kamu machine learning', 'kamu ai', 'kamu pakai apa', 'kamu model apa',
+            'apakah kamu ai', 'kamu robot'
+        ],
+        responses: [
+            'Aku ArkanBot 🤖 — chatbot berbasis Machine Learning (TensorFlow.js Neural Network) yang dilatih langsung di browser kamu! Keren kan?',
+            'Iya! Aku bukan chatbot biasa — aku pakai Neural Network (TensorFlow.js) yang dilatih on-the-fly di browser kamu buat klasifikasi intent. 🧠⚡'
+        ]
+    },
+    {
+        tag: 'fallback',
+        patterns: [],
+        responses: [
+            'Hmm, aku belum paham itu 🤔 Coba tanya tentang Arkanu, sekolahnya, DUKES, KLS, atau jokes "Sup Lezat dan Bergizi"!',
+            'Maaf, aku belum ngerti. Coba kata kunci lain seperti "siapa Arkanu", "DUKES", "KLS", atau "sup lezat" ya!',
+            'Waduh, otak ML-ku belum nyampe 😅 Coba tanya hal lain seputar Arkanu, sekolah, atau kontaknya ya!'
+        ]
+    }
+];
+
+// ---------- ML UTILS ----------
+function tokenize(text) {
+    return String(text)
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 0);
+}
+
+function buildVocabulary(intents) {
+    const vocabSet = new Set();
+    intents.forEach(intent => {
+        intent.patterns.forEach(p => {
+            tokenize(p).forEach(w => vocabSet.add(w));
+        });
+    });
+    return Array.from(vocabSet);
+}
+
+function bagOfWords(text, vocab, indexMap) {
+    const tokens = tokenize(text);
+    const vec = new Array(vocab.length).fill(0);
+    tokens.forEach(t => {
+        const idx = indexMap[t];
+        if (idx !== undefined) vec[idx] = 1;
+    });
+    return vec;
+}
+
+// ---------- TRAINING ----------
+async function trainChatbotModel() {
+    if (typeof tf === 'undefined') {
+        throw new Error('TensorFlow.js belum termuat. Cek koneksi internet.');
+    }
+
+    const vocab = buildVocabulary(INTENTS);
+    const indexMap = {};
+    vocab.forEach((w, i) => { indexMap[w] = i; });
+
+    const X = [];
+    const Y = [];
+
+    INTENTS.forEach((intent, intentIdx) => {
+        if (intent.patterns.length === 0) return;
+        intent.patterns.forEach(pattern => {
+            X.push(bagOfWords(pattern, vocab, indexMap));
+            const label = new Array(INTENTS.length).fill(0);
+            label[intentIdx] = 1;
+            Y.push(label);
+        });
+    });
+
+    const xs = tf.tensor2d(X);
+    const ys = tf.tensor2d(Y);
+
+    const model = tf.sequential();
+    model.add(tf.layers.dense({
+        inputShape: [vocab.length],
+        units: 24,
+        activation: 'relu',
+        kernelInitializer: 'heNormal'
+    }));
+    model.add(tf.layers.dropout({ rate: 0.2 }));
+    model.add(tf.layers.dense({
+        units: 24,
+        activation: 'relu',
+        kernelInitializer: 'heNormal'
+    }));
+    model.add(tf.layers.dense({
+        units: INTENTS.length,
+        activation: 'softmax'
+    }));
+
+    model.compile({
+        optimizer: tf.train.adam(0.01),
+        loss: 'categoricalCrossentropy',
+        metrics: ['accuracy']
+    });
+
+    await model.fit(xs, ys, {
+        epochs: 400,
+        batchSize: 8,
+        shuffle: true,
+        verbose: 0
+    });
+
+    xs.dispose();
+    ys.dispose();
+
+    return { model, vocab, indexMap };
+}
+
+// ---------- PREDICTION ----------
+function predictIntent(text, model, vocab, indexMap) {
+    const inputVec = bagOfWords(text, vocab, indexMap);
+    const input = tf.tensor2d([inputVec]);
+    const pred = model.predict(input);
+    const probs = pred.dataSync();
+    input.dispose();
+    pred.dispose();
+
+    let maxIdx = 0;
+    let maxProb = probs[0];
+    for (let i = 1; i < probs.length; i++) {
+        if (probs[i] > maxProb) {
+            maxProb = probs[i];
+            maxIdx = i;
+        }
+    }
+
+    const threshold = 0.45;
+    if (maxProb < threshold) {
+        const fb = INTENTS.findIndex(i => i.tag === 'fallback');
+        return { intent: INTENTS[fb], confidence: maxProb };
+    }
+    return { intent: INTENTS[maxIdx], confidence: maxProb };
+}
+
+// ---------- CHATBOT UI STATE ----------
+let chatbotModel = null;
+let chatbotVocab = null;
+let chatbotIndexMap = null;
+let chatbotReady = false;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const toggle   = document.getElementById('js-chat-toggle');
+    const panel    = document.getElementById('js-chat-panel');
+    const closeBtn = document.getElementById('js-chat-close');
+    const input    = document.getElementById('js-chat-input');
+    const sendBtn  = document.getElementById('js-chat-send');
+    const messages = document.getElementById('js-chat-messages');
+    const statusEl = document.getElementById('js-chat-status');
+    const statusTxt= document.getElementById('js-status-text');
+    const badge    = document.getElementById('js-chat-badge');
+    const suggestions = document.getElementById('js-chat-suggestions');
+
+    function addMessage(text, sender, confidence) {
+        const div = document.createElement('div');
+        div.className = `msg ${sender}`;
+        div.textContent = text;
+        if (typeof confidence === 'number') {
+            const c = document.createElement('span');
+            c.className = 'confidence';
+            c.textContent = `conf: ${(confidence * 100).toFixed(1)}%`;
+            div.appendChild(c);
+        }
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+        return div;
+    }
+
+    function addTyping() {
+        const div = document.createElement('div');
+        div.className = 'msg bot typing';
+        div.textContent = 'ArkanBot sedang berpikir...';
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+        return div;
+    }
+
+    function botRespond(userText) {
+        if (!chatbotReady) {
+            addMessage('Tunggu sebentar ya, model ML-ku masih dilatih 🧠', 'bot');
+            return;
+        }
+        const typing = addTyping();
+        setTimeout(() => {
+            typing.remove();
+            const { intent, confidence } = predictIntent(
+                userText, chatbotModel, chatbotVocab, chatbotIndexMap
+            );
+            const responses = intent.responses;
+            const reply = responses[Math.floor(Math.random() * responses.length)];
+            addMessage(reply, 'bot', confidence);
+        }, 350);
+    }
+
+    function handleSend() {
+        const text = input.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        input.value = '';
+        botRespond(text);
+    }
+
+    // UI events
+    toggle.addEventListener('click', () => {
+        panel.classList.toggle('open');
+        if (panel.classList.contains('open') && badge) badge.style.display = 'none';
+    });
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    sendBtn.addEventListener('click', handleSend);
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
+    suggestions.querySelectorAll('.suggestion-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            input.value = chip.dataset.q;
+            handleSend();
+        });
+    });
+
+    // Greeting message
+    addMessage('Halo! 👋 Aku ArkanBot — chatbot berbasis Machine Learning. Sebentar ya, otakku (Neural Network) sedang dilatih...', 'bot');
+
+    // Train model
+    try {
+        const t0 = performance.now();
+        const { model, vocab, indexMap } = await trainChatbotModel();
+        const t1 = performance.now();
+        chatbotModel = model;
+        chatbotVocab = vocab;
+        chatbotIndexMap = indexMap;
+        chatbotReady = true;
+
+        statusEl.classList.remove('training');
+        statusTxt.textContent = 'Online — Model ML siap';
+        input.disabled = false;
+        sendBtn.disabled = false;
+
+        addMessage(
+            `Model ML berhasil dilatih! ✅ (vocab: ${vocab.length} kata, ${INTENTS.length} intent, waktu: ${((t1-t0)/1000).toFixed(2)}s). Tanya apa saja tentang Arkanu ya!`,
+            'bot'
+        );
+        console.log(`[ArkanBot] Model ML siap — vocab=${vocab.length}, intents=${INTENTS.length}, train=${((t1-t0)/1000).toFixed(2)}s`);
+    } catch (err) {
+        console.error('[ArkanBot] Gagal melatih model:', err);
+        statusEl.classList.remove('training');
+        statusTxt.textContent = 'Mode fallback (offline)';
+        chatbotReady = false;
+        addMessage('Waduh, model ML gagal dilatih 😅 Cek koneksi internet (butuh CDN TensorFlow.js) lalu refresh halaman.', 'bot');
+    }
+});
 </script>
 </body>
 </html>
