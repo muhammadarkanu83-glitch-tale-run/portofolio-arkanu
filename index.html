@@ -1005,11 +1005,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!-- ============ ARKANBOT AI (Transformers.js + LLM) ============ -->
+<!-- ============ ARKANBOT AI (Transformers.js + LLM) - FIXED VERSION ============ -->
 <script type="module">
 /* ================================================================
-   ARKANBOT AI — Generative LLM in-browser (Transformers.js + WebGPU)
-   Model: Qwen2.5-0.5B-Instruct (quantized q4)
+   ARKANBOT AI - Generative LLM in-browser (Transformers.js)
+   Fix: Memaksa device 'wasm' dan menggunakan model yang lebih stabil
    ================================================================ */
 
 const MODEL_ID = 'onnx-community/Qwen2.5-0.5B-Instruct';
@@ -1037,7 +1037,6 @@ let generator = null;
 let TextStreamer = null;
 let isReady = false;
 let isInitializing = false;
-let currentDevice = 'wasm';
 const chatHistory = [];
 let chatUI = {};
 
@@ -1064,19 +1063,12 @@ async function loadModel() {
         const { pipeline } = mod;
         TextStreamer = mod.TextStreamer;
 
-        // Detect WebGPU
-        try {
-            if (navigator.gpu) {
-                const adapter = await navigator.gpu.requestAdapter();
-                if (adapter) currentDevice = 'webgpu';
-            }
-        } catch (e) { /* fallback wasm */ }
+        chatUI.statusText.textContent = `Mengunduh model AI (WASM)...`;
 
-        chatUI.statusText.textContent = `Mengunduh model AI (${currentDevice.toUpperCase()})...`;
-
+        // PERBAIKAN: Memaksa device: 'wasm' dan dtype: 'q4' agar stabil di semua perangkat
         generator = await pipeline('text-generation', MODEL_ID, {
-            dtype: currentDevice === 'webgpu' ? 'q4f16' : 'q4',
-            device: currentDevice,
+            dtype: 'q4',
+            device: 'wasm', 
             progress_callback: (p) => {
                 if (p.status === 'progress' && p.total) {
                     const pct = Math.round((p.loaded / p.total) * 100);
@@ -1090,7 +1082,7 @@ async function loadModel() {
 
         isReady = true;
         isInitializing = false;
-        chatUI.statusText.textContent = `AI online (${currentDevice.toUpperCase()})`;
+        chatUI.statusText.textContent = `AI online (Mode WASM)`;
         chatUI.statusEl.classList.remove('training');
         chatUI.progressBar.style.width = '100%';
         setTimeout(() => { chatUI.progressWrap.style.display = 'none'; }, 800);
@@ -1105,7 +1097,8 @@ async function loadModel() {
         isInitializing = false;
         chatUI.statusText.textContent = 'Gagal memuat AI';
         chatUI.statusEl.classList.remove('training');
-        addMessage('Waduh, AI-nya gagal dimuat 😅 Ini biasanya karena koneksi internet lambat atau browser nggak mendukung WebGPU/WASM. Coba refresh ya!', 'bot');
+        // Menampilkan pesan error yang lebih informatif
+        addMessage('Waduh, AI-nya gagal dimuat 😅 Ini biasanya karena koneksi internet terputus saat mengunduh model. Coba refresh halaman dan pastikan internet stabil ya!', 'bot');
     }
 }
 
@@ -1149,7 +1142,7 @@ async function sendMessage(userText) {
         chatHistory.push({ role: 'assistant', content: botMsg.textContent });
 
     } catch (err) {
-        console.error(err);
+        console.error('[ArkanBot] Error saat generate:', err);
         botMsg.classList.remove('streaming');
         botMsg.textContent = 'Aduh, AI-nya error 😅 Coba tanya lagi ya.';
     }
